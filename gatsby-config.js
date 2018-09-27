@@ -4,12 +4,23 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-react-helmet',
-    `gatsby-plugin-styled-components`,
+    'gatsby-plugin-styled-components',
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: 'gatsby-plugin-eslint',
       options: {
-        name: 'gatsby-starter-default',
-        short_name: 'starter',
+        test: /\.js$|\.jsx$/,
+        exclude: /(node_modules|cache|public)/,
+        options: {
+          emitWarning: true,
+          failOnError: false,
+        },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: 'erfassen.ch',
+        short_name: 'erfassen',
         start_url: '/',
         background_color: '#663399',
         theme_color: '#663399',
@@ -17,7 +28,7 @@ module.exports = {
         icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
       },
     },
-    `gatsby-plugin-typescript`,
+    'gatsby-plugin-typescript',
     'gatsby-plugin-offline',
   ],
 }
