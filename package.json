@@ -37,6 +37,7 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@types/react-helmet": "^5.0.7",
     "babel-plugin-styled-components": "1.7.1",
     "prettier": "1.14.3",
     "tslint": "5.11.0",

@@ -44,8 +44,4 @@ const Layout = ({ children }: { children: JSX.Element[] | JSX.Element }) => (
   />
 )
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
 export default Layout
