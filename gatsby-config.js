@@ -3,19 +3,9 @@ module.exports = {
     title: 'Gatsby Default Starter',
   },
   plugins: [
+    'gatsby-plugin-typescript',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
-    {
-      resolve: 'gatsby-plugin-eslint',
-      options: {
-        test: /\.js$|\.jsx$|\.ts$|\.tsx$/,
-        exclude: /(node_modules|cache|public)/,
-        options: {
-          emitWarning: true,
-          failOnError: false,
-        },
-      },
-    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -28,7 +18,6 @@ module.exports = {
         icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
       },
     },
-    'gatsby-plugin-typescript',
     'gatsby-plugin-offline',
   ],
 }
