@@ -40,7 +40,7 @@ const IndexPage = () => (
       </PageTitle>
       <CardContainer>
         <Card>
-          <CardTitle>Aller Art</CardTitle>
+          <CardTitle>Was Sie wollen</CardTitle>
           <ul>
             <li>Text</li>
             <li>Geometrien</li>
@@ -52,6 +52,7 @@ const IndexPage = () => (
         <Card>
           <CardTitle>Wie Sie wollen</CardTitle>
           <p>Konfigurieren Sie Tabellen und Felder individuell und flexibel.</p>
+          <p>Hier (TODO) finden Sie Vorschläge für typische Szenarien.</p>
         </Card>
         <Card>
           <CardTitle>Wo Sie wollen</CardTitle>
@@ -62,13 +63,24 @@ const IndexPage = () => (
           </p>
         </Card>
         <Card>
-          <CardTitle>Im Team</CardTitle>
+          <CardTitle>Mit wem Sie wollen</CardTitle>
           <ul>
             <li>Beliebig viele Personen können mitarbeiten</li>
             <li>Ergänzen Sie neue Mitarbeiter rasch und einfach</li>
             <li>
               Besteht Netzempfang sehen alle Mitarbeiter sofort alle
               Daten-Änderungen
+            </li>
+          </ul>
+        </Card>
+        <Card>
+          <CardTitle>Womit Sie wollen</CardTitle>
+          <ul>
+            <li>Handy, Tablet, Notebook oder PC</li>
+            <li>Windows, Linux, MacOS, Android, iOS…</li>
+            <li>
+              Ist dem Tablet der Strom ausgegangen? Arbeiten Sie auf dem Handy
+              weiter
             </li>
           </ul>
         </Card>
@@ -81,20 +93,21 @@ const IndexPage = () => (
           </p>
         </Card>
         <Card>
-          <CardTitle>Mit dem Gerät ihrer Wahl</CardTitle>
-          <ul>
-            <li>Handy, Tablet, Notebook oder PC</li>
-            <li>Windows, Linux, MacOS, Android, iOS…</li>
-          </ul>
+          <CardTitle>Möglichst effizient</CardTitle>
+          <p>
+            Bereiten Sie ein Projekt nur einmal vor und nach. Egal, wieviele
+            Personen mitarbeiten.
+          </p>
+          <p>
+            Digitalisieren Sie nie mehr nachträglich Papier-Aufzeichnungen...
+          </p>
+          <p>...und sparen Sie sich damit viele Fehler und Ärger.</p>
         </Card>
         <Card>
-          <CardTitle>Mit minimalem Aufwand</CardTitle>
-          <p>
-            Bereiten Sie das Projekt nur einmal vor und nach. Egal, wieviele
-            Personen mitarbeiten
-          </p>
-          <p>Nie mehr nachträglich Papier-Aufzeichnungen digitalisieren...</p>
-          <p>...womit auch eine grosse Fehlerquelle entfällt</p>
+          <CardTitle>Probieren Sie's aus</CardTitle>
+          <p>Im Test-Projekt können Sie ausprobieren, wie es funktioniert.</p>
+          <p>TODO: Link zum Test-Projekt.</p>
+          <p>Um eigene Projekte zu gründen, brauchen Sie ein Konto.</p>
         </Card>
       </CardContainer>
     </Container>
