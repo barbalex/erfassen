@@ -25,6 +25,7 @@ const Header = () => (
       <Spacer />
       <IconButton
         aria-haspopup="true"
+        aria-label="Konto"
         onClick={() => console.log('TODO')}
         color="inherit"
       >
