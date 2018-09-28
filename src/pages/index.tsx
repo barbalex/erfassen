@@ -60,7 +60,7 @@ const CardContainer = styled.div`
 `
 const Card = styled(MaterialCard)`
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.8) !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
   ul {
     margin-bottom: 0;
   }
@@ -122,7 +122,7 @@ const IndexPage = () => (
                   Konfigurieren Sie Tabellen und Felder individuell und flexibel
                 </li>
                 <li>
-                  Auch hierarchische Daten-Strukturen sind einfach möglich
+                  Sie brauchen hierarchische Daten-Strukturen? Kein Problem!
                 </li>
                 <li>
                   Hier (TODO) finden Sie Vorschläge für typische Szenarien
@@ -150,8 +150,8 @@ const IndexPage = () => (
                 <li>Beliebig viele Personen können mitarbeiten</li>
                 <li>Ergänzen Sie neue Mitarbeiter rasch und einfach</li>
                 <li>
-                  Besteht Netzempfang sehen alle Mitarbeiter sofort alle
-                  Daten-Änderungen
+                  Besteht eine Internet-Verbindung, sehen alle Mitarbeiter
+                  sofort alle Daten-Änderungen
                 </li>
               </ul>
             </Card>
@@ -161,8 +161,9 @@ const IndexPage = () => (
                 <li>Handy, Tablet, Notebook oder PC</li>
                 <li>Windows, Linux, MacOS, Android, iOS…</li>
                 <li>
-                  Ist dem Tablet der Strom ausgegangen? Arbeiten Sie auf dem
-                  Handy weiter
+                  Ist dem Tablet der Strom ausgegangen?
+                  <br />
+                  Arbeiten Sie einfach auf dem Handy weiter
                 </li>
               </ul>
             </Card>
@@ -177,7 +178,7 @@ const IndexPage = () => (
               </ul>
             </Card>
             <Card>
-              <CardTitle>Möglichst effizient</CardTitle>
+              <CardTitle>Effizient</CardTitle>
               <ul>
                 <li>
                   Bereiten Sie ein Projekt nur einmal vor und nach. Egal,
@@ -195,7 +196,7 @@ const IndexPage = () => (
               </ul>
             </Card>
             <Card>
-              <CardTitle>Probieren Sie's aus</CardTitle>
+              <CardTitle>Los geht's</CardTitle>
               <ul>
                 <li>Das Test-Projekt steht zur freien Verfügung</li>
                 <li>TODO: Link zum Test-Projekt</li>
