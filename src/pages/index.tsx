@@ -6,13 +6,17 @@ import MaterialCard from '@material-ui/core/Card'
 import Layout from '../components/layout'
 
 const Container = styled.div`
-  padding: 25px;
+  padding: 30px;
+`
+const PageTitle = styled(Typography)`
+  font-size: 2em !important;
+  padding-bottom: 30px;
 `
 const CardContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
   @media (min-width: 700px) {
     grid-template-columns: 1fr 1fr;
   }
@@ -24,37 +28,73 @@ const CardContainer = styled.div`
   }
 `
 const Card = styled(MaterialCard)`
-  padding: 10px;
+  padding: 30px;
 `
 const CardTitle = styled.h3``
 
 const IndexPage = () => (
   <Layout>
     <Container>
-      <Typography align="center" variant="title" color="inherit" noWrap>
+      <PageTitle align="center" variant="title" color="inherit" noWrap>
         Erfassen Sie Daten:
-      </Typography>
+      </PageTitle>
       <CardContainer>
         <Card>
           <CardTitle>Aller Art</CardTitle>
+          <ul>
+            <li>Text</li>
+            <li>Geometrien</li>
+            <li>Fotos</li>
+            <li>Audio</li>
+            <li>beliebige Dateien</li>
+          </ul>
         </Card>
         <Card>
-          <CardTitle>Card 2</CardTitle>
+          <CardTitle>Wie Sie wollen</CardTitle>
+          <p>Konfigurieren Sie Tabellen und Felder individuell und flexibel.</p>
         </Card>
         <Card>
-          <CardTitle>Card 3</CardTitle>
+          <CardTitle>Wo Sie wollen</CardTitle>
+          <p>Kein Mobilfunk-Empfang? Kein Problem.</p>
+          <p>Sie können benötigte Hintergrund-Karten zuvor lokal speichern.</p>
+          <p>
+            Ihre Daten werden synchronisiert, sobald wieder Empfang besteht.
+          </p>
         </Card>
         <Card>
-          <CardTitle>Card 4</CardTitle>
+          <CardTitle>Im Team</CardTitle>
+          <ul>
+            <li>Beliebig viele Personen können mitarbeiten</li>
+            <li>Ergänzen Sie neue Mitarbeiter rasch und einfach</li>
+            <li>
+              Besteht Netzempfang sehen alle Mitarbeiter sofort alle
+              Daten-Änderungen
+            </li>
+          </ul>
         </Card>
         <Card>
-          <CardTitle>Card 5</CardTitle>
+          <CardTitle>Wann Sie wollen</CardTitle>
+          <p>Daten werden laufend synchronisiert.</p>
+          <p>
+            Sie müssen nie warten, bis Daten anderer Mitarbeiter manuell
+            importiert wurden.
+          </p>
         </Card>
         <Card>
-          <CardTitle>Card 6</CardTitle>
+          <CardTitle>Mit dem Gerät ihrer Wahl</CardTitle>
+          <ul>
+            <li>Handy, Tablet, Notebook oder PC</li>
+            <li>Windows, Linux, MacOS, Android, iOS…</li>
+          </ul>
         </Card>
         <Card>
-          <CardTitle>Card 7</CardTitle>
+          <CardTitle>Mit minimalem Aufwand</CardTitle>
+          <p>
+            Bereiten Sie das Projekt nur einmal vor und nach. Egal, wieviele
+            Personen mitarbeiten
+          </p>
+          <p>Nie mehr nachträglich Papier-Aufzeichnungen digitalisieren...</p>
+          <p>...womit auch eine grosse Fehlerquelle entfällt</p>
         </Card>
       </CardContainer>
     </Container>
