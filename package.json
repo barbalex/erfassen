@@ -40,7 +40,9 @@
   ],
   "license": "MIT",
   "scripts": {
+    "prebuild": "if exist docs rmdir docs /q /s",
     "build": "gatsby build",
+    "postbuild": "rename public docs",
     "dev": "gatsby develop",
     "serve": "gatsby serve",
     "test": "echo \"Error: no test specified\" && exit 1",
