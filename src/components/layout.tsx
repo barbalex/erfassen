@@ -6,13 +6,6 @@ import Header from './header'
 import './layout.css'
 
 interface Props {
-  data: {
-    site: {
-      siteMetadata: {
-        siteName: string
-      }
-    }
-  }
   children: JSX.Element[] | JSX.Element
 }
 
@@ -26,7 +19,7 @@ const query = graphql`
   }
 `
 
-const Layout = ({ data, children }: Props) => (
+const Layout = ({ children }: Props) => (
   <StaticQuery
     query={query}
     render={data => (
