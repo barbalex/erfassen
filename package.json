@@ -33,6 +33,7 @@
   "scripts": {
     "build": "gatsby build",
     "dev": "gatsby develop",
+    "serve": "gatsby serve",
     "test": "echo \"Error: no test specified\" && exit 1",
     "type-check": "tsc --noEmit"
   },
