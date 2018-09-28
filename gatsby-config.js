@@ -5,6 +5,15 @@ module.exports = {
   plugins: [
     'gatsby-plugin-typescript',
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: `${__dirname}/src/images/`,
+      },
+    },
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
