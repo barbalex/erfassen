@@ -1,22 +1,34 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 
 import Header from './header'
 import './layout.css'
 
-const Layout = ({ children }: { children: JSX.Element[] | JSX.Element }) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
-          }
-        }
+interface Props {
+  data: {
+    site: {
+      siteMetadata: {
+        siteName: string
       }
-    `}
+    }
+  }
+  children: JSX.Element[] | JSX.Element
+}
+
+const query = graphql`
+  query SiteTitleQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`
+
+const Layout = ({ data, children }: Props) => (
+  <StaticQuery
+    query={query}
     render={data => (
       <>
         <Helmet
