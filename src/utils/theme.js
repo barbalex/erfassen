@@ -2,6 +2,7 @@
 const theme = {
   title: 'Homegrown',
   baseFontSize: '16px',
+  headerFontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   bodyFontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   fontFeatureSettings: 'normal',
   googleFonts: [

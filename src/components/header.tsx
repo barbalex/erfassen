@@ -1,33 +1,37 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import { FaUserCircle as UserIcon } from 'react-icons/fa'
+import styled from 'styled-components'
 
-const Header = ({ siteTitle }: { siteTitle: string }) => (
-  <div
-    style={{
-      background: 'rebeccapurple',
-      marginBottom: '1.45rem',
-    }}
-  >
-    <div
-      style={{
-        margin: '0 auto',
-        maxWidth: 960,
-        padding: '1.45rem 1.0875rem',
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: 'white',
-            textDecoration: 'none',
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </div>
+const SiteTitle = styled(Typography)`
+  display: none;
+  @media (min-width: 700px) {
+    display: block;
+  }
+`
+const Spacer = styled.div`
+  flex-grow: 1;
+`
+
+const Header = () => (
+  <AppBar position="static">
+    <Toolbar>
+      <SiteTitle variant="title" color="inherit" noWrap>
+        erfassen.ch
+      </SiteTitle>
+      <Spacer />
+      <IconButton
+        aria-haspopup="true"
+        onClick={() => console.log('TODO')}
+        color="inherit"
+      >
+        <UserIcon />
+      </IconButton>
+    </Toolbar>
+  </AppBar>
 )
 
 export default Header
