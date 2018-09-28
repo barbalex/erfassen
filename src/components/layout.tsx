@@ -1,8 +1,15 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
+import { createGlobalStyle } from 'styled-components'
 
 import Header from './header'
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    overflow: auto;
+  }
+`
 
 interface Props {
   children: JSX.Element[] | JSX.Element
@@ -23,6 +30,7 @@ const Layout = ({ children }: Props) => (
     query={query}
     render={data => (
       <>
+        <GlobalStyle />
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[
