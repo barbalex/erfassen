@@ -1,5 +1,17 @@
 import Typography from 'typography'
 
-const typography = new Typography({ baseFontSize: '28px' })
+import theme from './theme'
+
+const options = {
+  bodyFontFamily: 'Roboto',
+  googleFonts: [
+    {
+      name: 'Roboto',
+      styles: ['300', '400', '500'],
+    },
+  ],
+}
+
+const typography = new Typography(theme)
 
 export default typography

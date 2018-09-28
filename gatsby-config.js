@@ -5,6 +5,14 @@ module.exports = {
   plugins: [
     'gatsby-plugin-typescript',
     {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Roboto:300,400,500'],
+        },
+      },
+    },
+    {
       resolve: 'gatsby-plugin-typography',
       options: {
         pathToConfigModule: 'src/utils/typography.js',
