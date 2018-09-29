@@ -60,12 +60,15 @@ const CardContainer = styled.div`
 `
 const Card = styled(MaterialCard)`
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.85) !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
   ul {
     margin-bottom: 0;
   }
   li:last-of-type {
     margin-bottom: 0;
+  }
+  li {
+    font-weight: 500;
   }
 `
 const CardTitle = styled.h3``
@@ -136,7 +139,8 @@ const IndexPage = () => (
             <Card>
               <CardTitle>Wo Sie wollen</CardTitle>
               <ul>
-                <li>Kein Mobilfunk-Empfang? Kein Problem</li>
+                <li>Keine Internet-Verbindung? Kein Problem</li>
+                <li>erfassen.ch funktioniert auch offline</li>
                 <li>Speichern Sie Hintergrund-Karten zuvor lokal</li>
                 <li>
                   Ihre Daten werden synchronisiert, sobald wieder Empfang
@@ -190,8 +194,8 @@ const IndexPage = () => (
                 </li>
                 <li>...und sparen Sie sich damit viele Fehler und Ärger</li>
                 <li>
-                  Sie haben die Feld-Mappe verloren? Schade um das Gerät. Die
-                  Daten wurden zum Glück synchronisiert
+                  Sie haben die Feld-Mappe verloren? Zum Glück wurden die Daten
+                  synchronisiert!
                 </li>
               </ul>
             </Card>
