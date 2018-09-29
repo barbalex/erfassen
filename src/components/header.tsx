@@ -19,22 +19,21 @@ const SiteTitle = styled(Typography)`
 const Spacer = styled.div`
   flex-grow: 1;
 `
-// need to prevent boolean props from being passed to dom
-const StyledButton = ({ active, ...rest }: { active: boolean }) => {
-  const StyledButton = styled(Button)`
-    color: white !important;
-    border: ${active ? '1px white' : 'unset'};
-    border-color: rgba(255, 255, 255, 0.5) !important;
-    font-weight: ${active ? '700' : '600'};
-  `
-  return <StyledButton {...rest} />
+interface NavButtonProps {
+  active: boolean
 }
+const NavButton = styled<NavButtonProps, any>(Button)`
+  color: white !important;
+  border: ${props => (props.active ? '1px white' : 'unset')};
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  font-weight: ${props => (props.active ? '700' : '600')};
+`
 
 const Header = () => (
   <Location>
     {({ location }) => {
-      console.log('header', { pathname: location.pathname })
       const { pathname } = location
+
       return (
         <AppBar position="static">
           <Toolbar>
@@ -42,7 +41,7 @@ const Header = () => (
               erfassen.ch
             </SiteTitle>
             <Spacer />
-            <StyledButton
+            <NavButton
               variant={pathname === '/' ? 'outlined' : 'text'}
               onClick={() => console.log('todo')}
               component={Link}
@@ -50,8 +49,8 @@ const Header = () => (
               active={pathname === '/'}
             >
               Home
-            </StyledButton>
-            <StyledButton
+            </NavButton>
+            <NavButton
               variant={pathname === '/Projekte/' ? 'outlined' : 'text'}
               onClick={() => console.log('todo')}
               component={Link}
@@ -59,7 +58,7 @@ const Header = () => (
               active={pathname === '/Projekte/'}
             >
               Projekte
-            </StyledButton>
+            </NavButton>
             <IconButton
               aria-haspopup="true"
               aria-label="Konto"

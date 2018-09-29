@@ -58,6 +58,30 @@ const CardContainer = styled.div`
     grid-row-gap: 30px;
   }
 `
+const MoreContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: 15px;
+  grid-row-gap: 0;
+  @media (min-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+  }
+  @media (min-width: 1200px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 25px;
+  }
+  @media (min-width: 1700px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+  }
+  margin-top: 50px;
+  p {
+    font-weight: 500;
+    text-shadow: 2px 2px 3px white, -2px -2px 3px white, 2px -2px 3px white,
+      -2px 2px 3px white;
+  }
+`
 const Card = styled(MaterialCard)`
   padding: 30px;
   background-color: rgba(255, 255, 255, 0.7) !important;
@@ -205,9 +229,20 @@ const IndexPage = () => (
                 <li>Das Test-Projekt steht zur freien Verfügung</li>
                 <li>TODO: Link zum Test-Projekt</li>
                 <li>Für eigene Projekte brauchen Sie ein Konto</li>
+                <li>
+                  Wir verdienen unser Geld mit Gebühren für ihre Projekte (TODO)
+                </li>
               </ul>
             </Card>
           </CardContainer>
+          <MoreContainer>
+            <p>Über uns</p>
+            <p>Kontakt</p>
+            <p>Preise</p>
+            <p>Blog</p>
+            <p>Datenschutz</p>
+            <p>Allgemeine Geschäftsbedingungen</p>
+          </MoreContainer>
         </Container>
       </Layout>
     )}
