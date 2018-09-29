@@ -35,7 +35,7 @@ const Header = () => (
       const { pathname } = location
 
       return (
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
             <SiteTitle variant="title" color="inherit" noWrap title="Home">
               erfassen.ch
