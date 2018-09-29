@@ -51,6 +51,8 @@
   },
   "devDependencies": {
     "@types/react-helmet": "5.0.7",
+    "@types/react-measure": "^2.0.4",
+    "@types/recompose": "^0.26.5",
     "babel-plugin-styled-components": "1.7.1",
     "prettier": "1.14.3",
     "tslint": "5.11.0",

@@ -10,7 +10,7 @@ import Layout from '../components/layout'
 const Container = styled.div`
   padding: 15px;
   position: relative;
-  height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px);
   @media (min-width: 700px) {
     padding: 20px;
   }

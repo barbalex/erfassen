@@ -43,19 +43,17 @@ const Header = () => (
             <Spacer />
             <NavButton
               variant={pathname === '/' ? 'outlined' : 'text'}
-              onClick={() => console.log('todo')}
               component={Link}
               to="/"
-              active={pathname === '/'}
+              active={(pathname === '/').toString()}
             >
               Home
             </NavButton>
             <NavButton
               variant={pathname === '/Projekte/' ? 'outlined' : 'text'}
-              onClick={() => console.log('todo')}
               component={Link}
               to="/Projekte/"
-              active={pathname === '/Projekte/'}
+              active={(pathname === '/Projekte/').toString()}
             >
               Projekte
             </NavButton>
