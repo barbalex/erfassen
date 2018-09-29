@@ -4,4 +4,26 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-// You can delete this file if you're not using it
+const rxdb = require('rxdb')
+const app = require('ampersand-app')
+
+exports.onClientEntry = async () => {
+  rxdb.plugin(require('pouchdb-adapter-idb'))
+  let db
+  try {
+    db = await rxdb.create({
+      name: 'erfassen', // <- name
+      adapter: 'idb', // <- storage-adapter
+      multiInstance: true, // <- multiInstance (optional, default: true)
+      queryChangeDetection: false, // <- queryChangeDetection (optional, default: false)
+    })
+  } catch (error) {
+    throw error
+  }
+  app.extend({
+    init() {
+      this.db = db
+    },
+  })
+  app.init()
+}

@@ -8,8 +8,6 @@ import teal from '@material-ui/core/colors/teal'
 
 import Header from './header'
 
-declare module 'react-reflex'
-
 const GlobalStyle = createGlobalStyle`
   html {
     overflow: auto;
