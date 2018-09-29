@@ -59,7 +59,7 @@ const CardContainer = styled.div`
   }
 `
 const MoreContainer = styled.div`
-  margin-top: 70px;
+  margin-top: 80px;
   display: grid;
   grid-template-columns: 1fr;
   grid-column-gap: 15px;

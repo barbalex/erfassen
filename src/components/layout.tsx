@@ -2,6 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 import { createGlobalStyle } from 'styled-components'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 import Header from './header'
 
