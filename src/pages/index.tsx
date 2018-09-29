@@ -9,6 +9,7 @@ import Layout from '../components/layout'
 
 const Container = styled.div`
   padding: 15px;
+  margin-top: 64px;
   position: relative;
   min-height: calc(100vh - 64px);
   @media (min-width: 700px) {
