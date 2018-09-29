@@ -59,6 +59,7 @@ const CardContainer = styled.div`
   }
 `
 const MoreContainer = styled.div`
+  margin-top: 70px;
   display: grid;
   grid-template-columns: 1fr;
   grid-column-gap: 15px;
@@ -75,8 +76,8 @@ const MoreContainer = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-column-gap: 30px;
   }
-  margin-top: 50px;
   p {
+    padding-left: 30px;
     font-weight: 500;
     text-shadow: 2px 2px 3px white, -2px -2px 3px white, 2px -2px 3px white,
       -2px 2px 3px white;
@@ -106,9 +107,6 @@ const bgImageStyle = {
   zIndex: -1,
 }
 
-/*interface Props {
-  data: { file: { childImageSharp: Object } }
-}*/
 const query = graphql`
   query {
     file(relativePath: { eq: "laptop.jpg" }) {
