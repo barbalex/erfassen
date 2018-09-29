@@ -134,7 +134,8 @@ const IndexPage = () => (
             <Card>
               <CardTitle>Was Sie wollen</CardTitle>
               <ul>
-                <li>Text</li>
+                <li>Text, Zahlen, Ja/Nein-Werte</li>
+                <li>Bezüge zu anderen Tabellen</li>
                 <li>Geometrien</li>
                 <li>Fotos</li>
                 <li>Audio</li>
@@ -225,11 +226,11 @@ const IndexPage = () => (
             <Card>
               <CardTitle>Los geht's</CardTitle>
               <ul>
-                <li>Das Test-Projekt steht zur freien Verfügung</li>
+                <li>Probieren Sie im Test-Projekt alles aus</li>
                 <li>TODO: Link zum Test-Projekt</li>
                 <li>Für eigene Projekte brauchen Sie ein Konto</li>
                 <li>
-                  Wir verdienen unser Geld mit Gebühren für ihre Projekte (TODO)
+                  Wir verdienen unser Geld mit Gebühren für Ihre Projekte (TODO)
                 </li>
               </ul>
             </Card>
