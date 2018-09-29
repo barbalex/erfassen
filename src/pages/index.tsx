@@ -230,8 +230,8 @@ const IndexPage = () => (
                 <li>TODO: Link zum Test-Projekt</li>
                 <li>Für eigene Projekte brauchen Sie ein Konto</li>
                 <li>
-                  Unser Geld verdienen wir, indem wir mit Gebühren auf Ihren
-                  Projekten (TODO)
+                  Unser Geld verdienen wir mit Gebühren auf Ihren Projekten
+                  (TODO)
                 </li>
               </ul>
             </Card>
