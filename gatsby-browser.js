@@ -20,6 +20,11 @@ exports.onClientEntry = async () => {
   } catch (error) {
     throw error
   }
+  /*
+  const er_z$$z$ch_test = await db.collection({
+    name: 'er_z$$z$ch_test',
+    schema: mySchema,
+  })*/
   app.extend({
     init() {
       this.db = db
