@@ -4,7 +4,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import { createGlobalStyle } from 'styled-components'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import red from '@material-ui/core/colors/red'
-import orange from '@material-ui/core/colors/orange'
+import teal from '@material-ui/core/colors/teal'
 
 import Header from './header'
 
@@ -12,18 +12,44 @@ const GlobalStyle = createGlobalStyle`
   html {
     overflow: auto;
   }
+  
+
+/*
+ * seems that overflow:hidden is necessary
+ * for all relfex-elements
+ * BUT: map is not shown with it...
+ */
+
+.reflex-element:not(.karte) {
+  border-right: 0 !important;
+  border-left: 0 !important;
+}
+
+/*
+.reflex-element:not(.karte) > div {
+  overflow: hidden;
+}*/
+
+.reflex-splitter {
+  background-color: #fffde7 !important;
+  border-right: 1px solid #fffde7 !important;
+  border-left: 1px solid #fffde7 !important;
+}
+
+.reflex-splitter:hover {
+  background-color: #fff59d !important;
+  border-right: 1px solid #fff59d !important;
+  border-left: 1px solid #fff59d !important;
+}
 `
 
 const theme = createMuiTheme({
   palette: {
     type: 'light',
-    primary: { main: '#2e7d32' },
+    primary: { main: teal[500] },
     error: {
       main: red[500],
     },
-  },
-  background: {
-    default: orange[50],
   },
 })
 

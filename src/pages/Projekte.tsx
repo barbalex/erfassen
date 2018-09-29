@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
-import { ReflexContainer, ReflexSplitter, ReflexElement } from 'react-reflex'
+import {
+  ReflexContainer as OrigReflexContainer,
+  ReflexSplitter,
+  ReflexElement,
+} from 'react-reflex'
 import 'react-reflex/styles.css'
 
 import Layout from '../components/layout'
@@ -9,6 +13,9 @@ import Layout from '../components/layout'
 const Container = styled.div`
   margin-top: 64px;
   min-height: calc(100vh - 64px);
+`
+const ReflexContainer = styled(OrigReflexContainer)`
+  height: calc(100vh - 64px) !important;
 `
 
 const SecondPage = () => (
