@@ -13,13 +13,37 @@ const beobSchema = require('./schemas/beob.json')
 rxdb.plugin(require('pouchdb-adapter-http'))
 
 exports.onClientEntry = async () => {
+  /**
+   * TODO
+   * 1. create user collection and sync it with userDb
+   * 2. extract list of projects
+   * 3. loop all projects
+   * 4. extract list of tables from projectDef
+   * 5. create collections for tables, querying only their own type
+   * 6. and start syncing them
+   */
+  /**
+   * TODO serverside
+   * 1.  on create user (server-side)
+   * 1.1 create userDb
+   * 1.2 find projects with users email in project.users and list them in userDb.projects
+   * 2. creating new db's (user-side)
+   * 2.1 name it userName_projectName (replace @ & . with $$ & $)
+   * 2.2 create projectDef doc
+   * 2.3 add projectDef.users
+   * 2.4 add projectDef.billing
+   * 2.5 check billing validity?
+   * 3.  on new db (server-side)
+   * 3.1 loop projectDef.users
+   * 3.2 ensure dbName is included in every user's userDb.projects
+   * 4.  on edit
+   */
   rxdb.plugin(require('pouchdb-adapter-idb'))
   let db
   try {
     db = await rxdb.create({
-      name: 'erfassen', // <- name
-      adapter: 'idb', // <- storage-adapter
-      multiInstance: true, // <- multiInstance (optional, default: true)
+      name: 'erfassen',
+      adapter: 'idb',
       queryChangeDetection: false, // <- queryChangeDetection (optional, default: false)
     })
   } catch (error) {
