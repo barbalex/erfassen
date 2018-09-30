@@ -23,6 +23,7 @@ exports.onClientEntry = async () => {
   } catch (error) {
     throw error
   }
+  rxdb.plugin(require('pouchdb-adapter-http'))
   await db.collection({
     name: 'zeit',
     schema: zeitSchema,
@@ -31,6 +32,26 @@ exports.onClientEntry = async () => {
     name: 'ort',
     schema: ortSchema,
   })
+  const ortReplicationState = db.ort.sync({
+    remote: 'http://localhost:5984/erfassen/', // remote database. This can be the serverURL, another RxCollection or a PouchDB-instance
+    waitForLeadership: true, // (optional) [default=true] to save performance, the sync starts on leader-instance only
+    direction: {
+      // direction (optional) to specify sync-directions
+      pull: true, // default=true
+      push: true, // default=true
+    },
+    options: {
+      // sync-options (optional) from https://pouchdb.com/api.html#replication
+      live: true,
+      retry: true,
+    },
+    /*
+    query: myCollection
+      .find()
+      .where('age')
+      .gt(18),*/ // query (optional) only documents that match that query will be synchronised
+  })
+  console.log('ortReplicationState:', ortReplicationState)
   await db.collection({
     name: 'beob',
     schema: beobSchema,
