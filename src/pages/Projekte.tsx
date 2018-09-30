@@ -21,6 +21,11 @@ const ReflexContainer = styled(OrigReflexContainer)`
 
 const SecondPage = () => {
   console.log('Projekte, db:', app.db)
+  const orte = app.db.ort.dump().then(orte => console.log('orte:', orte.docs))
+  const beobs = app.db.beob
+    .dump()
+    .then(beobs => console.log('beobs:', beobs.docs))
+
   return (
     <Layout>
       <Container>
@@ -42,16 +47,24 @@ const SecondPage = () => {
             <p>Form</p>
             <button
               onClick={async () => {
-                // TODO
-                const ort = await app.db.ort.insert({
+                await app.db.ort.insert({
                   // _id: uuidv1(),
                   name: 'test-ort',
+                  type: 'ort',
                 })
-                const orte = await app.db.ort.dump()
-                console.log('orte:', orte)
               }}
             >
               insert ort
+            </button>
+            <button
+              onClick={async () => {
+                await app.db.beob.insert({
+                  art: 'test-art',
+                  type: 'beob',
+                })
+              }}
+            >
+              insert beob
             </button>
           </ReflexElement>
         </ReflexContainer>

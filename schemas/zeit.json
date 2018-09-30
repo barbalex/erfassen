@@ -4,10 +4,13 @@
   "description": "describes a date",
   "type": "object",
   "properties": {
+    "type": {
+      "type": "string"
+    },
     "zeit": {
       "type": "string",
       "primary": true
     }
   },
-  "required": ["zeit"]
+  "required": ["zeit", "type"]
 }

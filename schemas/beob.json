@@ -4,13 +4,15 @@
   "description": "describes a sighting",
   "type": "object",
   "properties": {
+    "type": {
+      "type": "string"
+    },
     "parentId": {
       "type": "string"
     },
     "art": {
-      "type": "string",
-      "primary": true
+      "type": "string"
     }
   },
-  "required": ["art"]
+  "required": ["art", "type"]
 }

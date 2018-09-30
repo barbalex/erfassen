@@ -4,13 +4,15 @@
   "description": "describes a location",
   "type": "object",
   "properties": {
+    "type": {
+      "type": "string"
+    },
     "parentId": {
       "type": "string"
     },
     "name": {
-      "type": "string",
-      "primary": true
+      "type": "string"
     }
   },
-  "required": ["name"]
+  "required": ["name", "type"]
 }

@@ -28,7 +28,7 @@ exports.onClientEntry = async () => {
     name: 'zeit',
     schema: zeitSchema,
   })
-  await db.collection({
+  const orte = await db.collection({
     name: 'ort',
     schema: ortSchema,
   })
@@ -45,16 +45,26 @@ exports.onClientEntry = async () => {
       live: true,
       retry: true,
     },
-    /*
-    query: myCollection
+    query: db.ort
       .find()
-      .where('age')
-      .gt(18),*/ // query (optional) only documents that match that query will be synchronised
+      .where('type')
+      .eq('ort'),
   })
-  console.log('ortReplicationState:', ortReplicationState)
+  console.log('ort:', { ortReplicationState, orte })
   await db.collection({
     name: 'beob',
     schema: beobSchema,
+  })
+  db.beob.sync({
+    remote: 'http://localhost:5984/erfassen/',
+    options: {
+      live: true,
+      retry: true,
+    },
+    query: db.beob
+      .find()
+      .where('type')
+      .eq('beob'),
   })
   app.extend({
     init() {
