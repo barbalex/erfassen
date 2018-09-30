@@ -22,21 +22,59 @@ exports.onClientEntry = async () => {
    * 5. create collections for tables, querying only their own type
    * 6. start syncing collections
    */
+
   /**
    * TODO
-   * 1.  on create user (server-side)
-   * 1.1 create userDb
-   * 1.2 find projects with users email in projectDef.users and list them in userDb.projects
-   * 2. creating new db's (user-side)
-   * 2.1 name it userName_projectName (replace @ & . with $$ & $)
-   * 2.2 create projectDef doc
-   * 2.3 add projectDef.users
-   * 2.4 add projectDef.billing
-   * 2.5 check billing validity?
-   * 3.  on new db (server-side)
-   * 3.1 loop projectDef.users
-   * 3.2 ensure dbName is included in every user's userDb.projects
-   * 4.  on edit
+   * 1.    create user
+   * server-side:
+   * 1.1.1 on create user
+   * 1.1.2 create userDb
+   * 1.1.3 find projects with users email in projectDef.users and list them in userDb.projects
+   * app-side:
+   * 1.2.1 create userDb
+   * 1.2.2 create userDoc collection
+   * 1.2.3 sync userDoc collection
+   *       catch if Sync errors because db does not yet exist
+   *
+   * 2.    delete user
+   * app-side
+   * 2.1.1 menu to remove account with all data
+   * 2.1.2 delete userDoc
+   * server-side
+   * 2.2.1 on delete userDoc
+   * 2.2.2 remove user from projects
+   * 2.2.3 delete userDb
+   *
+   * 3.    creating new db
+   * app-side:
+   * 3.1.1 name it userName_projectName (replace @ & . with $$ & $)
+   * 3.1.2 create new db and collections
+   * 3.1.3 create projectDef doc in db
+   * 3.1.4 add projectDef.users
+   * 3.1.5 add projectDef.billing
+   * 3.1.6 check billing validity?
+   * 3.1.7 copy projectDef doc to messageDb
+   * server-side:
+   * 3.2.1 on new projectDef doc in messageDb
+   * 3.2.2 create new db
+   * 3.2.3 add this user to admin members of project (ensure only members can access it)
+   * 3.2.4 loop projectDef.users
+   * 3.2.5 add users as admin members of project
+   * 3.2.6 add dbName to every user's userDb projects list
+   * 3.2.7 delete projectDef doc in messageDb
+   * app-side:
+   * 3.3.1 on delete projectDef doc in messageDb
+   * 3.3.2 sync project's collections
+   *
+   * 5.    on edit projectDef doc in project database
+   * server-side
+   * 5.1.1 if one of projectDef.users was removed, remove project name from userDoc's project list
+   * 5.1.2 if one of projectDef.users was added, add project name in userDoc's project list
+   *
+   * 6.    on delete projectDef doc in project, i.e. db
+   * server-side
+   * 6.1.1 loop projectDef.users
+   * 6.1.2 remove project name from userDoc's project list
    */
   rxdb.plugin(require('pouchdb-adapter-idb'))
   let db
