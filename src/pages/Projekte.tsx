@@ -8,7 +8,6 @@ import {
 } from 'react-reflex'
 import 'react-reflex/styles.css'
 import app from 'ampersand-app'
-import uuidv1 from 'uuid/v1'
 
 import Layout from '../components/layout'
 
@@ -48,7 +47,8 @@ const SecondPage = () => {
                   // _id: uuidv1(),
                   name: 'test-ort',
                 })
-                console.log('ort:', ort)
+                const orte = await app.db.ort.dump()
+                console.log('orte:', orte)
               }}
             >
               insert ort
