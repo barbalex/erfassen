@@ -1,0 +1,16 @@
+{
+  "title": "ort schema",
+  "version": 0,
+  "description": "describes a location",
+  "type": "object",
+  "properties": {
+    "parentId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "primary": true
+    }
+  },
+  "required": ["name"]
+}

@@ -6,6 +6,9 @@
 
 const rxdb = require('rxdb')
 const app = require('ampersand-app')
+const zeitSchema = require('./schemas/zeit.json')
+const ortSchema = require('./schemas/ort.json')
+const beobSchema = require('./schemas/beob.json')
 
 exports.onClientEntry = async () => {
   rxdb.plugin(require('pouchdb-adapter-idb'))
@@ -20,11 +23,18 @@ exports.onClientEntry = async () => {
   } catch (error) {
     throw error
   }
-  /*
-  const er_z$$z$ch_test = await db.collection({
-    name: 'er_z$$z$ch_test',
-    schema: mySchema,
-  })*/
+  await db.collection({
+    name: 'zeit',
+    schema: zeitSchema,
+  })
+  await db.collection({
+    name: 'ort',
+    schema: ortSchema,
+  })
+  await db.collection({
+    name: 'beob',
+    schema: beobSchema,
+  })
   app.extend({
     init() {
       this.db = db

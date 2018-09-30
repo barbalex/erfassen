@@ -1,0 +1,16 @@
+{
+  "title": "beob schema",
+  "version": 0,
+  "description": "describes a sighting",
+  "type": "object",
+  "properties": {
+    "parentId": {
+      "type": "string"
+    },
+    "art": {
+      "type": "string",
+      "primary": true
+    }
+  },
+  "required": ["art"]
+}

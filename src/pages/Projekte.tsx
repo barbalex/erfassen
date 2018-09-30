@@ -8,6 +8,7 @@ import {
 } from 'react-reflex'
 import 'react-reflex/styles.css'
 import app from 'ampersand-app'
+import uuidv1 from 'uuid/v1'
 
 import Layout from '../components/layout'
 
@@ -20,7 +21,7 @@ const ReflexContainer = styled(OrigReflexContainer)`
 `
 
 const SecondPage = () => {
-  console.log('Projekte', { db: app.db })
+  console.log('Projekte, db:', app.db)
   return (
     <Layout>
       <Container>
@@ -40,6 +41,18 @@ const SecondPage = () => {
             renderOnResize={true}
           >
             <p>Form</p>
+            <button
+              onClick={async () => {
+                // TODO
+                const ort = await app.db.ort.insert({
+                  // _id: uuidv1(),
+                  name: 'test-ort',
+                })
+                console.log('ort:', ort)
+              }}
+            >
+              insert ort
+            </button>
           </ReflexElement>
         </ReflexContainer>
       </Container>

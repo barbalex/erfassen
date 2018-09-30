@@ -1,0 +1,13 @@
+{
+  "title": "zeit schema",
+  "version": 0,
+  "description": "describes a date",
+  "type": "object",
+  "properties": {
+    "zeit": {
+      "type": "string",
+      "primary": true
+    }
+  },
+  "required": ["zeit"]
+}
