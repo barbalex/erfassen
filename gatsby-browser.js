@@ -14,19 +14,19 @@ rxdb.plugin(require('pouchdb-adapter-http'))
 
 exports.onClientEntry = async () => {
   /**
-   * TODO
+   * TODO on startup
    * 1. create user collection and sync it with userDb
    * 2. extract list of projects
    * 3. loop all projects
-   * 4. extract list of tables from projectDef
+   * 4. extract list of tables from projectDef doc
    * 5. create collections for tables, querying only their own type
-   * 6. and start syncing them
+   * 6. start syncing collections
    */
   /**
-   * TODO serverside
+   * TODO
    * 1.  on create user (server-side)
    * 1.1 create userDb
-   * 1.2 find projects with users email in project.users and list them in userDb.projects
+   * 1.2 find projects with users email in projectDef.users and list them in userDb.projects
    * 2. creating new db's (user-side)
    * 2.1 name it userName_projectName (replace @ & . with $$ & $)
    * 2.2 create projectDef doc
