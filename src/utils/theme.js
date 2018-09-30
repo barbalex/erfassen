@@ -1,4 +1,3 @@
-// @flow
 const theme = {
   title: 'Homegrown',
   baseFontSize: '16px',
