@@ -4,6 +4,7 @@ import MaterialCard from '@material-ui/core/Card'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
+import { Link } from 'gatsby'
 
 import Layout from '../components/layout'
 
@@ -240,7 +241,9 @@ const IndexPage = () => (
             <p>Über uns</p>
             <p>Kontakt</p>
             <p>Blog</p>
-            <p>Technische Dokumentation</p>
+            <Link to="/Technische-Dokumentation/User-und-Projekte-verwalten/">
+              Technische Dokumentation
+            </Link>
             <p>Preise</p>
             <p>Datenschutz</p>
             <p>Allgemeine Geschäftsbedingungen</p>
