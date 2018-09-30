@@ -21,10 +21,12 @@ const ReflexContainer = styled(OrigReflexContainer)`
 
 const SecondPage = () => {
   console.log('Projekte, db:', app.db)
-  const orte = app.db.ort.dump().then(orte => console.log('orte:', orte.docs))
+  const orte = app.db.ort
+    .dump()
+    .then((orte: any) => console.log('orte:', orte.docs))
   const beobs = app.db.beob
     .dump()
-    .then(beobs => console.log('beobs:', beobs.docs))
+    .then((beobs: any) => console.log('beobs:', beobs.docs))
 
   return (
     <Layout>

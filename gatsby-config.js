@@ -41,6 +41,27 @@ module.exports = {
         icon: 'src/images/erfassen-512x512.png', // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        gfm: true,
+        commonmark: true,
+        footnotes: true,
+        pedantic: true,
+        // blocks: ["h2"], Blocks option value can be provided here as an array.
+        excerpt_separator: `<!-- end -->`,
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 740,
+            },
+          },
+          `gatsby-remark-autolink-headers`,
+        ],
+      },
+    },
+    `gatsby-plugin-catch-links`,
     'gatsby-plugin-offline',
   ],
 }
