@@ -46,23 +46,22 @@ const SecondPage = () => {
           >
             <p>Form</p>
             <button
-              onClick={async () => {
-                await app.db.ort.insert({
-                  // _id: uuidv1(),
+              onClick={async () =>
+                app.db.ort.insert({
                   name: 'test-ort',
                   type: 'ort',
                 })
-              }}
+              }
             >
               insert ort
             </button>
             <button
-              onClick={async () => {
-                await app.db.beob.insert({
+              onClick={async () =>
+                app.db.beob.insert({
                   art: 'test-art',
                   type: 'beob',
                 })
-              }}
+              }
             >
               insert beob
             </button>

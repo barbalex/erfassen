@@ -10,6 +10,8 @@ const zeitSchema = require('./schemas/zeit.json')
 const ortSchema = require('./schemas/ort.json')
 const beobSchema = require('./schemas/beob.json')
 
+rxdb.plugin(require('pouchdb-adapter-http'))
+
 exports.onClientEntry = async () => {
   rxdb.plugin(require('pouchdb-adapter-idb'))
   let db
@@ -23,25 +25,17 @@ exports.onClientEntry = async () => {
   } catch (error) {
     throw error
   }
-  rxdb.plugin(require('pouchdb-adapter-http'))
   await db.collection({
     name: 'zeit',
     schema: zeitSchema,
   })
-  const orte = await db.collection({
+  await db.collection({
     name: 'ort',
     schema: ortSchema,
   })
-  const ortReplicationState = db.ort.sync({
-    remote: 'http://localhost:5984/erfassen/', // remote database. This can be the serverURL, another RxCollection or a PouchDB-instance
-    waitForLeadership: true, // (optional) [default=true] to save performance, the sync starts on leader-instance only
-    direction: {
-      // direction (optional) to specify sync-directions
-      pull: true, // default=true
-      push: true, // default=true
-    },
+  db.ort.sync({
+    remote: 'http://localhost:5984/erfassen/',
     options: {
-      // sync-options (optional) from https://pouchdb.com/api.html#replication
       live: true,
       retry: true,
     },
@@ -50,7 +44,6 @@ exports.onClientEntry = async () => {
       .where('type')
       .eq('ort'),
   })
-  console.log('ort:', { ortReplicationState, orte })
   await db.collection({
     name: 'beob',
     schema: beobSchema,
@@ -66,6 +59,7 @@ exports.onClientEntry = async () => {
       .where('type')
       .eq('beob'),
   })
+
   app.extend({
     init() {
       this.db = db
