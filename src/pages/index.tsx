@@ -239,8 +239,9 @@ const IndexPage = () => (
           <MoreContainer>
             <p>Über uns</p>
             <p>Kontakt</p>
-            <p>Preise</p>
             <p>Blog</p>
+            <p>Technische Dokumentation</p>
+            <p>Preise</p>
             <p>Datenschutz</p>
             <p>Allgemeine Geschäftsbedingungen</p>
           </MoreContainer>
