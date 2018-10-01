@@ -50,6 +50,7 @@
     "@types/react-helmet": "5.0.7",
     "@types/recompose": "0.26.5",
     "babel-plugin-styled-components": "1.8.0",
+    "ncp": "^2.0.0",
     "prettier": "1.14.3",
     "tslint": "5.11.0",
     "tslint-config-prettier": "1.15.0",
@@ -63,7 +64,7 @@
   "scripts": {
     "prebuild": "if exist docs rmdir docs /q /s",
     "build": "gatsby build",
-    "postbuild": "rename public docs",
+    "postbuild": "ncp public docs",
     "dev": "gatsby develop",
     "serve": "gatsby serve",
     "test": "echo \"Error: no test specified\" && exit 1",
