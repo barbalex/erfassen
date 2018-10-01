@@ -9,7 +9,7 @@ import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 
 import Layout from '../components/layout'
-import TechnDokuMenuItem from './TechnDokuMenuItem.tsx'
+import TechnDokuMenuItem from './TechnDokuMenuItem'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -54,11 +54,7 @@ const DokuDate = styled.p`
   color: grey;
 `
 
-const Template = ({
-  data,
-}: {
-  data: any
-}) => {
+const Template = ({ data }: { data: any }) => {
   const { markdownRemark, allMarkdownRemark } = data // data.markdownRemark holds our post data
   const { frontmatter, html } = markdownRemark
   const { edges: posts } = allMarkdownRemark
@@ -114,4 +110,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default (Template)
+export default Template

@@ -115,20 +115,6 @@ const MoreLink = styled(Link)`
     text-decoration: underline;
   }
 `
-const BgImage = styled(Img)`
-  position: 'absolute';
-  left: 0;
-  top: 0;
-  width: '100%';
-  height: '100%';
-  z-index: -1;
-
-  // Adjust image positioning (if image covers area with defined height) and add font-family for polyfill
-  & > img {
-    object-fit: contain !important; // or whatever
-    object-position: 0% 0% !important; // or whatever
-  }
-`
 
 const bgImageStyle = {
   position: 'absolute',
