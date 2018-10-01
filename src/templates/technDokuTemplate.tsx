@@ -32,6 +32,7 @@ const Doku = styled.div`
   li {
     margin-bottom: 0;
   }
+  h1,
   h3,
   ol {
     margin-bottom: 10px;
