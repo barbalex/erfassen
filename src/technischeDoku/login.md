@@ -5,7 +5,7 @@ title: "Login"
 sort: 2
 ---
 
-This document describes what happens on login.<br/><br/>
+This document describes what happens on login app-side.<br/><br/>
 
 Based on [PouchDB's plugin](https://github.com/pouchdb-community/pouchdb-authentication).<br/><br/>
 
