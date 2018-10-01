@@ -10,7 +10,7 @@ import Header from './header'
 
 const GlobalStyle = createGlobalStyle`
   html {
-    overflow: auto;
+    overflow: hidden;
   }
 
 /* scrollbars */

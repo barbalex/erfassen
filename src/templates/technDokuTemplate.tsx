@@ -10,19 +10,21 @@ import Layout from '../components/layout'
 
 const Container = styled.div`
   margin-top: 64px;
-  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
   display: flex;
 `
 const Menu = styled.div`
   width: 25%;
   min-width: 320px;
-  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
+  overflow-y: auto;
   padding: 25px 0;
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 `
 const Doku = styled.div`
   width: 100%;
   padding: 25px;
+  overflow-y: auto;
 `
 const MenuTitle = styled.h3`
   padding: 0 24px;
@@ -78,7 +80,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
+    allMarkdownRemark(sort: { order: ASC, fields: [frontmatter___sort] }) {
       edges {
         node {
           excerpt(pruneLength: 250)

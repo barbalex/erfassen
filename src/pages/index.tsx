@@ -12,7 +12,8 @@ const Container = styled.div`
   padding: 15px;
   margin-top: 64px;
   position: relative;
-  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
+  overflow-y: auto;
   @media (min-width: 700px) {
     padding: 20px;
   }
