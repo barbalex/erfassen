@@ -5988,7 +5988,7 @@ gatsby-link@^2.0.2:
     prop-types "^15.6.1"
     ric "^1.3.0"
 
-gatsby-plugin-catch-links@^2.0.3:
+gatsby-plugin-catch-links@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-2.0.3.tgz#61b996f0b84108a37255338e1dc75965bbd30f85"
   integrity sha512-/H8Peic1CmR6GxWZy7TeSLjz1sYJ3kAYKou68XjoifrTgtAOQBWFCxzX9G3xUKiPZeXXAvChQwDuy67MyG+y4Q==
@@ -6095,7 +6095,7 @@ gatsby-react-router-scroll@^2.0.0:
     scroll-behavior "^0.9.9"
     warning "^3.0.0"
 
-gatsby-remark-autolink-headers@^2.0.6:
+gatsby-remark-autolink-headers@2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/gatsby-remark-autolink-headers/-/gatsby-remark-autolink-headers-2.0.6.tgz#b0e5cff8f5c4e48cf233d2bd93153808c429cdf9"
   integrity sha512-pnNhh7Bhrc+1jPtjYJDGyOUDaW2nWtirv1ngX0unuQXBJWua8Kr6hohF5E7k+Fs7JryccT5LGOvuFUCuNmtz4g==
@@ -6105,7 +6105,7 @@ gatsby-remark-autolink-headers@^2.0.6:
     mdast-util-to-string "^1.0.2"
     unist-util-visit "^1.3.0"
 
-gatsby-remark-images@^2.0.3:
+gatsby-remark-images@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/gatsby-remark-images/-/gatsby-remark-images-2.0.3.tgz#0d2f90a9e200a20112da5d62b0906a2ac8e01d9f"
   integrity sha512-lQjgYS5BCu8llXJodqU8hX5UVfNRCtmAHcz2elfkK5QHKUV8cz+CNpW+1MwXBFMvMgL33TNIVtomajtVdYdvYw==
@@ -6136,7 +6136,7 @@ gatsby-source-filesystem@2.0.1:
     valid-url "^1.0.9"
     xstate "^3.1.0"
 
-gatsby-transformer-remark@^2.1.4:
+gatsby-transformer-remark@2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/gatsby-transformer-remark/-/gatsby-transformer-remark-2.1.4.tgz#229722a84815023495ec2e487c4a87b162ac08b6"
   integrity sha512-g9TuJT0Z4kS55l03IWIYdzDXIClcYjvQYjxhE0a1e5y8Nf6IL2/EGf0PHmvB59HQjtMgZ1TgbNPSW9WS3P/nvg==
@@ -11346,7 +11346,7 @@ pouchdb-abstract-mapreduce@7.0.0:
     pouchdb-md5 "7.0.0"
     pouchdb-utils "7.0.0"
 
-pouchdb-adapter-http@^7.0.0:
+pouchdb-adapter-http@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pouchdb-adapter-http/-/pouchdb-adapter-http-7.0.0.tgz#fe1fcd9755227b92efd4c74ac06558e528ac1d34"
   integrity sha512-jlrl7/B2ubbcBZbiMrT2DJolDNKW/SAZgxH5GzJLyUfjKxDMyky2gdMtG0b6qGdz323jS4EUUXtz2J8Bb+46NQ==

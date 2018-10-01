@@ -6,8 +6,10 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { FaUserCircle as UserIcon } from 'react-icons/fa'
 import styled from 'styled-components'
-import { Link } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import { Location } from '@reach/router'
+import compose from 'recompose/compose'
+import withHandlers from 'recompose/withHandlers'
 
 const SiteTitle = styled(Typography)`
   display: none;
@@ -29,7 +31,11 @@ const NavButton = styled<NavButtonProps, any>(Button)`
   font-weight: ${props => (props.active ? '700' : '600')};
 `
 
-const Header = () => (
+const enhance = compose(
+  withHandlers({ onClickSiteTitle: () => () => navigate('/') }),
+)
+
+const Header = ({ onClickSiteTitle }: { onClickSiteTitle: () => void }) => (
   <Location>
     {({ location }) => {
       const { pathname } = location
@@ -37,7 +43,13 @@ const Header = () => (
       return (
         <AppBar position="fixed">
           <Toolbar>
-            <SiteTitle variant="title" color="inherit" noWrap title="Home">
+            <SiteTitle
+              variant="title"
+              color="inherit"
+              noWrap
+              title="Home"
+              onClick={onClickSiteTitle}
+            >
               erfassen.ch
             </SiteTitle>
             <Spacer />
@@ -73,4 +85,4 @@ const Header = () => (
   </Location>
 )
 
-export default Header
+export default enhance(Header)
