@@ -7,18 +7,20 @@ sort: 1
 
 This document describes how creating, editing and deleting users and projects is managed.
 
-Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/recipes.md#some-people-can-read-some-docs-some-people-can-write-those-same-docs)
+Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/recipes.md#some-people-can-read-some-docs-some-people-can-write-those-same-docs).
 
 ## 1. user
 ### create
 1. app-side
    * user clicks menu to create account
-   * pouchdb does it's thing (TODO: clarify)
+   * [pouchdb.signUp](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbsignupusername-password--options--callback) creates the user in CoudhDB's _users db
+   * do not save username and password: PouchDB remains logged in as long as the cookie is valid
 2. server-side:
    * on create user
    * [create userDb](http://docs.couchdb.org/en/stable/config/couch-peruser.html)
-   * find projects with users email in projectDef.users and list them in userDb.projects
+   * find projects with users email in projectDef.users and list them in userDb's projects list
 3. app-side:
+   * log in
    * create userDb
    * create userDoc collection
    * sync userDoc collection<br/>

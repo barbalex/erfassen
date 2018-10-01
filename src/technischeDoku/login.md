@@ -7,6 +7,19 @@ sort: 2
 
 This document describes what happens on login.
 
-1. pouchdb passes 
+Based on [PouchDB's plugin](https://github.com/pouchdb-community/pouchdb-authentication).
+
+1. if cookie is still valid, need not log in
+2. else: [pouchdb.logIn](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbloginusername-password--options--callback)
+2. create userDoc collection
+3. sync userDoc collection
+4. extract project list from userDoc
+5. loop projects
+6. create projectDef collections
+7. sync projectDef collections
+8. extract table lists from projectDefs
+9. loop tables
+10. create table collections
+11. sync table collections
 
 
