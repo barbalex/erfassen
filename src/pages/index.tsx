@@ -16,6 +16,7 @@ const ScrollContainer = styled.div`
 const Container = styled.div`
   padding: 15px;
   position: relative;
+  min-height: 100%;
   @media (min-width: 700px) {
     padding: 20px;
   }
