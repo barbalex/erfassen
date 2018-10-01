@@ -3,6 +3,7 @@ path: "/Technische-Dokumentation/User-und-Projekte-verwalten"
 date: "2018-10-01"
 title: "User und Projekte verwalten"
 ---
+
 ## 1. user
 ### create
 1. server-side:
@@ -50,17 +51,17 @@ title: "User und Projekte verwalten"
    * on delete projectDef doc in messageDb
    * sync project's collections
 
-5.    edit project
-      server-side
-5.1.1  on edit projectDef doc in project database
-5.1.2 if one of projectDef.users was removed, remove project name from userDoc's project list
-5.1.3 if one of projectDef.users was added, add project name in userDoc's project list
+### edit
+1. server-side
+   * on edit projectDef doc in project database
+   * if one of projectDef.users was removed, remove project name from userDoc's project list
+   * if one of projectDef.users was added, add project name in userDoc's project list
 
-6.    delete project
-      server-side
-6.1.1 on delete projectDef doc in project, i.e. db
-6.1.2 loop projectDef.users
-6.1.3 remove project name from userDoc's project list
-6.1.4 delete project db
-      app-side
-6.2.1 TODO: need to clear data from rxdb/pouch?
+### delete
+1. server-side
+   * on delete projectDef doc in project, i.e. db
+   * loop projectDef.users
+   * remove project name from userDoc's project list
+   * delete project db
+2. app-side
+   * TODO: need to clear data from rxdb/pouch?
