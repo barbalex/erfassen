@@ -66,7 +66,7 @@ const MoreContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-column-gap: 15px;
-  grid-row-gap: 0;
+  grid-row-gap: 25px;
   @media (min-width: 700px) {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
@@ -84,6 +84,7 @@ const MoreContainer = styled.div`
     font-weight: 500;
     text-shadow: 2px 2px 3px white, -2px -2px 3px white, 2px -2px 3px white,
       -2px 2px 3px white;
+    margin: 0;
   }
 `
 const Card = styled(MaterialCard)`
@@ -100,6 +101,17 @@ const Card = styled(MaterialCard)`
   }
 `
 const CardTitle = styled.h3``
+const MoreLink = styled(Link)`
+  padding-left: 30px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: 2px 2px 3px white, -2px -2px 3px white, 2px -2px 3px white,
+    -2px 2px 3px white;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+`
 
 const bgImageStyle = {
   position: 'absolute',
@@ -242,9 +254,9 @@ const IndexPage = () => (
             <p>Über uns</p>
             <p>Kontakt</p>
             <p>Blog</p>
-            <Link to="/Technische-Dokumentation/User-und-Projekte-verwalten/">
+            <MoreLink to="/Technische-Dokumentation/User-und-Projekte-verwalten/">
               Technische Dokumentation
-            </Link>
+            </MoreLink>
             <p>Preise</p>
             <p>Datenschutz</p>
             <p>Allgemeine Geschäftsbedingungen</p>
