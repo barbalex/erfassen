@@ -5,9 +5,9 @@ title: "Login"
 sort: 2
 ---
 
-This document describes what happens on login.
+This document describes what happens on login.<br/><br/>
 
-Based on [PouchDB's plugin](https://github.com/pouchdb-community/pouchdb-authentication).
+Based on [PouchDB's plugin](https://github.com/pouchdb-community/pouchdb-authentication).<br/><br/>
 
 1. if cookie is still valid, need not log in
 2. else: [pouchdb.logIn](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbloginusername-password--options--callback)

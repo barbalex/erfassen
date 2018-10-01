@@ -15,12 +15,14 @@ Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authen
    * user clicks menu to create account
    * [pouchdb.signUp](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbsignupusername-password--options--callback) creates the user in CoudhDB's _users db
    * do not save username and password: PouchDB remains logged in as long as the cookie is valid
+   * pop up login form as no valid cookie exists
+   * log in
 2. server-side:
    * on create user
    * [create userDb](http://docs.couchdb.org/en/stable/config/couch-peruser.html)
-   * find projects with users email in projectDef.users and list them in userDb's projects list
+   * find projects with users email in projectDef.users and list them in projects key in the users doc in the _users db
 3. app-side:
-   * log in
+   * [pouchdb.getUser](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbgetuserusername--opts-callback)
    * create userDb
    * create userDoc collection
    * sync userDoc collection<br/>
