@@ -12,7 +12,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/src/technischeDoku`,
         name: 'technischeDoku-pages',
@@ -49,23 +49,23 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: 'gatsby-transformer-remark',
       options: {
         gfm: true,
         commonmark: true,
         footnotes: true,
         pedantic: true,
         // blocks: ["h2"], Blocks option value can be provided here as an array.
-        excerpt_separator: `<!-- end -->`,
+        excerpt_separator: '<!-- end -->',
         plugins: [
           {
-            resolve: `gatsby-remark-images`,
+            resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 740,
             },
           },
           {
-            resolve: `gatsby-remark-autolink-headers`,
+            resolve: 'gatsby-remark-autolink-headers',
             options: {
               offsetY: '64',
             },
@@ -73,7 +73,7 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-catch-links`,
+    'gatsby-plugin-catch-links',
     'gatsby-plugin-offline',
   ],
 }
