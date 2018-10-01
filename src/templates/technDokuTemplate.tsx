@@ -25,10 +25,25 @@ const Doku = styled.div`
   width: 100%;
   padding: 25px;
   overflow-y: auto;
+  ul {
+    margin-top: 0;
+  }
+  p,
+  li {
+    margin-bottom: 0;
+  }
+  h3,
+  h2,
+  ol {
+    margin-bottom: 10px;
+  }
 `
 const MenuTitle = styled.h3`
   padding: 0 24px;
   margin-bottom: 14px;
+`
+const DokuDate = styled.p`
+  margin-bottom: 15px !important;
 `
 
 const Template = ({ data }: { data: any }) => {
@@ -59,7 +74,7 @@ const Template = ({ data }: { data: any }) => {
         </Menu>
         <Doku>
           <h1>{frontmatter.title}</h1>
-          <p>{frontmatter.date}</p>
+          <DokuDate>{frontmatter.date}</DokuDate>
           <div
             className="blog-post-content"
             dangerouslySetInnerHTML={{ __html: html }}
