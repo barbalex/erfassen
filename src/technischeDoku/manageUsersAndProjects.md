@@ -47,19 +47,19 @@ Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authen
 ## 2. project / db
 ### create
 1. app-side:
-   * name it project_userName_projectName (replace @ & . with $$ & $) (hex encode user- and project name? https://stackoverflow.com/a/51624609)
+   * name it `project_userName_projectName` (replace @ & . with $$ & $) (hex encode user- and project name? https://stackoverflow.com/a/51624609)
    * create new db and collections
-   * create projectDef doc in db
+   * create projectDef doc in it's collection
    * add projectDef.users
    * add projectDef.billing
    * check billing validity?
    * copy projectDef doc to messageDb
 2. server-side:
    * on new projectDef doc in messageDb
-   * create new db, including [security doc](http://docs.couchdb.org/en/latest/api/database/security.html)
-   * add this user to admin members of project (ensure only members can access it)
+   * create new project db, including [security doc](http://docs.couchdb.org/en/latest/api/database/security.html)
+   * add this user to admin members of project db (ensure only members can access it)
    * loop projectDef.users
-   * add users as admin members of project
+   * add users as admin members to project db
    * add dbName to every user's userDb projects list
    * delete projectDef doc in messageDb
 3. app-side:
@@ -68,7 +68,7 @@ Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authen
 
 ### edit
 1. server-side
-   * on edit projectDef doc in project database
+   * on edit projectDef doc in project db
    * if one of projectDef.users was removed, remove project name from userDoc's project list
    * if one of projectDef.users was added, add project name in userDoc's project list
 
