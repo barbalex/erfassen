@@ -35,16 +35,19 @@ Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authen
 ### delete
 1. app-side
    * menu to remove account with all data
+   * tell user what is going to be deleted, foremost: what projects
+   * let user confirm firmly by typing his email in to text field
    * delete userDoc
 2. server-side
    * on delete userDoc
    * remove user from projects
    * delete userDb
+   * delete user's projects
 
 ## 2. project / db
 ### create
 1. app-side:
-   * name it userName_projectName (replace @ & . with $$ & $) (hex encode user- and project name? https://stackoverflow.com/a/51624609)
+   * name it project_userName_projectName (replace @ & . with $$ & $) (hex encode user- and project name? https://stackoverflow.com/a/51624609)
    * create new db and collections
    * create projectDef doc in db
    * add projectDef.users
