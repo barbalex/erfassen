@@ -7,6 +7,8 @@ sort: 1
 
 This document describes how creating, editing and deleting users and projects is managed.
 
+Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/recipes.md#some-people-can-read-some-docs-some-people-can-write-those-same-docs)
+
 ## 1. user
 ### create
 1. app-side
@@ -14,7 +16,7 @@ This document describes how creating, editing and deleting users and projects is
    * pouchdb does it's thing (TODO: clarify)
 2. server-side:
    * on create user
-   * create userDb
+   * [create userDb](http://docs.couchdb.org/en/stable/config/couch-peruser.html)
    * find projects with users email in projectDef.users and list them in userDb.projects
 3. app-side:
    * create userDb
@@ -38,7 +40,7 @@ This document describes how creating, editing and deleting users and projects is
 ## 2. project / db
 ### create
 1. app-side:
-   * name it userName_projectName (replace @ & . with $$ & $)
+   * name it userName_projectName (replace @ & . with $$ & $) (hex encode user- and project name? https://stackoverflow.com/a/51624609)
    * create new db and collections
    * create projectDef doc in db
    * add projectDef.users
@@ -47,7 +49,7 @@ This document describes how creating, editing and deleting users and projects is
    * copy projectDef doc to messageDb
 2. server-side:
    * on new projectDef doc in messageDb
-   * create new db, including security doc
+   * create new db, including [security doc](http://docs.couchdb.org/en/latest/api/database/security.html)
    * add this user to admin members of project (ensure only members can access it)
    * loop projectDef.users
    * add users as admin members of project
