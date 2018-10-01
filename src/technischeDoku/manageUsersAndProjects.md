@@ -5,13 +5,18 @@ title: "User und Projekte verwalten"
 sort: 1
 ---
 
+This document describes how creating, editing and deleting users and projects is managed.
+
 ## 1. user
 ### create
-1. server-side:
+1. app-side
+   * user clicks menu to create account
+   * pouchdb does it's thing (TODO: clarify)
+2. server-side:
    * on create user
    * create userDb
    * find projects with users email in projectDef.users and list them in userDb.projects
-2. app-side:
+3. app-side:
    * create userDb
    * create userDoc collection
    * sync userDoc collection<br/>

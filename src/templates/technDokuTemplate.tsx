@@ -5,8 +5,11 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
+import compose from 'recompose/compose'
+import withHandlers from 'recompose/withHandlers'
 
 import Layout from '../components/layout'
+import TechnDokuMenuItem from './TechnDokuMenuItem.tsx'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -51,7 +54,11 @@ const DokuDate = styled.p`
   color: grey;
 `
 
-const Template = ({ data }: { data: any }) => {
+const Template = ({
+  data,
+}: {
+  data: any
+}) => {
   const { markdownRemark, allMarkdownRemark } = data // data.markdownRemark holds our post data
   const { frontmatter, html } = markdownRemark
   const { edges: posts } = allMarkdownRemark
@@ -64,16 +71,7 @@ const Template = ({ data }: { data: any }) => {
           <List component="nav">
             <Divider />
             {posts.map(({ node: post }: { node: any }, index: number) => (
-              <Fragment key={post.id}>
-                <ListItem button>
-                  <ListItemText
-                    onClick={() => navigate(`${post.frontmatter.path}/`)}
-                  >
-                    {post.frontmatter.title}
-                  </ListItemText>
-                </ListItem>
-                <Divider />
-              </Fragment>
+              <TechnDokuMenuItem post={post} key={post.id} />
             ))}
           </List>
         </Menu>
@@ -116,4 +114,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Template
+export default (Template)
