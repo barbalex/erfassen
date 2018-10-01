@@ -8,12 +8,14 @@ import { Link } from 'gatsby'
 
 import Layout from '../components/layout'
 
-const Container = styled.div`
-  padding: 15px;
-  margin-top: 64px;
-  position: relative;
+const ScrollContainer = styled.div`
   height: calc(100vh - 64px);
   overflow-y: auto;
+  margin-top: 64px;
+`
+const Container = styled.div`
+  padding: 15px;
+  position: relative;
   @media (min-width: 700px) {
     padding: 20px;
   }
@@ -112,6 +114,20 @@ const MoreLink = styled(Link)`
     text-decoration: underline;
   }
 `
+const BgImage = styled(Img)`
+  position: 'absolute';
+  left: 0;
+  top: 0;
+  width: '100%';
+  height: '100%';
+  z-index: -1;
+
+  // Adjust image positioning (if image covers area with defined height) and add font-family for polyfill
+  & > img {
+    object-fit: contain !important; // or whatever
+    object-position: 0% 0% !important; // or whatever
+  }
+`
 
 const bgImageStyle = {
   position: 'absolute',
@@ -129,6 +145,9 @@ const query = graphql`
         fluid {
           ...GatsbyImageSharpFluid
         }
+        sizes {
+          ...GatsbyImageSharpSizes
+        }
       }
     }
   }
@@ -139,129 +158,136 @@ const IndexPage = () => (
     query={query}
     render={data => (
       <Layout>
-        <Container>
-          <Img fluid={data.file.childImageSharp.fluid} style={bgImageStyle} />
-          <PageTitle align="center" variant="title" color="inherit" noWrap>
-            Erfassen Sie:
-          </PageTitle>
-          <CardContainer>
-            <Card>
-              <CardTitle>Was Sie wollen</CardTitle>
-              <ul>
-                <li>Text, Zahlen, Ja/Nein-Werte</li>
-                <li>Bezüge zu anderen Tabellen</li>
-                <li>Geometrien</li>
-                <li>Fotos</li>
-                <li>Audio</li>
-                <li>beliebige Dateien</li>
-              </ul>
-            </Card>
-            <Card>
-              <CardTitle>Wie Sie wollen</CardTitle>
-              <ul>
-                <li>
-                  Konfigurieren Sie Tabellen und Felder individuell und flexibel
-                </li>
-                <li>
-                  Sie brauchen hierarchische Daten-Strukturen? Kein Problem!
-                </li>
-                <li>
-                  Hier (TODO) finden Sie Vorschläge für typische Szenarien
-                </li>
-                <li>
-                  Bestimmen Sie Feld-Typen, Standard-Werte, Muss-Felder,
-                  Auswahllisten
-                </li>
-              </ul>
-            </Card>
-            <Card>
-              <CardTitle>Wo Sie wollen</CardTitle>
-              <ul>
-                <li>Keine Internet-Verbindung? Kein Problem</li>
-                <li>erfassen.ch funktioniert auch offline</li>
-                <li>Speichern Sie Hintergrund-Karten zuvor lokal</li>
-                <li>
-                  Ihre Daten werden synchronisiert, sobald wieder Empfang
-                  besteht
-                </li>
-              </ul>
-            </Card>
-            <Card>
-              <CardTitle>Mit wem Sie wollen</CardTitle>
-              <ul>
-                <li>Beliebig viele Personen können mitarbeiten</li>
-                <li>Ergänzen Sie neue Mitarbeiter rasch und einfach</li>
-                <li>
-                  Besteht eine Internet-Verbindung, sehen alle Mitarbeiter
-                  sofort alle Daten-Änderungen
-                </li>
-              </ul>
-            </Card>
-            <Card>
-              <CardTitle>Womit Sie wollen</CardTitle>
-              <ul>
-                <li>Handy, Tablet, Notebook oder PC</li>
-                <li>Windows, Linux, MacOS, Android, iOS…</li>
-                <li>
-                  Ist dem Tablet der Strom ausgegangen?
-                  <br />
-                  Arbeiten Sie einfach auf dem Handy weiter
-                </li>
-              </ul>
-            </Card>
-            <Card>
-              <CardTitle>Wann Sie wollen</CardTitle>
-              <ul>
-                <li>Daten werden laufend synchronisiert</li>
-                <li>
-                  Sie müssen nie warten, bis Daten anderer Mitarbeiter manuell
-                  importiert wurden
-                </li>
-              </ul>
-            </Card>
-            <Card>
-              <CardTitle>Effizient</CardTitle>
-              <ul>
-                <li>
-                  Bereiten Sie ein Projekt nur einmal vor und nach. Egal,
-                  wieviele Personen mitarbeiten
-                </li>
-                <li>
-                  Digitalisieren Sie nie mehr nachträglich
-                  Papier-Aufzeichnungen...
-                </li>
-                <li>...und sparen Sie sich damit viele Fehler und Ärger</li>
-                <li>
-                  Sie haben die Feld-Mappe verloren? Zum Glück wurden die Daten
-                  synchronisiert!
-                </li>
-              </ul>
-            </Card>
-            <Card>
-              <CardTitle>Los geht's</CardTitle>
-              <ul>
-                <li>Probieren Sie im Test-Projekt alles aus</li>
-                <li>TODO: Link zum Test-Projekt</li>
-                <li>Für eigene Projekte brauchen Sie ein Konto</li>
-                <li>
-                  Unser Geld verdienen wir mit Gebühren auf Ihren Projekten
-                  (TODO)
-                </li>
-              </ul>
-            </Card>
-          </CardContainer>
-          <MoreContainer>
-            <p>Über uns</p>
-            <p>Kontakt</p>
-            <p>Blog</p>
-            <MoreLink to="/Technische-Dokumentation/User-und-Projekte-verwalten/">
-              Technische Dokumentation
-            </MoreLink>
-            <p>Preise</p>
-            <p>Datenschutz</p>
-            <p>Allgemeine Geschäftsbedingungen</p>
-          </MoreContainer>
-        </Container>
+        <ScrollContainer>
+          <Container>
+            <Img
+              sizes={data.file.childImageSharp.sizes}
+              fluid={data.file.childImageSharp.fluid}
+              style={bgImageStyle}
+            />
+            <PageTitle align="center" variant="title" color="inherit" noWrap>
+              Erfassen Sie:
+            </PageTitle>
+            <CardContainer>
+              <Card>
+                <CardTitle>Was Sie wollen</CardTitle>
+                <ul>
+                  <li>Text, Zahlen, Ja/Nein-Werte</li>
+                  <li>Bezüge zu anderen Tabellen</li>
+                  <li>Geometrien</li>
+                  <li>Fotos</li>
+                  <li>Audio</li>
+                  <li>beliebige Dateien</li>
+                </ul>
+              </Card>
+              <Card>
+                <CardTitle>Wie Sie wollen</CardTitle>
+                <ul>
+                  <li>
+                    Konfigurieren Sie Tabellen und Felder individuell und
+                    flexibel
+                  </li>
+                  <li>
+                    Sie brauchen hierarchische Daten-Strukturen? Kein Problem!
+                  </li>
+                  <li>
+                    Hier (TODO) finden Sie Vorschläge für typische Szenarien
+                  </li>
+                  <li>
+                    Bestimmen Sie Feld-Typen, Standard-Werte, Muss-Felder,
+                    Auswahllisten
+                  </li>
+                </ul>
+              </Card>
+              <Card>
+                <CardTitle>Wo Sie wollen</CardTitle>
+                <ul>
+                  <li>Keine Internet-Verbindung? Kein Problem</li>
+                  <li>erfassen.ch funktioniert auch offline</li>
+                  <li>Speichern Sie Hintergrund-Karten zuvor lokal</li>
+                  <li>
+                    Ihre Daten werden synchronisiert, sobald wieder Empfang
+                    besteht
+                  </li>
+                </ul>
+              </Card>
+              <Card>
+                <CardTitle>Mit wem Sie wollen</CardTitle>
+                <ul>
+                  <li>Beliebig viele Personen können mitarbeiten</li>
+                  <li>Ergänzen Sie neue Mitarbeiter rasch und einfach</li>
+                  <li>
+                    Besteht eine Internet-Verbindung, sehen alle Mitarbeiter
+                    sofort alle Daten-Änderungen
+                  </li>
+                </ul>
+              </Card>
+              <Card>
+                <CardTitle>Womit Sie wollen</CardTitle>
+                <ul>
+                  <li>Handy, Tablet, Notebook oder PC</li>
+                  <li>Windows, Linux, MacOS, Android, iOS…</li>
+                  <li>
+                    Ist dem Tablet der Strom ausgegangen?
+                    <br />
+                    Arbeiten Sie einfach auf dem Handy weiter
+                  </li>
+                </ul>
+              </Card>
+              <Card>
+                <CardTitle>Wann Sie wollen</CardTitle>
+                <ul>
+                  <li>Daten werden laufend synchronisiert</li>
+                  <li>
+                    Sie müssen nie warten, bis Daten anderer Mitarbeiter manuell
+                    importiert wurden
+                  </li>
+                </ul>
+              </Card>
+              <Card>
+                <CardTitle>Effizient</CardTitle>
+                <ul>
+                  <li>
+                    Bereiten Sie ein Projekt nur einmal vor und nach. Egal,
+                    wieviele Personen mitarbeiten
+                  </li>
+                  <li>
+                    Digitalisieren Sie nie mehr nachträglich
+                    Papier-Aufzeichnungen...
+                  </li>
+                  <li>...und sparen Sie sich damit viele Fehler und Ärger</li>
+                  <li>
+                    Sie haben die Feld-Mappe verloren? Zum Glück wurden die
+                    Daten synchronisiert!
+                  </li>
+                </ul>
+              </Card>
+              <Card>
+                <CardTitle>Los geht's</CardTitle>
+                <ul>
+                  <li>Probieren Sie im Test-Projekt alles aus</li>
+                  <li>TODO: Link zum Test-Projekt</li>
+                  <li>Für eigene Projekte brauchen Sie ein Konto</li>
+                  <li>
+                    Unser Geld verdienen wir mit Gebühren auf Ihren Projekten
+                    (TODO)
+                  </li>
+                </ul>
+              </Card>
+            </CardContainer>
+            <MoreContainer>
+              <p>Über uns</p>
+              <p>Kontakt</p>
+              <p>Blog</p>
+              <MoreLink to="/Technische-Dokumentation/User-und-Projekte-verwalten/">
+                Technische Dokumentation
+              </MoreLink>
+              <p>Preise</p>
+              <p>Datenschutz</p>
+              <p>Allgemeine Geschäftsbedingungen</p>
+            </MoreContainer>
+          </Container>
+        </ScrollContainer>
       </Layout>
     )}
   />
