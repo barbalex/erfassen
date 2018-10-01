@@ -33,8 +33,11 @@ const Doku = styled.div`
     margin-bottom: 0;
   }
   h3,
-  h2,
   ol {
+    margin-bottom: 10px;
+  }
+  h2 {
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 `
@@ -44,6 +47,7 @@ const MenuTitle = styled.h3`
 `
 const DokuDate = styled.p`
   margin-bottom: 15px !important;
+  color: grey;
 `
 
 const Template = ({ data }: { data: any }) => {
