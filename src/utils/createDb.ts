@@ -1,4 +1,4 @@
-import rxdb from 'rxdb'
+import rxdb, { removeDatabase } from 'rxdb'
 
 import pouchdbAdapterHttp from 'pouchdb-adapter-http'
 import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
@@ -17,10 +17,16 @@ export default async () => {
       name: 'erfassen',
       adapter: 'idb',
       queryChangeDetection: false, // <- queryChangeDetection (optional, default: false)
+      // only needed in dev mode
+      // because db is rebuilt on every live reload
+      ignoreDuplicate: true,
     })
   } catch (error) {
     throw error
   }
+  // maybe use
+  // https://github.com/rafamel/rxdb-utils#models
+  // to make this easier
   await db.collection({
     name: 'zeit',
     schema: zeitSchema,

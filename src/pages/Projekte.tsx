@@ -22,9 +22,14 @@ const ReflexContainer = styled(OrigReflexContainer)`
   height: calc(100vh - 64px) !important;
 `
 
+interface Props {
+  db: any
+  setDb: () => void
+}
+
 const enhance = compose(withDb)
 
-const ProjektePage = ({ db }: { db: any }) => {
+const ProjektePage = ({ db }: Props) => {
   if (!db) {
     return (
       <Layout>
