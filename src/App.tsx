@@ -9,8 +9,14 @@ import createDb from './utils/createDb'
 const enhance = compose(
   withState('db', 'setDb', null),
   withLifecycle({
-    onDidMount({ setDb }: { setDb: (db: any) => void }) {
-      createDb().then((db: any) => setDb(db))
+    async onDidMount({ setDb }: { setDb: (db: any) => void }) {
+      let db
+      try {
+        db = await createDb()
+      } catch (error) {
+        throw error
+      }
+      setDb(db)
     },
   }),
 )
