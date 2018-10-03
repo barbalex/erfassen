@@ -15,27 +15,30 @@ const Container = styled.div`
   margin-top: 64px;
   min-height: calc(100vh - 64px);
 `
+const LoadingContainer = styled(Container)`
+  padding: 20px;
+`
 const ReflexContainer = styled(OrigReflexContainer)`
   height: calc(100vh - 64px) !important;
 `
 
 const enhance = compose(withDb)
 
-const ProjektePage = ({ db = {} }: { db: any }) => {
-  if (!db)
+const ProjektePage = ({ db }: { db: any }) => {
+  if (!db) {
     return (
       <Layout>
-        <Container>Lade daten...</Container>
+        <LoadingContainer>Lade daten...</LoadingContainer>
       </Layout>
     )
-  console.log('Projekte, db:', db)
-  /*
+  }
+
   const orte = db.ort
     .dump()
     .then((orte: any) => console.log('orte:', orte.docs))
   const beobs = db.beob
     .dump()
-    .then((beobs: any) => console.log('beobs:', beobs.docs))*/
+    .then((beobs: any) => console.log('beobs:', beobs.docs))
 
   return (
     <Layout>
