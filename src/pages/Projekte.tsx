@@ -6,9 +6,10 @@ import {
   ReflexElement,
 } from 'react-reflex'
 import 'react-reflex/styles.css'
-import app from 'ampersand-app'
+import compose from 'recompose/compose'
 
 import Layout from '../components/layout'
+import { withDb } from '../context/db.tsx'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -18,14 +19,23 @@ const ReflexContainer = styled(OrigReflexContainer)`
   height: calc(100vh - 64px) !important;
 `
 
-const SecondPage = () => {
-  console.log('Projekte, db:', app.db)
-  const orte = app.db.ort
+const enhance = compose(withDb)
+
+const ProjektePage = ({ db = {} }: { db: any }) => {
+  if (!db)
+    return (
+      <Layout>
+        <Container>Lade daten...</Container>
+      </Layout>
+    )
+  console.log('Projekte, db:', db)
+  /*
+  const orte = db.ort
     .dump()
     .then((orte: any) => console.log('orte:', orte.docs))
-  const beobs = app.db.beob
+  const beobs = db.beob
     .dump()
-    .then((beobs: any) => console.log('beobs:', beobs.docs))
+    .then((beobs: any) => console.log('beobs:', beobs.docs))*/
 
   return (
     <Layout>
@@ -48,7 +58,7 @@ const SecondPage = () => {
             <p>Form</p>
             <button
               onClick={async () =>
-                app.db.ort.insert({
+                db.ort.insert({
                   name: 'test-ort',
                   type: 'ort',
                 })
@@ -58,7 +68,7 @@ const SecondPage = () => {
             </button>
             <button
               onClick={async () =>
-                app.db.beob.insert({
+                db.beob.insert({
                   art: 'test-art',
                   type: 'beob',
                 })
@@ -73,4 +83,4 @@ const SecondPage = () => {
   )
 }
 
-export default SecondPage
+export default enhance(ProjektePage)
