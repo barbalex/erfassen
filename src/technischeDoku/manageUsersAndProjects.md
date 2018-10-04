@@ -2,10 +2,11 @@
 path: "/Technische-Dokumentation/User-und-Projekte-verwalten"
 date: "2018-10-01"
 title: "User und Projekte verwalten"
-sort: 1
+sort: 3
 ---
 
-This document describes how creating, editing and deleting users and projects is managed.
+This document describes how creating, editing and deleting users and projects is managed.<br/>
+It's rather cryptic and probably most useful for myself.<br/><br/>
 
 Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/recipes.md#some-people-can-read-some-docs-some-people-can-write-those-same-docs).
 
