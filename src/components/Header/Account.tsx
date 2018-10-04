@@ -50,8 +50,8 @@ const Account: React.SFC<Props> = ({ anchorEl, onCloseMenu, onClickMenu }) => (
       open={!!anchorEl}
       onClose={onCloseMenu}
     >
-      <MenuItem onClick={onCloseMenu}>Profile</MenuItem>
-      <MenuItem onClick={onCloseMenu}>My account</MenuItem>
+      <MenuItem onClick={onCloseMenu}>Anmelden</MenuItem>
+      <MenuItem onClick={onCloseMenu}>Konto erstellen</MenuItem>
     </Menu>
   </div>
 )
