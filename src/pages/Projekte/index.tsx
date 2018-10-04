@@ -8,7 +8,7 @@ import {
 import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
 
-import Layout from '../../components/layout'
+import Layout from '../../components/Layout'
 import { withDb } from '../../context/db'
 
 const Container = styled.div`

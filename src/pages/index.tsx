@@ -6,7 +6,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { Link } from 'gatsby'
 
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 
 const ScrollContainer = styled.div`
   height: calc(100vh - 64px);

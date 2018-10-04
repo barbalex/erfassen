@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import TechnDokuMenuItem from './TechnDokuMenuItem'
 
 const Container = styled.div`
