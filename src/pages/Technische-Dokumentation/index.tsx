@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 
-import Layout from '../components/Layout'
-import TechnDokuMenuItem from '../pages/Technische-Dokumentation/MenuItem'
+import Layout from '../../components/Layout'
+import TechnDokuMenuItem from './MenuItem'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -60,8 +60,7 @@ const DokuDate = styled.p`
 `
 
 const Template = ({ data }: { data: any }) => {
-  const { markdownRemark, allMarkdownRemark } = data // data.markdownRemark holds our post data
-  const { frontmatter, html } = markdownRemark
+  const { allMarkdownRemark } = data
   const { edges: posts } = allMarkdownRemark
 
   return (
@@ -81,12 +80,9 @@ const Template = ({ data }: { data: any }) => {
           </List>
         </Menu>
         <Doku>
-          <h1>{frontmatter.title}</h1>
-          <DokuDate>{frontmatter.date}</DokuDate>
-          <div
-            className="blog-post-content"
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
+          <p>
+            Hier finden Sie Informationen darüber, wie erfassen.ch funktioniert
+          </p>
         </Doku>
       </Container>
     </Layout>
@@ -94,15 +90,7 @@ const Template = ({ data }: { data: any }) => {
 }
 
 export const pageQuery = graphql`
-  query($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
-      html
-      frontmatter {
-        date(formatString: "DD.MM.YYYY")
-        path
-        title
-      }
-    }
+  query {
     allMarkdownRemark(sort: { order: ASC, fields: [frontmatter___sort] }) {
       edges {
         node {

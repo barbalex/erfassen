@@ -178,11 +178,11 @@ const IndexPage: React.SFC<{}> = () => (
                     Sie brauchen hierarchische Daten-Strukturen? Kein Problem!
                   </li>
                   <li>
-                    Hier (TODO) finden Sie Vorschläge für typische Szenarien
-                  </li>
-                  <li>
                     Bestimmen Sie Feld-Typen, Standard-Werte, Muss-Felder,
                     Auswahllisten
+                  </li>
+                  <li>
+                    Hier (TODO) finden Sie Vorschläge für typische Szenarien
                   </li>
                 </ul>
               </Card>

@@ -33,7 +33,6 @@ const TechnDokuMenuItem = ({
 }) => (
   <Location>
     {({ location }) => {
-      const { pathname } = location
       const active = (
         `${post.frontmatter.path}/` === location.pathname
       ).toString()
