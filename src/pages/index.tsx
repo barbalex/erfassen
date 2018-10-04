@@ -175,11 +175,11 @@ const IndexPage: React.SFC<{}> = () => (
                     flexibel
                   </li>
                   <li>
-                    Sie brauchen hierarchische Daten-Strukturen? Kein Problem!
-                  </li>
-                  <li>
                     Bestimmen Sie Feld-Typen, Standard-Werte, Muss-Felder,
                     Auswahllisten
+                  </li>
+                  <li>
+                    Sie brauchen hierarchische Daten-Strukturen? Kein Problem!
                   </li>
                   <li>
                     Hier (TODO) finden Sie Vorschläge für typische Szenarien
@@ -205,7 +205,7 @@ const IndexPage: React.SFC<{}> = () => (
                   <li>Ergänzen Sie neue Mitarbeiter rasch und einfach</li>
                   <li>
                     Besteht eine Internet-Verbindung, sehen alle Mitarbeiter
-                    sofort alle Daten-Änderungen
+                    live alle Daten-Änderungen
                   </li>
                 </ul>
               </Card>
@@ -256,8 +256,8 @@ const IndexPage: React.SFC<{}> = () => (
                   <li>TODO: Link zum Test-Projekt</li>
                   <li>Für eigene Projekte brauchen Sie ein Konto</li>
                   <li>
-                    Unser Geld verdienen wir mit Gebühren auf Ihren Projekten
-                    (TODO)
+                    Mit Ihren Projekten verdienen wir unser Geld (TODO:
+                    Preisliste)
                   </li>
                 </ul>
               </Card>
