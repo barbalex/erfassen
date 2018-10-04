@@ -37,6 +37,11 @@ const enhance = compose(
   withState('nameErrorText', 'setNameErrorText', ''),
   withState('passwordErrorText', 'setPasswordErrorText', ''),
   withHandlers({
+    close: ({
+      setSigninOpen,
+    }: {
+      setSigninOpen: (signinOpen: boolean) => void
+    }) => () => setSigninOpen(false),
     fetchLogin: () => async () => {
       // TODO
     },
@@ -65,6 +70,8 @@ const Signin = ({
   fetchLogin,
   user,
   open,
+  setSigninOpen,
+  close,
 }: {
   name: string
   showPass: Boolean
@@ -81,6 +88,8 @@ const Signin = ({
   fetchLogin: () => void
   user: Object
   open: boolean
+  setSigninOpen: (signinOpen: boolean) => void
+  close: () => void
 }) => (
   <ErrorBoundary>
     <StyledDialog aria-labelledby="dialog-title" open={open}>
@@ -142,6 +151,7 @@ const Signin = ({
         </FormControl>
       </StyledDiv>
       <DialogActions>
+        <Button onClick={close}>abbrechen</Button>
         <Button color="primary" onClick={fetchLogin}>
           anmelden
         </Button>

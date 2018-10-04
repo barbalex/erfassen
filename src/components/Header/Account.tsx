@@ -17,6 +17,7 @@ interface Props {
   onClickMenu: (event: Event) => void
   onCloseMenu: (event: Event) => void
   signinOpen: boolean
+  setSigninOpen: (signinOpen: boolean) => void
   onClickSignin: (signinOpen: boolean) => void
 }
 
@@ -48,6 +49,7 @@ const Account: React.SFC<Props> = ({
   onClickMenu,
   signinOpen,
   onClickSignin,
+  setSigninOpen,
 }) => (
   <div>
     <IconButton
@@ -76,7 +78,7 @@ const Account: React.SFC<Props> = ({
       <MenuItem onClick={onCloseMenu}>Anmelden</MenuItem>
       <MenuItem onClick={onClickSignin}>Konto erstellen</MenuItem>
     </Menu>
-    <Signin open={signinOpen} />
+    <Signin open={signinOpen} setSigninOpen={setSigninOpen} />
   </div>
 )
 
