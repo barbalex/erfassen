@@ -80,9 +80,7 @@ const Template = ({ data }: { data: any }) => {
           </List>
         </Menu>
         <Doku>
-          <p>
-            Hier finden Sie Informationen darüber, wie erfassen.ch funktioniert
-          </p>
+          <p>Hier informieren wir, wie erfassen.ch funktioniert</p>
         </Doku>
       </Container>
     </Layout>
