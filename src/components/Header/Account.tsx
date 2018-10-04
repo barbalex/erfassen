@@ -9,23 +9,46 @@ import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
 
+import Signin from './Signin'
+
 interface Props {
   anchorEl: EventTarget | null
   setAnchorEl: (anchorEl: EventTarget | null) => void
   onClickMenu: (event: Event) => void
   onCloseMenu: (event: Event) => void
+  signinOpen: boolean
+  onClickSignin: (signinOpen: boolean) => void
 }
 
 const enhance = compose(
   withState('anchorEl', 'setAnchorEl', null),
+  withState('signinOpen', 'setSigninOpen', false),
   withHandlers<any, any>({
     onClickMenu: ({ setAnchorEl }: Props) => (event: Event) =>
       setAnchorEl(event.currentTarget),
     onCloseMenu: ({ setAnchorEl }: Props) => () => setAnchorEl(null),
+    onClickSignin: ({
+      setSigninOpen,
+      signinOpen,
+      setAnchorEl,
+    }: {
+      signinOpen: boolean
+      setSigninOpen: (signinOpen: boolean) => void
+      setAnchorEl: (anchorEl: EventTarget | null) => void
+    }) => () => {
+      setAnchorEl(null)
+      setSigninOpen(!signinOpen)
+    },
   }),
 )
 
-const Account: React.SFC<Props> = ({ anchorEl, onCloseMenu, onClickMenu }) => (
+const Account: React.SFC<Props> = ({
+  anchorEl,
+  onCloseMenu,
+  onClickMenu,
+  signinOpen,
+  onClickSignin,
+}) => (
   <div>
     <IconButton
       aria-haspopup="true"
@@ -51,8 +74,9 @@ const Account: React.SFC<Props> = ({ anchorEl, onCloseMenu, onClickMenu }) => (
       onClose={onCloseMenu}
     >
       <MenuItem onClick={onCloseMenu}>Anmelden</MenuItem>
-      <MenuItem onClick={onCloseMenu}>Konto erstellen</MenuItem>
+      <MenuItem onClick={onClickSignin}>Konto erstellen</MenuItem>
     </Menu>
+    <Signin open={signinOpen} />
   </div>
 )
 
