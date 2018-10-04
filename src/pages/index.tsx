@@ -140,7 +140,7 @@ const query = graphql`
   }
 `
 
-const IndexPage = () => (
+const IndexPage: React.StatelessComponent<{}> = () => (
   <StaticQuery
     query={query}
     render={data => (
