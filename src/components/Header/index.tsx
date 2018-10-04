@@ -11,6 +11,8 @@ import { Location } from '@reach/router'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 
+import Account from './Account'
+
 const SiteTitle = styled(Typography)`
   display: none;
   cursor: pointer;
@@ -73,15 +75,7 @@ const Header: React.SFC<Props> = ({ onClickSiteTitle }) => (
             >
               Projekte
             </NavButton>
-            <IconButton
-              aria-haspopup="true"
-              aria-label="Konto"
-              onClick={() => console.log('TODO')}
-              color="inherit"
-              title="Konto"
-            >
-              <UserIcon />
-            </IconButton>
+            <Account />
           </Toolbar>
         </AppBar>
       )
