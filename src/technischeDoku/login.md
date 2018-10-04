@@ -9,7 +9,7 @@ This document describes what happens on login app-side.<br/><br/>
 
 Based on [PouchDB's plugin](https://github.com/pouchdb-community/pouchdb-authentication).<br/><br/>
 
-1. if cookie is still valid, need not log in<br/>
+1. as long as cookie is valid, need not log in<br/>
    else: [pouchdb.logIn](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbloginusername-password--options--callback)
 2. create userDoc collection
 3. sync userDoc collection
