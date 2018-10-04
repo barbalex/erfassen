@@ -31,12 +31,12 @@ const StyledInput = styled(Input)`
 `
 
 const enhance = compose(
-  withState('name', 'setName', ''),
+  withState('email', 'setEmail', ''),
   withState('password', 'setPassword', ''),
   withState('showPass', 'setShowPass', false),
-  withState('nameErrorText', 'setNameErrorText', ''),
+  withState('emailErrorText', 'setEmailErrorText', ''),
   withState('passwordErrorText', 'setPasswordErrorText', ''),
-  withHandlers({
+  withHandlers<any, any>({
     close: ({
       setSigninOpen,
     }: {
@@ -45,9 +45,18 @@ const enhance = compose(
     fetchLogin: () => async () => {
       // TODO
     },
+    onToggleShowPass: ({
+      showPass,
+      setShowPass,
+    }: {
+      showPass: boolean
+      setShowPass: (showPass: boolean) => void
+    }) => () => {
+      setShowPass(!showPass)
+    },
   }),
   withHandlers({
-    onBlurName: () => () => {
+    onBlurEmail: () => () => {
       // TODO
     },
     onBlurPassword: () => () => {
@@ -57,62 +66,64 @@ const enhance = compose(
 )
 
 const Signin = ({
-  name,
+  email,
   password,
   showPass,
   setShowPass,
-  nameErrorText,
+  emailErrorText,
   passwordErrorText,
-  setNameErrorText,
+  setEmailErrorText,
   setPasswordErrorText,
-  onBlurName,
+  onBlurEmail,
   onBlurPassword,
   fetchLogin,
   user,
   open,
   setSigninOpen,
   close,
+  onToggleShowPass,
 }: {
-  name: string
-  showPass: Boolean
-  setName: () => void
+  email: string
+  showPass: boolean
+  setEmail: () => void
   password: string
-  setShowPass: () => void
+  setShowPass: (showPass: boolean) => void
   setPassword: () => void
-  nameErrorText: string
-  setNameErrorText: () => void
+  emailErrorText: string
+  setEmailErrorText: () => void
   passwordErrorText: string
   setPasswordErrorText: () => void
-  onBlurName: () => void
+  onBlurEmail: () => void
   onBlurPassword: () => void
   fetchLogin: () => void
   user: Object
   open: boolean
   setSigninOpen: (signinOpen: boolean) => void
   close: () => void
+  onToggleShowPass: () => void
 }) => (
   <ErrorBoundary>
     <StyledDialog aria-labelledby="dialog-title" open={open}>
       <DialogTitle id="dialog-title">Anmeldung</DialogTitle>
       <StyledDiv>
         <FormControl
-          error={!!nameErrorText}
+          error={!!emailErrorText}
           fullWidth
-          aria-describedby="nameHelper"
+          aria-describedby="emailHelper"
         >
-          <InputLabel htmlFor="name">Name</InputLabel>
+          <InputLabel htmlFor="email">Email</InputLabel>
           <StyledInput
-            id="name"
-            defaultValue={name}
-            onBlur={onBlurName}
+            id="email"
+            defaultValue={email}
+            onBlur={onBlurEmail}
             autoFocus
             onKeyPress={e => {
               if (e.key === 'Enter') {
-                onBlurName()
+                onBlurEmail()
               }
             }}
           />
-          <FormHelperText id="nameHelper">{nameErrorText}</FormHelperText>
+          <FormHelperText id="emailHelper">{emailErrorText}</FormHelperText>
         </FormControl>
         <FormControl
           error={!!passwordErrorText}
@@ -136,7 +147,7 @@ const Signin = ({
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  onClick={() => setShowPass(!showPass)}
+                  onClick={onToggleShowPass}
                   onMouseDown={e => e.preventDefault()}
                   title={showPass ? 'verstecken' : 'anzeigen'}
                 >
