@@ -266,7 +266,7 @@ const IndexPage: React.SFC<{}> = () => (
               <p>Über uns</p>
               <p>Kontakt</p>
               <p>Blog</p>
-              <MoreLink to="/Technische-Dokumentation/User-und-Projekte-verwalten/">
+              <MoreLink to="/Technische-Dokumentation/">
                 Technische Dokumentation
               </MoreLink>
               <p>Preise</p>
