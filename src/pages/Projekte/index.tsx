@@ -9,7 +9,7 @@ import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
 
 import Layout from '../../components/layout'
-import { withDb } from '../../context/db.tsx'
+import { withDb } from '../../context/db'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -29,7 +29,7 @@ interface Props {
 
 const enhance = compose(withDb)
 
-const ProjektePage = ({ db }: Props) => {
+const ProjektePage: React.StatelessComponent<Props> = ({ db }) => {
   if (!db) {
     return (
       <Layout>
