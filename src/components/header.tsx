@@ -35,7 +35,11 @@ const enhance = compose(
   withHandlers({ onClickSiteTitle: () => () => navigate('/') }),
 )
 
-const Header = ({ onClickSiteTitle }: { onClickSiteTitle: () => void }) => (
+interface Props {
+  onClickSiteTitle: () => void
+}
+
+const Header: React.SFC<Props> = ({ onClickSiteTitle }) => (
   <Location>
     {({ location }) => {
       const { pathname } = location

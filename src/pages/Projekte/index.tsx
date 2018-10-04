@@ -29,7 +29,7 @@ interface Props {
 
 const enhance = compose(withDb)
 
-const ProjektePage: React.StatelessComponent<Props> = ({ db }) => {
+const ProjektePage: React.SFC<Props> = ({ db }) => {
   if (!db) {
     return (
       <Layout>

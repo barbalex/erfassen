@@ -78,10 +78,6 @@ const theme = createMuiTheme({
   },
 })
 
-interface Props {
-  children: JSX.Element[] | JSX.Element
-}
-
 const query = graphql`
   query SiteTitleQuery {
     site {
@@ -92,7 +88,7 @@ const query = graphql`
   }
 `
 
-const Layout = ({ children }: Props) => (
+const Layout: React.SFC<{}> = ({ children }) => (
   <StaticQuery
     query={query}
     render={data => (
