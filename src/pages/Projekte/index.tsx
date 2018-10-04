@@ -8,8 +8,8 @@ import {
 import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
 
-import Layout from '../components/layout'
-import { withDb } from '../context/db.tsx'
+import Layout from '../../components/layout'
+import { withDb } from '../../context/db.tsx'
 
 const Container = styled.div`
   margin-top: 64px;
