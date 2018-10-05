@@ -91,14 +91,14 @@ const MoreContainer = styled.div`
   }
   p {
     padding-left: 30px;
-    font-weight: 500;
+    font-weight: 700;
     text-shadow: 2px 2px 3px white, -2px -2px 3px white, 2px -2px 3px white,
       -2px 2px 3px white;
     margin: 0;
   }
   a {
     padding-left: 30px;
-    font-weight: 500;
+    font-weight: 700;
     color: rgba(0, 0, 0, 0.8);
     text-shadow: 2px 2px 3px white, -2px -2px 3px white, 2px -2px 3px white,
       -2px 2px 3px white;
@@ -110,7 +110,7 @@ const MoreContainer = styled.div`
 `
 const Card = styled(MaterialCard)`
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.7) !important;
+  background-color: rgba(255, 255, 255, 0.75) !important;
   ul {
     margin-bottom: 0;
   }
