@@ -5,7 +5,7 @@ import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 
 import Layout from '../components/Layout'
-import TechnDokuMenuItem from './MenuItem'
+import MenuItem from './MenuItem'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -59,7 +59,7 @@ const DokuDate = styled.p`
   color: grey;
 `
 
-const Template = ({ data }: { data: any }) => {
+const TechnDokuTemplate = ({ data }: { data: any }) => {
   const { markdownRemark, allMarkdownRemark } = data
   const { frontmatter, html } = markdownRemark
   const { edges } = allMarkdownRemark
@@ -75,9 +75,11 @@ const Template = ({ data }: { data: any }) => {
           </MenuTitle>
           <List component="nav">
             <Divider />
-            {edges.map(({ node }: { node: any }) => (
-              <TechnDokuMenuItem post={node} key={node.id} />
-            ))}
+            {edges
+              .filter((n: any) => !!n && !!n.node)
+              .map(({ node }: { node: any }) => (
+                <MenuItem post={node} key={node.id} />
+              ))}
           </List>
         </Menu>
         <Doku>
@@ -121,4 +123,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Template
+export default TechnDokuTemplate

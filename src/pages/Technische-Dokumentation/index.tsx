@@ -74,9 +74,11 @@ const Template = ({ data }: { data: any }) => {
           </MenuTitle>
           <List component="nav">
             <Divider />
-            {edges.map(({ node }: { node: any }) => (
-              <TechnDokuMenuItem post={node} key={node.id} />
-            ))}
+            {edges
+              .filter((n: any) => !!n && !!n.node)
+              .map(({ node }: { node: any }) => (
+                <TechnDokuMenuItem post={node} key={node.id} />
+              ))}
           </List>
         </Menu>
         <Doku>

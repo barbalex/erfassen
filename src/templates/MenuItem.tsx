@@ -7,6 +7,7 @@ import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import { Location } from '@reach/router'
 import styled from 'styled-components'
+import get from 'lodash/get'
 
 interface ListItemProps {
   active: string
@@ -41,7 +42,7 @@ const TechnDokuMenuItem = ({
         <>
           <ListItem button onClick={onClickMenuItem} active={active}>
             <ListItemText onClick={onClickMenuItem}>
-              {post.frontmatter.title}
+              {get(post, 'frontmatter.title', '(Titel fehlt)')}
             </ListItemText>
           </ListItem>
           <Divider />

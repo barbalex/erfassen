@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
+import get from 'lodash/get'
 
 interface ListItemProps {
   active: string
@@ -28,7 +29,7 @@ const TechnDokuMenuItem = ({
   <>
     <MListItem button onClick={onClickMenuItem}>
       <ListItemText onClick={onClickMenuItem}>
-        {post.frontmatter.title}
+        {get(post, 'frontmatter.title', '(Titel fehlt)')}
       </ListItemText>
     </MListItem>
     <Divider />

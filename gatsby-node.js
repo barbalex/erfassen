@@ -37,24 +37,23 @@ exports.createPages = ({ actions, graphql }) => {
     }
 
     const { edges } = result.data.allMarkdownRemark
-    const benutzerDoku = edges.filter(
-      e => e.node.frontmatter.typ === 'benutzerDoku',
-    )
-    const technDoku = edges.filter(e => e.node.frontmatter.typ === 'technDoku')
-
-    technDoku.forEach(({ node }) => {
-      createPage({
-        path: node.frontmatter.path,
-        component: technDokuTemplate,
-        context: {}, // additional data can be passed via context
-      })
-    })
-    benutzerDoku.forEach(({ node }) => {
-      createPage({
-        path: node.frontmatter.path,
-        component: benutzerDokuTemplate,
-        context: {},
-      })
+    edges.forEach(({ node }) => {
+      if (node.frontmatter.typ === 'technDoku') {
+        return createPage({
+          path: node.frontmatter.path,
+          component: technDokuTemplate,
+        })
+      } else if (node.frontmatter.typ === 'benutzerDoku') {
+        createPage({
+          path: node.frontmatter.path,
+          component: benutzerDokuTemplate,
+        })
+      } else {
+        console.log(
+          'gatsby-node, node: NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!',
+          node,
+        )
+      }
     })
   })
 }
