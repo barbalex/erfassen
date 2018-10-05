@@ -63,6 +63,7 @@ const Template = ({ data }: { data: any }) => {
   const { markdownRemark, allMarkdownRemark } = data // data.markdownRemark holds our post data
   const { frontmatter, html } = markdownRemark
   const { edges } = allMarkdownRemark
+  console.log({ edges })
 
   return (
     <Layout>
@@ -108,9 +109,9 @@ export const pageQuery = graphql`
         node {
           id
           frontmatter {
-            title
             date(formatString: "DD.MM.YYYY")
             path
+            title
           }
         }
       }
