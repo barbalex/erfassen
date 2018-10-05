@@ -36,7 +36,6 @@ const TechnDokuMenuItem = ({
       const active = (
         `${post.frontmatter.path}/` === location.pathname
       ).toString()
-      console.log('templates folder')
 
       return (
         <>
