@@ -277,8 +277,8 @@ const IndexPage: React.SFC<{}> = () => (
                   <li>TODO: Link zum Test-Projekt</li>
                   <li>Für eigene Projekte brauchen Sie ein Konto</li>
                   <li>
-                    Mit Ihren Projekten verdienen wir unser Geld (TODO:
-                    Preisliste)
+                    Mit Ihren Projekten verdienen wir unser Geld (
+                    <Link to="/Benutzer-Dokumentation/Preise/">Preise</Link>)
                   </li>
                 </ul>
               </Card>
