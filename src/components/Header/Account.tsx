@@ -25,9 +25,16 @@ const enhance = compose(
   withState('anchorEl', 'setAnchorEl', null),
   withState('signinOpen', 'setSigninOpen', false),
   withHandlers<any, any>({
-    onClickMenu: ({ setAnchorEl }: Props) => (event: Event) =>
-      setAnchorEl(event.currentTarget),
-    onCloseMenu: ({ setAnchorEl }: Props) => () => setAnchorEl(null),
+    onClickMenu: ({
+      setAnchorEl,
+    }: {
+      setAnchorEl: (anchorEl: EventTarget | null) => void
+    }) => (event: Event) => setAnchorEl(event.currentTarget),
+    onCloseMenu: ({
+      setAnchorEl,
+    }: {
+      setAnchorEl: (anchorEl: EventTarget | null) => void
+    }) => () => setAnchorEl(null),
     onClickSignin: ({
       setSigninOpen,
       signinOpen,
