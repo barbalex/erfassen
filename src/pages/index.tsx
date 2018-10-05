@@ -284,10 +284,17 @@ const IndexPage: React.SFC<{}> = () => (
               </Card>
             </CardContainer>
             <MoreContainer>
-              <a href="https://gabriel-software.ch" target="_blank">
+              <a
+                href="https://gabriel-software.ch"
+                target="_blank"
+                rel="noopener"
+              >
                 Über uns
               </a>
-              <a href="mailto:alex@gabriel-software.ch?subject=erfassen.ch">
+              <a
+                href="mailto:alex@gabriel-software.ch?subject=erfassen.ch"
+                rel="noopener"
+              >
                 Kontakt
               </a>
               <p>Blog (TODO)</p>
