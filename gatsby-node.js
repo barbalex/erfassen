@@ -14,7 +14,7 @@ exports.createPages = ({ actions, graphql }) => {
 
   return graphql(`
     {
-      allMarkdownRemark(
+      technDoku: allMarkdownRemark(
         sort: { order: ASC, fields: [frontmatter___sort] }
         limit: 1000
       ) {
@@ -32,7 +32,7 @@ exports.createPages = ({ actions, graphql }) => {
       return Promise.reject(result.errors)
     }
 
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    result.data.technDoku.edges.forEach(({ node }) => {
       createPage({
         path: node.frontmatter.path,
         component: technDokuTemplate,

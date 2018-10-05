@@ -18,6 +18,13 @@ module.exports = {
         name: 'technischeDoku-pages',
       },
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/benutzerDoku`,
+        name: 'benutzerDoku-pages',
+      },
+    },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {

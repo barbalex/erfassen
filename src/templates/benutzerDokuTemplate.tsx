@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 
-import Layout from '../../components/Layout'
+import Layout from '../components/Layout'
 import TechnDokuMenuItem from './MenuItem'
 
 const Container = styled.div`
@@ -60,7 +60,8 @@ const DokuDate = styled.p`
 `
 
 const Template = ({ data }: { data: any }) => {
-  const { allMarkdownRemark } = data
+  const { markdownRemark, allMarkdownRemark } = data
+  const { frontmatter, html } = markdownRemark
   const { edges } = allMarkdownRemark
 
   return (
@@ -68,8 +69,8 @@ const Template = ({ data }: { data: any }) => {
       <Container>
         <Menu>
           <MenuTitle>
-            <MenuTitleLink to="/Technische-Dokumentation/">
-              Technische Dokumentation
+            <MenuTitleLink to="/Benutzer-Dokumentation/">
+              Benutzer-Dokumentation
             </MenuTitleLink>
           </MenuTitle>
           <List component="nav">
@@ -80,7 +81,12 @@ const Template = ({ data }: { data: any }) => {
           </List>
         </Menu>
         <Doku>
-          <p>Hier informieren wir, wie erfassen.ch funktioniert</p>
+          <h1>{frontmatter.title}</h1>
+          <DokuDate>{frontmatter.date}</DokuDate>
+          <div
+            className="blog-post-content"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
         </Doku>
       </Container>
     </Layout>
@@ -88,18 +94,26 @@ const Template = ({ data }: { data: any }) => {
 }
 
 export const pageQuery = graphql`
-  query {
+  query($path: String!) {
+    markdownRemark(frontmatter: { path: { eq: $path } }) {
+      html
+      frontmatter {
+        date(formatString: "DD.MM.YYYY")
+        path
+        title
+      }
+    }
     allMarkdownRemark(
       sort: { order: ASC, fields: [frontmatter___sort] },
-      filter: {fileAbsolutePath: {regex: "/(\/technischeDoku)/.*\\.md$/"}}
+      filter: {fileAbsolutePath: {regex: "/(\/benutzerDoku)/.*\\.md$/"}}
     ) {
       edges {
         node {
           id
           frontmatter {
-            title
             date(formatString: "DD.MM.YYYY")
             path
+            title
           }
         }
       }

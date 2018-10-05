@@ -68,8 +68,8 @@ const Template = ({ data }: { data: any }) => {
       <Container>
         <Menu>
           <MenuTitle>
-            <MenuTitleLink to="/Technische-Dokumentation/">
-              Technische Dokumentation
+            <MenuTitleLink to="/Benutzer-Dokumentation/">
+              Benutzer-Dokumentation
             </MenuTitleLink>
           </MenuTitle>
           <List component="nav">
@@ -80,7 +80,7 @@ const Template = ({ data }: { data: any }) => {
           </List>
         </Menu>
         <Doku>
-          <p>Hier informieren wir, wie erfassen.ch funktioniert</p>
+          <p>(hoffentlich) nützliche Infos für Sie</p>
         </Doku>
       </Container>
     </Layout>
@@ -91,7 +91,7 @@ export const pageQuery = graphql`
   query {
     allMarkdownRemark(
       sort: { order: ASC, fields: [frontmatter___sort] },
-      filter: {fileAbsolutePath: {regex: "/(\/technischeDoku)/.*\\.md$/"}}
+      filter: {fileAbsolutePath: {regex: "/(\/benutzerDoku)/.*\\.md$/"}}
     ) {
       edges {
         node {

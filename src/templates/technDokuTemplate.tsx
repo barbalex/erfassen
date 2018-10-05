@@ -103,7 +103,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { order: ASC, fields: [frontmatter___sort] }) {
+    allMarkdownRemark(
+      sort: { order: ASC, fields: [frontmatter___sort] },
+      filter: {fileAbsolutePath: {regex: "/(\/technischeDoku)/.*\\.md$/"}}
+    ) {
       edges {
         node {
           id
