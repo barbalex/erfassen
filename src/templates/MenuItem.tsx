@@ -36,19 +36,12 @@ const TechnDokuMenuItem = ({
       const active = (
         `${post.frontmatter.path}/` === location.pathname
       ).toString()
+      console.log('templates folder')
 
       return (
         <>
-          <ListItem
-            button
-            data-path={post.frontmatter.path}
-            onClick={onClickMenuItem}
-            active={active}
-          >
-            <ListItemText
-              data-path={post.frontmatter.path}
-              onClick={onClickMenuItem}
-            >
+          <ListItem button onClick={onClickMenuItem} active={active}>
+            <ListItemText onClick={onClickMenuItem}>
               {post.frontmatter.title}
             </ListItemText>
           </ListItem>

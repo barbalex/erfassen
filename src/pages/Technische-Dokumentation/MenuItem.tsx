@@ -6,6 +6,10 @@ import Divider from '@material-ui/core/Divider'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 
+interface ListItemProps {
+  active: string
+}
+
 const enhance = compose(
   withHandlers({
     onClickMenuItem: ({ post }: { post: any }) => () => {
