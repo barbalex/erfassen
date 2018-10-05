@@ -63,6 +63,13 @@ const CardContainer = styled.div`
     grid-column-gap: 30px;
     grid-row-gap: 30px;
   }
+  p {
+    margin-bottom: 10px !important;
+  }
+  p:last-of-type {
+    margin-bottom: 5px !important;
+    margin-top: 10px !important;
+  }
 `
 const MoreContainer = styled.div`
   margin-top: 80px;
@@ -241,6 +248,19 @@ const IndexPage: React.SFC<{}> = () => (
                     importiert wurden
                   </li>
                 </ul>
+              </Card>
+              <Card>
+                <CardTitle>Wozu Sie wollen</CardTitle>
+                <p>Beispiele aus dem Naturschutz (wo ich herkomme):</p>
+                <ul>
+                  <li>Natur- und Landschafts-Inventare</li>
+                  <li>Kartierung von Lebensräumen</li>
+                  <li>
+                    Daten für Bewirtschaftungs-Verträge, Vernetzungs-Projekte,
+                    Landschafts-Qualitäts-Projekte
+                  </li>
+                </ul>
+                <p>Was wären Beispiele aus Ihrem Bereich?</p>
               </Card>
               <Card>
                 <CardTitle>Effizient</CardTitle>
