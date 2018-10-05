@@ -280,7 +280,7 @@ const IndexPage: React.SFC<{}> = () => (
               <a href="mailto:alex@gabriel-software.ch?subject=erfassen.ch">
                 Kontakt
               </a>
-              <p>Blog</p>
+              <p>Blog (TODO)</p>
               <MoreLink to="/Benutzer-Dokumentation/">
                 Benutzer-Dokumentation
               </MoreLink>
@@ -288,8 +288,8 @@ const IndexPage: React.SFC<{}> = () => (
                 Technische Dokumentation
               </MoreLink>
               <MoreLink to="/Benutzer-Dokumentation/Preise/">Preise</MoreLink>
-              <p>Datenschutz</p>
-              <p>Allgemeine Geschäftsbedingungen</p>
+              <p>Datenschutz (TODO)</p>
+              <p>Allgemeine Geschäftsbedingungen (TODO)</p>
             </MoreContainer>
           </Container>
         </ScrollContainer>
