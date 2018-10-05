@@ -61,7 +61,7 @@ const DokuDate = styled.p`
 
 const Template = ({ data }: { data: any }) => {
   const { allMarkdownRemark } = data
-  const { edges: posts } = allMarkdownRemark
+  const { edges } = allMarkdownRemark
 
   return (
     <Layout>
@@ -74,8 +74,8 @@ const Template = ({ data }: { data: any }) => {
           </MenuTitle>
           <List component="nav">
             <Divider />
-            {posts.map(({ node: post }: { node: any }, index: number) => (
-              <TechnDokuMenuItem post={post} key={post.id} />
+            {edges.map(({ node }: { node: any }) => (
+              <TechnDokuMenuItem post={node} key={node.id} />
             ))}
           </List>
         </Menu>
@@ -92,7 +92,6 @@ export const pageQuery = graphql`
     allMarkdownRemark(sort: { order: ASC, fields: [frontmatter___sort] }) {
       edges {
         node {
-          excerpt(pruneLength: 250)
           id
           frontmatter {
             title
