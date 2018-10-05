@@ -39,11 +39,11 @@ const ProjektePage: React.SFC<Props> = ({ db }) => {
   }
 
   const orte = db.ort
-    .dump()
-    .then((orte: any) => console.log('orte:', orte.docs))
+    ? db.ort.dump().then((orte: any) => console.log('orte:', orte.docs))
+    : []
   const beobs = db.beob
-    .dump()
-    .then((beobs: any) => console.log('beobs:', beobs.docs))
+    ? db.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
+    : []
 
   return (
     <Layout>

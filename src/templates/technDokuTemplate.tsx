@@ -5,7 +5,7 @@ import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 
 import Layout from '../components/Layout'
-import TechnDokuMenuItem from '../pages/Technische-Dokumentation/MenuItem'
+import TechnDokuMenuItem from './MenuItem'
 
 const Container = styled.div`
   margin-top: 64px;
