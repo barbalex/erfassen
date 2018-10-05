@@ -89,6 +89,17 @@ const MoreContainer = styled.div`
       -2px 2px 3px white;
     margin: 0;
   }
+  a {
+    padding-left: 30px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.8);
+    text-shadow: 2px 2px 3px white, -2px -2px 3px white, 2px -2px 3px white,
+      -2px 2px 3px white;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `
 const Card = styled(MaterialCard)`
   padding: 30px;
@@ -263,8 +274,12 @@ const IndexPage: React.SFC<{}> = () => (
               </Card>
             </CardContainer>
             <MoreContainer>
-              <p>Über uns</p>
-              <p>Kontakt</p>
+              <a href="https://gabriel-software.ch" target="_blank">
+                Über uns
+              </a>
+              <a href="mailto:alex@gabriel-software.ch?subject=erfassen.ch">
+                Kontakt
+              </a>
               <p>Blog</p>
               <MoreLink to="/Benutzer-Dokumentation/">
                 Benutzer-Dokumentation
@@ -272,7 +287,7 @@ const IndexPage: React.SFC<{}> = () => (
               <MoreLink to="/Technische-Dokumentation/">
                 Technische Dokumentation
               </MoreLink>
-              <p>Preise</p>
+              <MoreLink to="/Benutzer-Dokumentation/Preise/">Preise</MoreLink>
               <p>Datenschutz</p>
               <p>Allgemeine Geschäftsbedingungen</p>
             </MoreContainer>
