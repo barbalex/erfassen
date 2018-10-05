@@ -7,10 +7,10 @@ sort: 1
 ---
 
 Sie brauchen eine aktuelle Version eines modernen **Browsers**.<br/>
-Zum Beispiel (aber nicht ausschliesslich):
-- Google Chrome
+Zum Beispiel (aber nicht abschliessend):
+- Chrome
 - Firefox
-- Microsoft Edge
+- Edge
 - Opera
 
 Etwas weniger gut geeignet ist Safari. Sollte aber funktionieren.<br/><br/>
