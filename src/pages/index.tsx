@@ -240,16 +240,6 @@ const IndexPage: React.SFC<{}> = () => (
                 </ul>
               </Card>
               <Card>
-                <CardTitle>Wann Sie wollen</CardTitle>
-                <ul>
-                  <li>Daten werden laufend synchronisiert</li>
-                  <li>
-                    Sie müssen nie warten, bis Daten anderer Mitarbeiter manuell
-                    importiert wurden
-                  </li>
-                </ul>
-              </Card>
-              <Card>
                 <CardTitle>Wozu Sie wollen</CardTitle>
                 <p>Beispiele aus dem Naturschutz (wo ich herkomme):</p>
                 <ul>
