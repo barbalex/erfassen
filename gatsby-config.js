@@ -76,6 +76,26 @@ module.exports = {
               offsetY: '64',
             },
           },
+          {
+            resolve: 'gatsby-remark-emojis',
+            options: {
+              // Deactivate the plugin globally (default: true)
+              active: true,
+              // Add a custom css class
+              class: 'emoji-icon',
+              // Select the size (available size: 16, 24, 32, 64)
+              size: 32,
+              // Add custom styles
+              styles: {
+                display: 'inline',
+                margin: '0',
+                'margin-top': '-3px',
+                position: 'relative',
+                top: '3px',
+                width: '20px',
+              },
+            },
+          },
         ],
       },
     },
