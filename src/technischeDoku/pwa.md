@@ -23,7 +23,7 @@ Was ist der Vorteil gegenüber einer "normalen" App?
 Je nach Betriebssystem und Browser werden Sie irgendwann gefragt, ob Sie erfassen.ch auf dem Desktop ablegen möchten (oder Sie können es selber veranlassen).<br/>
 Danach öffnet sich erfassen.ch ohne die URL-Zeile und andere Teile des Browsers. Und ist fortan auch optisch kaum mehr von einer "normalen" App unterscheidbar.<br/><br/>
 
-Ist Ihnen aufgefallen, dass Apple weiter oben nicht zusammen mit Google und Microsoft erwähnt wurde?<br/>
+Ist Ihnen aufgefallen, dass Apple oben nicht zusammen mit Google und Microsoft erwähnt wurde?<br/>
 Apple verdient sein Geld mit dem App-Store. Würden Sie erfassen.ch über den App-Store beziehen, gingen 30% dessen, was Sie uns zahlen, stattdessen an Apple.<br/>
-Apple führt die für Progressive Web Apps nützlichen Technologien auffällig langsam ein. Es ist nicht in ihrem Interesse, dass Progressive Web App nicht von anderen Apps unterschieden werden können.<br/>
+Apple führt die für Progressive Web Apps nützlichen Technologien auffällig langsam ein. Es ist nicht in ihrem Interesse, wenn Progressive Web Apps nicht von anderen Apps unterschieden werden können.<br/>
 Daher funktionieren Progressive Web Apps auf Android und Windows besser als auf MacOS und iOS. Trotzdem funktionieren sie auch auf Apple-Geräten. Sie sind eben auch eine Web-App.
