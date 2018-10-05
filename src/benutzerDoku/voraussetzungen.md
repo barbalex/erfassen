@@ -1,4 +1,5 @@
 ---
+typ: 'benutzerDoku'
 path: "/Benutzer-Dokumentation/Voraussetzungen"
 date: "2018-10-04"
 title: "Voraussetzungen"

@@ -1,4 +1,5 @@
 ---
+typ: 'technDoku'
 path: "/Technische-Dokumentation/Login"
 date: "2018-10-01"
 title: "Login"

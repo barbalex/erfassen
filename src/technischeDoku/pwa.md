@@ -1,4 +1,5 @@
 ---
+typ: 'technDoku'
 path: "/Technische-Dokumentation/PWA"
 date: "2018-10-04"
 title: "Progressive Web App"

@@ -1,4 +1,5 @@
 ---
+typ: 'technDoku'
 path: "/Technische-Dokumentation/Datenbank"
 date: "2018-10-04"
 title: "Datenbank"

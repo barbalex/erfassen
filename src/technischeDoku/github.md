@@ -1,4 +1,5 @@
 ---
+typ: 'technDoku'
 path: "/Technische-Dokumentation/GitHub"
 date: "2018-10-04"
 title: "GitHub"

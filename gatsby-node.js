@@ -11,10 +11,13 @@ exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
   const technDokuTemplate = path.resolve(`src/templates/technDokuTemplate.tsx`)
+  const benutzerDokuTemplate = path.resolve(
+    `src/templates/benutzerDokuTemplate.tsx`,
+  )
 
   return graphql(`
     {
-      technDoku: allMarkdownRemark(
+      allMarkdownRemark(
         sort: { order: ASC, fields: [frontmatter___sort] }
         limit: 1000
       ) {
@@ -22,6 +25,7 @@ exports.createPages = ({ actions, graphql }) => {
           node {
             frontmatter {
               path
+              typ
             }
           }
         }
@@ -32,11 +36,24 @@ exports.createPages = ({ actions, graphql }) => {
       return Promise.reject(result.errors)
     }
 
-    result.data.technDoku.edges.forEach(({ node }) => {
+    const { edges } = result.data.allMarkdownRemark
+    const benutzerDoku = edges.filter(
+      e => e.node.frontmatter.typ === 'benutzerDoku',
+    )
+    const technDoku = edges.filter(e => e.node.frontmatter.typ === 'technDoku')
+
+    technDoku.forEach(({ node }) => {
       createPage({
         path: node.frontmatter.path,
         component: technDokuTemplate,
         context: {}, // additional data can be passed via context
+      })
+    })
+    benutzerDoku.forEach(({ node }) => {
+      createPage({
+        path: node.frontmatter.path,
+        component: benutzerDokuTemplate,
+        context: {},
       })
     })
   })
