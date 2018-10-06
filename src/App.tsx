@@ -79,6 +79,12 @@ const theme = createMuiTheme({
   },
 })
 
+declare global {
+  interface Window {
+    db: any
+  }
+}
+
 const enhance = compose(
   withState('db', 'setDb', null),
   withLifecycle({
