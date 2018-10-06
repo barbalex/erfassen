@@ -56,14 +56,27 @@ const enhance = compose(
       authDbState: any
       setSignupOpen: (signupOpen: boolean) => void
     }) => async () => {
-      let responce
+      let signUpResponce
       try {
-        responce = await authDbState.state.authDb.signUp(email, password)
+        signUpResponce = await authDbState.state.authDb.signUp(email, password)
       } catch (error) {
         console.log('Signup: error logging in:', error)
       }
-      console.log('Signup: responce logging in:', responce)
+      console.log('Signup: signUpResponce logging in:', signUpResponce)
       // TODO: log in
+      let logInResponce
+      try {
+        logInResponce = await authDbState.state.authDb.logIn(email, password)
+      } catch (error) {
+        if (error.name === 'unauthorized' || error.name === 'forbidden') {
+          // name or password incorrect
+        } else {
+          // cosmic rays, a meteor, etc.
+        }
+        console.log('Signup: error logging in:', error)
+      }
+      console.log('Signup: logInResponce logging in:', logInResponce)
+      // TODO: save email to store and show it in menu
       setSignupOpen(false)
     },
     onToggleShowPass: ({
