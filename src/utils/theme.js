@@ -7,7 +7,7 @@ const theme = {
   googleFonts: [
     {
       name: 'Roboto',
-      styles: ['300', '400', '500'],
+      styles: ['300', '400', '500', '600', '700'],
     },
   ],
 }
