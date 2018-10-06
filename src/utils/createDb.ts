@@ -19,7 +19,7 @@ export default async () => {
       queryChangeDetection: false, // <- queryChangeDetection (optional, default: false)
       // only needed in dev mode
       // because db is rebuilt on every live reload
-      ignoreDuplicate: true,
+      //ignoreDuplicate: true,
     })
   } catch (error) {
     throw error

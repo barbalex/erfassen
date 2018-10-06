@@ -90,6 +90,11 @@ const enhance = compose(
         throw error
       }
       setDb(db)
+      // bad hack because gatsby destroys db created
+      // in onMount method of App in dev mode:
+      // db is also set on window
+      // and used if db is undefined
+      window.db = db
     },
   }),
 )
