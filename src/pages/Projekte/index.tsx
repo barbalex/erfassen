@@ -24,13 +24,12 @@ const ReflexContainer = styled(OrigReflexContainer)`
 `
 
 interface Props {
-  authDbState: any
+  rxDbState: any
 }
 
 const enhance = compose(withRxDb)
 
 const ProjektePage: React.SFC<Props> = ({ rxDbState }) => {
-  console.log('Projekte, rxDbState:', rxDbState)
   const { rxDb } = rxDbState.state
   if (!rxDb) {
     return (
@@ -40,13 +39,13 @@ const ProjektePage: React.SFC<Props> = ({ rxDbState }) => {
     )
   }
 
+  /*
   const orte = rxDb.ort
     ? rxDb.ort.dump().then((orte: any) => console.log('orte:', orte.docs))
     : []
   const beobs = rxDb.beob
     ? rxDb.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
-    : []
-  console.log('Projekte, rxDb:', rxDb)
+    : []*/
 
   return (
     <ErrorBoundary>

@@ -26,7 +26,8 @@ export default class AuthDbContainer extends Container<StateProps> {
       name: null,
     }
     authDb
-      .getSession((resp: any) => {
+      .getSession()
+      .then((resp: any) => {
         const name = get(resp, 'userCtx.name', null)
         if (name) this.setState(state => ({ name }))
       })
