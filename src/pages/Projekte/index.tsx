@@ -9,7 +9,7 @@ import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
 
 import Layout from '../../components/Layout'
-import { withDb } from '../../context/db'
+import withRxDb from '../../state/withRxDb.js'
 import ErrorBoundary from '../../components/ErrorBoundary'
 
 const Container = styled.div`
@@ -24,14 +24,15 @@ const ReflexContainer = styled(OrigReflexContainer)`
 `
 
 interface Props {
-  db: any
-  setDb: () => void
+  authDbState: any
 }
 
-const enhance = compose(withDb)
+const enhance = compose(withRxDb)
 
-const ProjektePage: React.SFC<Props> = ({ db }) => {
-  if (!db) {
+const ProjektePage: React.SFC<Props> = ({ rxDbState }) => {
+  console.log('Projekte, rxDbState:', rxDbState)
+  const { rxDb } = rxDbState.state
+  if (!rxDb) {
     return (
       <Layout>
         <LoadingContainer>Lade daten...</LoadingContainer>
@@ -39,13 +40,13 @@ const ProjektePage: React.SFC<Props> = ({ db }) => {
     )
   }
 
-  const orte = db.ort
-    ? db.ort.dump().then((orte: any) => console.log('orte:', orte.docs))
+  const orte = rxDb.ort
+    ? rxDb.ort.dump().then((orte: any) => console.log('orte:', orte.docs))
     : []
-  const beobs = db.beob
-    ? db.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
+  const beobs = rxDb.beob
+    ? rxDb.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
     : []
-  console.log('Projekte, db:', db)
+  console.log('Projekte, rxDb:', rxDb)
 
   return (
     <ErrorBoundary>
@@ -69,7 +70,7 @@ const ProjektePage: React.SFC<Props> = ({ db }) => {
               <p>Form</p>
               <button
                 onClick={async () =>
-                  db.ort.insert({
+                  rxDb.ort.insert({
                     name: 'test-ort',
                     type: 'ort',
                   })
@@ -79,7 +80,7 @@ const ProjektePage: React.SFC<Props> = ({ db }) => {
               </button>
               <button
                 onClick={async () =>
-                  db.beob.insert({
+                  rxDb.beob.insert({
                     art: 'test-art',
                     type: 'beob',
                   })

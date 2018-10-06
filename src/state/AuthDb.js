@@ -1,15 +1,17 @@
 import { Container } from 'unstated'
+import PouchDB from 'pouchdb-browser'
+import pouchdbAuthentication from 'pouchdb-authentication'
 
-class AuthDbContainer extends Container {
+import couchUrl from '../utils/couchUrl'
+
+PouchDB.plugin(pouchdbAuthentication)
+
+export default class AuthDbContainer extends Container {
   state = {
-    authDb: null,
+    authDb: new PouchDB(couchUrl),
   }
 
   setAuthDb(authDb) {
-    console.log('authDb, authDb passed in:', authDb)
-    console.log('authDb, this:', this)
     this.setState(state => ({ authDb }))
   }
 }
-
-export default AuthDbContainer

@@ -15,15 +15,10 @@ import styled from 'styled-components'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
-import PouchDB from 'pouchdb-browser'
-import pouchdbAuthentication from 'pouchdb-authentication'
-import withLifecycle from '@hocs/with-lifecycle'
 
 import ErrorBoundary from '../ErrorBoundary'
 import couchUrl from '../../utils/couchUrl'
 import withAuthDbState from '../../state/withAuthDb'
-
-PouchDB.plugin(pouchdbAuthentication)
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -54,18 +49,22 @@ const enhance = compose(
       email,
       password,
       authDbState,
+      setSigninOpen,
     }: {
       email: string
       password: string
       authDbState: any
+      setSigninOpen: (signinOpen: boolean) => void
     }) => async () => {
       let responce
       try {
-        responce = await authDbState.authDb.signUp(email, password)
+        responce = await authDbState.state.authDb.signUp(email, password)
       } catch (error) {
         console.log('Signin: error logging in:', error)
       }
       console.log('Signin: responce logging in:', responce)
+      // TODO: log in
+      setSigninOpen(false)
     },
     onToggleShowPass: ({
       showPass,
@@ -86,18 +85,6 @@ const enhance = compose(
     }: {
       setPassword: (password: string) => void
     }) => (event: Event) => setPassword(event.target.value),
-  }),
-  withLifecycle({
-    async onDidMount({ authDbState }: { authDbState: any }) {
-      console.log('Signin', { authDbState })
-      const { setAuthDb } = authDbState
-      const { authDb } = authDbState.state
-      console.log('Signin', { authDb, setAuthDb })
-      if (!authDb) {
-        setAuthDb(new PouchDB(couchUrl))
-        console.log('auth pouchdb created')
-      }
-    },
   }),
 )
 

@@ -1,11 +1,6 @@
-import React from 'react'
 import { createGlobalStyle } from 'styled-components'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import red from '@material-ui/core/colors/red'
-import teal from '@material-ui/core/colors/teal'
-import { Provider as StateProvider } from 'unstated'
 
-const GlobalStyle = createGlobalStyle`
+export default createGlobalStyle`
   html {
     overflow: hidden;
   }
@@ -64,25 +59,3 @@ const GlobalStyle = createGlobalStyle`
     border-left: 1px solid #fff59d !important;
   }
 `
-const theme = createMuiTheme({
-  palette: {
-    type: 'light',
-    primary: { main: teal[800] },
-    error: {
-      main: red[800],
-    },
-  },
-})
-
-const App = ({ element }: { element }) => (
-  <StateProvider>
-    <MuiThemeProvider theme={theme}>
-      <>
-        <GlobalStyle />
-        {element}
-      </>
-    </MuiThemeProvider>
-  </StateProvider>
-)
-
-export default App
