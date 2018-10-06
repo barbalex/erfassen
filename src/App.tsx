@@ -89,6 +89,7 @@ const enhance = compose(
   withState('db', 'setDb', null),
   withLifecycle({
     async onDidMount({ setDb }: { setDb: (db: any) => void }) {
+      if (window.db) return
       let db
       try {
         db = await createDb()

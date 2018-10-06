@@ -82,7 +82,7 @@ const Template = ({ data }: { data: any }) => {
           </List>
         </Menu>
         <Doku>
-          <p>(hoffentlich) nützliche Infos für Sie</p>
+          <p>Hoffentlich nützliche Infos für Sie</p>
         </Doku>
       </Container>
     </Layout>
