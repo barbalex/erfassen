@@ -6,12 +6,29 @@ import { FaUserCircle as UserIcon } from 'react-icons/fa'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
+import styled from 'styled-components'
 
 import Signup from './Signup'
 import Login from './Login'
 import ErrorBoundary from '../ErrorBoundary'
 import withAuthDbState from '../../state/withAuthDb'
 import { Props as authDbStateProps } from '../../state/AuthDb'
+
+const IconContainer = styled.div`
+  position: relative;
+  padding-left: 10px;
+`
+const UserNameDiv = styled.div`
+  position: absolute;
+  bottom: 0;
+  font-size: 10px;
+  width: 60px;
+  left: 5px;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`
 
 interface Props {
   anchorEl: EventTarget | null
@@ -81,39 +98,47 @@ const Account: React.SFC<Props> = ({
   setSignupOpen,
   setLoginOpen,
   authDbState,
-}) => (
-  <ErrorBoundary>
-    <>
-      <IconButton
-        aria-haspopup="true"
-        aria-label="Konto"
-        onClick={onClickMenu}
-        color="inherit"
-        title="Konto"
-      >
-        <UserIcon />
-      </IconButton>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={!!anchorEl}
-        onClose={onCloseMenu}
-      >
-        <MenuItem onClick={onClickLogin}>Anmelden</MenuItem>
-        <MenuItem onClick={onClickSignup}>Konto erstellen</MenuItem>
-      </Menu>
-      {signupOpen && <Signup open={signupOpen} setSignupOpen={setSignupOpen} />}
-      {loginOpen && <Login open={loginOpen} setLoginOpen={setLoginOpen} />}
-    </>
-  </ErrorBoundary>
-)
+}) => {
+  console.log('Account, name:', authDbState.state.name)
+  return (
+    <ErrorBoundary>
+      <>
+        <IconContainer>
+          <IconButton
+            aria-haspopup="true"
+            aria-label="Konto"
+            onClick={onClickMenu}
+            color="inherit"
+            title="Konto"
+          >
+            <UserIcon />
+          </IconButton>
+          <UserNameDiv>{authDbState.state.name || ''}</UserNameDiv>
+        </IconContainer>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={!!anchorEl}
+          onClose={onCloseMenu}
+        >
+          <MenuItem onClick={onClickLogin}>Anmelden</MenuItem>
+          <MenuItem onClick={onClickSignup}>Konto erstellen</MenuItem>
+        </Menu>
+        {signupOpen && (
+          <Signup open={signupOpen} setSignupOpen={setSignupOpen} />
+        )}
+        {loginOpen && <Login open={loginOpen} setLoginOpen={setLoginOpen} />}
+      </>
+    </ErrorBoundary>
+  )
+}
 
 export default enhance(Account)

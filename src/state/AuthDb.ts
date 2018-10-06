@@ -7,13 +7,18 @@ import couchUrl from '../utils/couchUrl'
 
 PouchDB.plugin(pouchdbAuthentication)
 
-export interface Props {
+interface StateProps {
   authDb: any
   name: string | null
 }
+export interface Props {
+  state: StateProps
+  setAuthDb: (authDb: any) => void
+  setName: (name: string | null) => void
+}
 
-export default class AuthDbContainer extends Container<Props> {
-  constructor(props: Props) {
+export default class AuthDbContainer extends Container<StateProps> {
+  constructor(props: StateProps) {
     super()
     const authDb = new PouchDB(couchUrl)
     this.state = {
