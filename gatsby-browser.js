@@ -89,7 +89,6 @@ export const wrapRootElement = ({ element }) => {
   return (
     <>
       <GlobalStyle />
-
       <MuiThemeProvider theme={theme}>
         <App element={element} />
       </MuiThemeProvider>
