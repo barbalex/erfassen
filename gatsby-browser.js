@@ -5,6 +5,9 @@
  */
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import red from '@material-ui/core/colors/red'
+import teal from '@material-ui/core/colors/teal'
 
 import App from './src/App'
 
@@ -73,10 +76,23 @@ export const wrapRootElement = ({ element }) => {
     border-left: 1px solid #fff59d !important;
     }
   `
+  const theme = createMuiTheme({
+    palette: {
+      type: 'light',
+      primary: { main: teal[500] },
+      error: {
+        main: red[500],
+      },
+    },
+  })
+
   return (
     <>
       <GlobalStyle />
-      <App element={element} />
+
+      <MuiThemeProvider theme={theme}>
+        <App element={element} />
+      </MuiThemeProvider>
     </>
   )
 }
