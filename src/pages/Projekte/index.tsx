@@ -45,6 +45,7 @@ const ProjektePage: React.SFC<Props> = ({ db }) => {
   const beobs = db.beob
     ? db.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
     : []
+  console.log('Projekte, db:', db)
 
   return (
     <ErrorBoundary>

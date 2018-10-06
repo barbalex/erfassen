@@ -1,0 +1,15 @@
+{
+  "title": "message schema",
+  "version": 0,
+  "description": "describes a message",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": ["type"]
+}
