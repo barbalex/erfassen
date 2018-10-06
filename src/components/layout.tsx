@@ -1,3 +1,8 @@
+/**
+ * Cant move Helmet to App
+ * because neither StaticQuery nor AppQuery
+ * work there :-(
+ */
 import React from 'react'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
@@ -28,10 +33,8 @@ const Layout: React.SFC<{}> = ({ children }) => (
         >
           <html lang="en" />
         </Helmet>
-        <>
-          <Header />
-          {children}
-        </>
+        <Header />
+        {children}
       </>
     )}
   />

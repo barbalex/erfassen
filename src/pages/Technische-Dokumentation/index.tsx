@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider'
 
 import Layout from '../../components/Layout'
 import TechnDokuMenuItem from './MenuItem'
+import ErrorBoundary from '../../components/ErrorBoundary'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -64,28 +65,30 @@ const Template = ({ data }: { data: any }) => {
   const { edges } = allMarkdownRemark
 
   return (
-    <Layout>
-      <Container>
-        <Menu>
-          <MenuTitle>
-            <MenuTitleLink to="/Technische-Dokumentation/">
-              Technische Dokumentation
-            </MenuTitleLink>
-          </MenuTitle>
-          <List component="nav">
-            <Divider />
-            {edges
-              .filter((n: any) => !!n && !!n.node)
-              .map(({ node }: { node: any }) => (
-                <TechnDokuMenuItem post={node} key={node.id} />
-              ))}
-          </List>
-        </Menu>
-        <Doku>
-          <p>Hier informieren wir, wie erfassen.ch funktioniert</p>
-        </Doku>
-      </Container>
-    </Layout>
+    <ErrorBoundary>
+      <Layout>
+        <Container>
+          <Menu>
+            <MenuTitle>
+              <MenuTitleLink to="/Technische-Dokumentation/">
+                Technische Dokumentation
+              </MenuTitleLink>
+            </MenuTitle>
+            <List component="nav">
+              <Divider />
+              {edges
+                .filter((n: any) => !!n && !!n.node)
+                .map(({ node }: { node: any }) => (
+                  <TechnDokuMenuItem post={node} key={node.id} />
+                ))}
+            </List>
+          </Menu>
+          <Doku>
+            <p>Hier erfahren Sie, wie erfassen.ch funktioniert</p>
+          </Doku>
+        </Container>
+      </Layout>
+    </ErrorBoundary>
   )
 }
 

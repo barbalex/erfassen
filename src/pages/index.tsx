@@ -7,6 +7,7 @@ import Img from 'gatsby-image'
 import { Link } from 'gatsby'
 
 import Layout from '../components/Layout'
+import ErrorBoundary from '../components/ErrorBoundary'
 
 const ScrollContainer = styled.div`
   height: calc(100vh - 64px);
@@ -162,155 +163,157 @@ const IndexPage: React.SFC<{}> = () => (
   <StaticQuery
     query={query}
     render={data => (
-      <Layout>
-        <ScrollContainer>
-          <Container>
-            <Img
-              sizes={data.file.childImageSharp.sizes}
-              fluid={data.file.childImageSharp.fluid}
-              style={bgImageStyle}
-            />
-            <PageTitle align="center" variant="title" color="inherit" noWrap>
-              Erfassen Sie:
-            </PageTitle>
-            <CardContainer>
-              <Card>
-                <CardTitle>Was Sie wollen</CardTitle>
-                <ul>
-                  <li>Text, Zahlen, Ja/Nein-Werte</li>
-                  <li>Bezüge zu anderen Tabellen</li>
-                  <li>Geometrien</li>
-                  <li>Fotos</li>
-                  <li>Audio</li>
-                  <li>beliebige Dateien</li>
-                </ul>
-              </Card>
-              <Card>
-                <CardTitle>Wie Sie wollen</CardTitle>
-                <ul>
-                  <li>
-                    Konfigurieren Sie Tabellen und Felder individuell und
-                    flexibel
-                  </li>
-                  <li>
-                    Bestimmen Sie Feld-Typen, Standard-Werte, Muss-Felder,
-                    Auswahllisten
-                  </li>
-                  <li>
-                    Sie brauchen hierarchische Daten-Strukturen? Kein Problem!
-                  </li>
-                  <li>
-                    Hier (TODO) finden Sie Vorschläge für typische Szenarien
-                  </li>
-                </ul>
-              </Card>
-              <Card>
-                <CardTitle>Wo Sie wollen</CardTitle>
-                <ul>
-                  <li>Keine Internet-Verbindung? Kein Problem</li>
-                  <li>erfassen.ch funktioniert auch offline</li>
-                  <li>Speichern Sie Hintergrund-Karten zuvor lokal</li>
-                  <li>
-                    Ihre Daten werden synchronisiert, sobald wieder Empfang
-                    besteht
-                  </li>
-                </ul>
-              </Card>
-              <Card>
-                <CardTitle>Mit wem Sie wollen</CardTitle>
-                <ul>
-                  <li>Beliebig viele Personen können mitarbeiten</li>
-                  <li>Ergänzen Sie neue Mitarbeiter rasch und einfach</li>
-                  <li>
-                    Besteht eine Internet-Verbindung, sehen alle Mitarbeiter
-                    live alle Daten-Änderungen
-                  </li>
-                </ul>
-              </Card>
-              <Card>
-                <CardTitle>Womit Sie wollen</CardTitle>
-                <ul>
-                  <li>Handy, Tablet, Notebook oder PC</li>
-                  <li>Windows, Linux, MacOS, Android, iOS…</li>
-                  <li>
-                    Ist dem Tablet der Strom ausgegangen?
-                    <br />
-                    Arbeiten Sie einfach auf dem Handy weiter
-                  </li>
-                </ul>
-              </Card>
-              <Card>
-                <CardTitle>Wozu Sie wollen</CardTitle>
-                <p>Beispiele aus dem Naturschutz (wo ich herkomme):</p>
-                <ul>
-                  <li>Natur- und Landschafts-Inventare</li>
-                  <li>Kartierung von Lebensräumen</li>
-                  <li>
-                    Daten für Bewirtschaftungs-Verträge, Vernetzungs-Projekte,
-                    Landschafts-Qualitäts-Projekte
-                  </li>
-                </ul>
-                <p>Was wären Beispiele aus Ihrem Bereich?</p>
-              </Card>
-              <Card>
-                <CardTitle>Effizient</CardTitle>
-                <ul>
-                  <li>
-                    Bereiten Sie ein Projekt nur einmal vor und nach. Egal,
-                    wieviele Personen mitarbeiten
-                  </li>
-                  <li>
-                    Digitalisieren Sie nie mehr nachträglich
-                    Papier-Aufzeichnungen...
-                  </li>
-                  <li>...und sparen Sie sich damit viele Fehler und Ärger</li>
-                  <li>
-                    Sie haben die Feld-Mappe verloren? Zum Glück wurden die
-                    Daten synchronisiert!
-                  </li>
-                </ul>
-              </Card>
-              <Card>
-                <CardTitle>Los geht's</CardTitle>
-                <ul>
-                  <li>Probieren Sie im Test-Projekt alles aus</li>
-                  <li>TODO: Link zum Test-Projekt</li>
-                  <li>Für eigene Projekte brauchen Sie ein Konto</li>
-                  <li>
-                    Mit Ihren Projekten verdienen wir unser Geld (
-                    <Link to="/Benutzer-Dokumentation/Preise/">Preise</Link>)
-                  </li>
-                </ul>
-              </Card>
-            </CardContainer>
-            <MoreContainer>
-              <a
-                href="https://gabriel-software.ch"
-                target="_blank"
-                rel="noopener"
-              >
-                Über uns
-              </a>
-              <a
-                href="mailto:alex@gabriel-software.ch?subject=erfassen.ch"
-                rel="noopener"
-              >
-                Kontakt
-              </a>
-              <p>Blog (TODO)</p>
-              <MoreLink to="/Benutzer-Dokumentation/">
-                Benutzer-Dokumentation
-              </MoreLink>
-              <MoreLink to="/Technische-Dokumentation/">
-                Technische Dokumentation
-              </MoreLink>
-              <MoreLink to="/Benutzer-Dokumentation/Preise/">Preise</MoreLink>
-              <p>Datenschutz (TODO)</p>
-              <p>Allgemeine Geschäftsbedingungen (TODO)</p>
-            </MoreContainer>
-          </Container>
-        </ScrollContainer>
-      </Layout>
+      <ErrorBoundary>
+        <Layout>
+          <ScrollContainer>
+            <Container>
+              <Img
+                sizes={data.file.childImageSharp.sizes}
+                fluid={data.file.childImageSharp.fluid}
+                style={bgImageStyle}
+              />
+              <PageTitle align="center" variant="title" color="inherit" noWrap>
+                Erfassen Sie:
+              </PageTitle>
+              <CardContainer>
+                <Card>
+                  <CardTitle>Was Sie wollen</CardTitle>
+                  <ul>
+                    <li>Text, Zahlen, Ja/Nein-Werte</li>
+                    <li>Bezüge zu anderen Tabellen</li>
+                    <li>Geometrien</li>
+                    <li>Fotos</li>
+                    <li>Audio</li>
+                    <li>beliebige Dateien</li>
+                  </ul>
+                </Card>
+                <Card>
+                  <CardTitle>Wie Sie wollen</CardTitle>
+                  <ul>
+                    <li>
+                      Konfigurieren Sie Tabellen und Felder individuell und
+                      flexibel
+                    </li>
+                    <li>
+                      Bestimmen Sie Feld-Typen, Standard-Werte, Muss-Felder,
+                      Auswahllisten
+                    </li>
+                    <li>
+                      Sie brauchen hierarchische Daten-Strukturen? Kein Problem!
+                    </li>
+                    <li>
+                      Hier (TODO) finden Sie Vorschläge für typische Szenarien
+                    </li>
+                  </ul>
+                </Card>
+                <Card>
+                  <CardTitle>Wo Sie wollen</CardTitle>
+                  <ul>
+                    <li>Keine Internet-Verbindung? Kein Problem</li>
+                    <li>erfassen.ch funktioniert auch offline</li>
+                    <li>Speichern Sie Hintergrund-Karten zuvor lokal</li>
+                    <li>
+                      Ihre Daten werden synchronisiert, sobald wieder Empfang
+                      besteht
+                    </li>
+                  </ul>
+                </Card>
+                <Card>
+                  <CardTitle>Mit wem Sie wollen</CardTitle>
+                  <ul>
+                    <li>Beliebig viele Personen können mitarbeiten</li>
+                    <li>Ergänzen Sie neue Mitarbeiter rasch und einfach</li>
+                    <li>
+                      Besteht eine Internet-Verbindung, sehen alle Mitarbeiter
+                      live alle Daten-Änderungen
+                    </li>
+                  </ul>
+                </Card>
+                <Card>
+                  <CardTitle>Womit Sie wollen</CardTitle>
+                  <ul>
+                    <li>Handy, Tablet, Notebook oder PC</li>
+                    <li>Windows, Linux, MacOS, Android, iOS…</li>
+                    <li>
+                      Ist dem Tablet der Strom ausgegangen?
+                      <br />
+                      Arbeiten Sie einfach auf dem Handy weiter
+                    </li>
+                  </ul>
+                </Card>
+                <Card>
+                  <CardTitle>Wozu Sie wollen</CardTitle>
+                  <p>Beispiele aus dem Naturschutz (wo ich herkomme):</p>
+                  <ul>
+                    <li>Natur- und Landschafts-Inventare</li>
+                    <li>Kartierung von Lebensräumen</li>
+                    <li>
+                      Daten für Bewirtschaftungs-Verträge, Vernetzungs-Projekte,
+                      Landschafts-Qualitäts-Projekte
+                    </li>
+                  </ul>
+                  <p>Was wären Beispiele aus Ihrem Bereich?</p>
+                </Card>
+                <Card>
+                  <CardTitle>Effizient</CardTitle>
+                  <ul>
+                    <li>
+                      Bereiten Sie ein Projekt nur einmal vor und nach. Egal,
+                      wieviele Personen mitarbeiten
+                    </li>
+                    <li>
+                      Digitalisieren Sie nie mehr nachträglich
+                      Papier-Aufzeichnungen...
+                    </li>
+                    <li>...und sparen Sie sich damit viele Fehler und Ärger</li>
+                    <li>
+                      Sie haben die Feld-Mappe verloren? Zum Glück wurden die
+                      Daten synchronisiert!
+                    </li>
+                  </ul>
+                </Card>
+                <Card>
+                  <CardTitle>Los geht's</CardTitle>
+                  <ul>
+                    <li>Probieren Sie im Test-Projekt alles aus</li>
+                    <li>TODO: Link zum Test-Projekt</li>
+                    <li>Für eigene Projekte brauchen Sie ein Konto</li>
+                    <li>
+                      Mit Ihren Projekten verdienen wir unser Geld (
+                      <Link to="/Benutzer-Dokumentation/Preise/">Preise</Link>)
+                    </li>
+                  </ul>
+                </Card>
+              </CardContainer>
+              <MoreContainer>
+                <a
+                  href="https://gabriel-software.ch"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Über uns
+                </a>
+                <a
+                  href="mailto:alex@gabriel-software.ch?subject=erfassen.ch"
+                  rel="noopener"
+                >
+                  Kontakt
+                </a>
+                <p>Blog (TODO)</p>
+                <MoreLink to="/Benutzer-Dokumentation/">
+                  Benutzer-Dokumentation
+                </MoreLink>
+                <MoreLink to="/Technische-Dokumentation/">
+                  Technische Dokumentation
+                </MoreLink>
+                <MoreLink to="/Benutzer-Dokumentation/Preise/">Preise</MoreLink>
+                <p>Datenschutz (TODO)</p>
+                <p>Allgemeine Geschäftsbedingungen (TODO)</p>
+              </MoreContainer>
+            </Container>
+          </ScrollContainer>
+        </Layout>
+      </ErrorBoundary>
     )}
   />
 )

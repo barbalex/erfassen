@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider'
 
 import Layout from '../../components/Layout'
 import MenuItem from './MenuItem'
+import ErrorBoundary from '../../components/ErrorBoundary'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -54,38 +55,36 @@ const MenuTitleLink = styled(Link)`
     text-decoration: underline;
   }
 `
-const DokuDate = styled.p`
-  margin-bottom: 15px !important;
-  color: grey;
-`
 
 const Template = ({ data }: { data: any }) => {
   const { allMarkdownRemark } = data
   const { edges } = allMarkdownRemark
 
   return (
-    <Layout>
-      <Container>
-        <Menu>
-          <MenuTitle>
-            <MenuTitleLink to="/Benutzer-Dokumentation/">
-              Benutzer-Dokumentation
-            </MenuTitleLink>
-          </MenuTitle>
-          <List component="nav">
-            <Divider />
-            {edges
-              .filter((n: any) => !!n && !!n.node)
-              .map(({ node }: { node: any }) => (
-                <MenuItem post={node} key={node.id} />
-              ))}
-          </List>
-        </Menu>
-        <Doku>
-          <p>Hoffentlich nützliche Infos für Sie</p>
-        </Doku>
-      </Container>
-    </Layout>
+    <ErrorBoundary>
+      <Layout>
+        <Container>
+          <Menu>
+            <MenuTitle>
+              <MenuTitleLink to="/Benutzer-Dokumentation/">
+                Benutzer-Dokumentation
+              </MenuTitleLink>
+            </MenuTitle>
+            <List component="nav">
+              <Divider />
+              {edges
+                .filter((n: any) => !!n && !!n.node)
+                .map(({ node }: { node: any }) => (
+                  <MenuItem post={node} key={node.id} />
+                ))}
+            </List>
+          </Menu>
+          <Doku>
+            <p>Hoffentlich nützliche Infos für Sie</p>
+          </Doku>
+        </Container>
+      </Layout>
+    </ErrorBoundary>
   )
 }
 
