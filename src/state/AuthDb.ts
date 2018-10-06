@@ -20,11 +20,12 @@ export interface Props {
 export default class AuthDbContainer extends Container<StateProps> {
   constructor(props: StateProps) {
     super()
-    const authDb = new PouchDB(couchUrl)
+    const authDb = new PouchDB(couchUrl())
     this.state = {
       authDb,
       name: null,
     }
+
     authDb
       .getSession()
       .then((resp: any) => {

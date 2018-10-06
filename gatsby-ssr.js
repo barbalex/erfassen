@@ -9,6 +9,7 @@
 import React from 'react'
 
 import App from './src/App'
+import 'isomorphic-fetch'
 
 /**
  * Am importing App because

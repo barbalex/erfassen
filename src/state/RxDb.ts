@@ -20,15 +20,19 @@ declare global {
 export default class RxDbContainer extends Container<Props> {
   constructor(props: Props) {
     super()
+    const rxDb = typeof window === 'undefined' ? null : window.rxDb || null
     this.state = {
-      rxDb: window.rxDb || null,
+      rxDb,
     }
     // create initial state
-    if (!window.rxDb) {
+    if (
+      (typeof window !== 'undefined' && !window.rxDb) ||
+      typeof window === 'undefined'
+    ) {
       createRxDb()
         .then((rxDb: any) => {
           this.setState(state => ({ rxDb }))
-          window.rxDb = rxDb
+          if (typeof window !== 'undefined') window.rxDb = rxDb
         })
         .catch(error => {
           throw error

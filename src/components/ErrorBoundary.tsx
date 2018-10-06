@@ -46,7 +46,7 @@ class ErrorBoundary<Props, State> extends Component {
           <ReloadButton
             variant="outlined"
             onClick={() => {
-              window.location.reload(false)
+              typeof window !== 'undefined' && window.location.reload(false)
             }}
           >
             Neu laden
