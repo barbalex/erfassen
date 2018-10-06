@@ -2,7 +2,6 @@ import rxdb, { removeDatabase } from 'rxdb'
 
 import pouchdbAdapterHttp from 'pouchdb-adapter-http'
 import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
-import pouchdbAuthentication from 'pouchdb-authentication'
 
 import zeitSchema from '../schemas/zeit.json'
 import ortSchema from '../schemas/ort.json'
@@ -11,7 +10,6 @@ import messageSchema from '../schemas/message.json'
 
 rxdb.plugin(pouchdbAdapterHttp)
 rxdb.plugin(pouchdbAdapterIdb)
-rxdb.plugin(pouchdbAuthentication)
 
 export default async () => {
   let db

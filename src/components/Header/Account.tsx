@@ -105,8 +105,8 @@ const Account: React.SFC<Props> = ({
         <MenuItem onClick={onClickLogin}>Anmelden</MenuItem>
         <MenuItem onClick={onClickSignin}>Konto erstellen</MenuItem>
       </Menu>
-      <Signin open={signinOpen} setSigninOpen={setSigninOpen} />
-      <Login open={loginOpen} setLoginOpen={setLoginOpen} />
+      {signinOpen && <Signin open={signinOpen} setSigninOpen={setSigninOpen} />}
+      {loginOpen && <Login open={loginOpen} setLoginOpen={setLoginOpen} />}
     </>
   </ErrorBoundary>
 )

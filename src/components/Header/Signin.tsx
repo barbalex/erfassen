@@ -15,9 +15,15 @@ import styled from 'styled-components'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
+import PouchDB from 'pouchdb-browser'
+import pouchdbAuthentication from 'pouchdb-authentication'
+import withLifecycle from '@hocs/with-lifecycle'
 
 import ErrorBoundary from '../ErrorBoundary'
-import { withDb } from '../../context/db'
+import couchUrl from '../../utils/couchUrl'
+import withAuthDbState from '../../state/withAuthDb'
+
+PouchDB.plugin(pouchdbAuthentication)
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -32,7 +38,7 @@ const StyledInput = styled(Input)`
 `
 
 const enhance = compose(
-  withDb,
+  withAuthDbState,
   withState('email', 'setEmail', ''),
   withState('password', 'setPassword', ''),
   withState('showPass', 'setShowPass', false),
@@ -45,24 +51,17 @@ const enhance = compose(
       setSigninOpen: (signinOpen: boolean) => void
     }) => () => setSigninOpen(false),
     fetchLogin: ({
-      db,
       email,
       password,
+      authDbState,
     }: {
-      db: any
       email: string
       password: string
+      authDbState: any
     }) => async () => {
-      // TODO
-      console.log('Signin:', {
-        db,
-        email,
-        password,
-        messageDbSignup: db.message.pouch.signUp,
-      })
       let responce
       try {
-        responce = await db.message.pouch.signUp(email, password)
+        responce = await authDbState.authDb.signUp(email, password)
       } catch (error) {
         console.log('Signin: error logging in:', error)
       }
@@ -81,15 +80,23 @@ const enhance = compose(
   withHandlers<any, any>({
     onBlurEmail: ({ setEmail }: { setEmail: (email: string) => void }) => (
       event: Event,
-    ) => {
-      setEmail(event.target.value)
-    },
+    ) => setEmail(event.target.value),
     onBlurPassword: ({
       setPassword,
     }: {
       setPassword: (password: string) => void
-    }) => (event: Event) => {
-      setPassword(event.target.value)
+    }) => (event: Event) => setPassword(event.target.value),
+  }),
+  withLifecycle({
+    async onDidMount({ authDbState }: { authDbState: any }) {
+      console.log('Signin', { authDbState })
+      const { setAuthDb } = authDbState
+      const { authDb } = authDbState.state
+      console.log('Signin', { authDb, setAuthDb })
+      if (!authDb) {
+        setAuthDb(new PouchDB(couchUrl))
+        console.log('auth pouchdb created')
+      }
     },
   }),
 )
