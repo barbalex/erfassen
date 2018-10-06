@@ -65,6 +65,12 @@ module.exports = {
         excerpt_separator: '<!-- end -->',
         plugins: [
           {
+            resolve: `gatsby-plugin-layout`,
+            options: {
+              component: require.resolve(`./src/components/Layout.tsx`),
+            },
+          },
+          {
             resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 740,
