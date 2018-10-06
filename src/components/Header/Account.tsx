@@ -10,6 +10,7 @@ import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
 
 import Signin from './Signin'
+import ErrorBoundary from '../ErrorBoundary'
 
 interface Props {
   anchorEl: EventTarget | null
@@ -58,35 +59,37 @@ const Account: React.SFC<Props> = ({
   onClickSignin,
   setSigninOpen,
 }) => (
-  <div>
-    <IconButton
-      aria-haspopup="true"
-      aria-label="Konto"
-      onClick={onClickMenu}
-      color="inherit"
-      title="Konto"
-    >
-      <UserIcon />
-    </IconButton>
-    <Menu
-      id="menu-appbar"
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={!!anchorEl}
-      onClose={onCloseMenu}
-    >
-      <MenuItem onClick={onCloseMenu}>Anmelden</MenuItem>
-      <MenuItem onClick={onClickSignin}>Konto erstellen</MenuItem>
-    </Menu>
-    <Signin open={signinOpen} setSigninOpen={setSigninOpen} />
-  </div>
+  <ErrorBoundary>
+    <>
+      <IconButton
+        aria-haspopup="true"
+        aria-label="Konto"
+        onClick={onClickMenu}
+        color="inherit"
+        title="Konto"
+      >
+        <UserIcon />
+      </IconButton>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={!!anchorEl}
+        onClose={onCloseMenu}
+      >
+        <MenuItem onClick={onCloseMenu}>Anmelden</MenuItem>
+        <MenuItem onClick={onClickSignin}>Konto erstellen</MenuItem>
+      </Menu>
+      <Signin open={signinOpen} setSigninOpen={setSigninOpen} />
+    </>
+  </ErrorBoundary>
 )
 
 export default enhance(Account)
