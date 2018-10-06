@@ -8,10 +8,8 @@ import { Subscribe } from 'unstated'
 
 import AuthDbState from './AuthDb'
 
-export default function withAuthDbState(WrappedComponent) {
-  return props => (
-    <Subscribe to={[AuthDbState]}>
-      {value => <WrappedComponent authDbState={value} {...props} />}
-    </Subscribe>
-  )
-}
+export default WrappedComponent => props => (
+  <Subscribe to={[AuthDbState]}>
+    {value => <WrappedComponent authDbState={value} {...props} />}
+  </Subscribe>
+)

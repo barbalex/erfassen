@@ -17,7 +17,7 @@ const theme = createMuiTheme({
   },
 })
 
-const App = ({ element }: { element }) => (
+const App = ({ element }: { element: any }) => (
   <StateProvider>
     <MuiThemeProvider theme={theme}>
       <>

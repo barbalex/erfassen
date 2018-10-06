@@ -6,12 +6,16 @@ import couchUrl from '../utils/couchUrl'
 
 PouchDB.plugin(pouchdbAuthentication)
 
-export default class AuthDbContainer extends Container {
+interface Props {
+  authDb: any
+}
+
+export default class AuthDbContainer extends Container<Props> {
   state = {
     authDb: new PouchDB(couchUrl),
   }
 
-  setAuthDb(authDb) {
+  setAuthDb(authDb: any) {
     this.setState(state => ({ authDb }))
   }
 }
