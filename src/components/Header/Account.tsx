@@ -7,7 +7,7 @@ import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
 
-import Signin from './Signin'
+import Signup from './Signup'
 import Login from './Login'
 import ErrorBoundary from '../ErrorBoundary'
 
@@ -16,17 +16,17 @@ interface Props {
   setAnchorEl: (anchorEl: EventTarget | null) => void
   onClickMenu: (event: Event) => void
   onCloseMenu: (event: Event) => void
-  signinOpen: boolean
-  setSigninOpen: (signinOpen: boolean) => void
-  onClickSignin: (signinOpen: boolean) => void
+  signupOpen: boolean
+  setSignupOpen: (signupOpen: boolean) => void
+  onClickSignup: (signupOpen: boolean) => void
   loginOpen: boolean
-  setLoginOpen: (signinOpen: boolean) => void
-  onClickLognin: (signinOpen: boolean) => void
+  setLoginOpen: (signupOpen: boolean) => void
+  onClickLognin: (signupOpen: boolean) => void
 }
 
 const enhance = compose(
   withState('anchorEl', 'setAnchorEl', null),
-  withState('signinOpen', 'setSigninOpen', false),
+  withState('signupOpen', 'setSignupOpen', false),
   withState('loginOpen', 'setLoginOpen', false),
   withHandlers<any, any>({
     onClickMenu: ({
@@ -39,17 +39,17 @@ const enhance = compose(
     }: {
       setAnchorEl: (anchorEl: EventTarget | null) => void
     }) => () => setAnchorEl(null),
-    onClickSignin: ({
-      setSigninOpen,
-      signinOpen,
+    onClickSignup: ({
+      setSignupOpen,
+      signupOpen,
       setAnchorEl,
     }: {
-      signinOpen: boolean
-      setSigninOpen: (signinOpen: boolean) => void
+      signupOpen: boolean
+      setSignupOpen: (signupOpen: boolean) => void
       setAnchorEl: (anchorEl: EventTarget | null) => void
     }) => () => {
       setAnchorEl(null)
-      setSigninOpen(!signinOpen)
+      setSignupOpen(!signupOpen)
     },
     onClickLogin: ({
       setLoginOpen,
@@ -70,11 +70,11 @@ const Account: React.SFC<Props> = ({
   anchorEl,
   onCloseMenu,
   onClickMenu,
-  signinOpen,
+  signupOpen,
   loginOpen,
-  onClickSignin,
+  onClickSignup,
   onClickLogin,
-  setSigninOpen,
+  setSignupOpen,
   setLoginOpen,
 }) => (
   <ErrorBoundary>
@@ -103,9 +103,9 @@ const Account: React.SFC<Props> = ({
         onClose={onCloseMenu}
       >
         <MenuItem onClick={onClickLogin}>Anmelden</MenuItem>
-        <MenuItem onClick={onClickSignin}>Konto erstellen</MenuItem>
+        <MenuItem onClick={onClickSignup}>Konto erstellen</MenuItem>
       </Menu>
-      {signinOpen && <Signin open={signinOpen} setSigninOpen={setSigninOpen} />}
+      {signupOpen && <Signup open={signupOpen} setSignupOpen={setSignupOpen} />}
       {loginOpen && <Login open={loginOpen} setLoginOpen={setLoginOpen} />}
     </>
   </ErrorBoundary>

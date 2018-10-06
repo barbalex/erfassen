@@ -41,30 +41,30 @@ const enhance = compose(
   withState('passwordErrorText', 'setPasswordErrorText', ''),
   withHandlers<any, any>({
     close: ({
-      setSigninOpen,
+      setSignupOpen,
     }: {
-      setSigninOpen: (signinOpen: boolean) => void
-    }) => () => setSigninOpen(false),
-    fetchLogin: ({
+      setSignupOpen: (signupOpen: boolean) => void
+    }) => () => setSignupOpen(false),
+    onClickSignup: ({
       email,
       password,
       authDbState,
-      setSigninOpen,
+      setSignupOpen,
     }: {
       email: string
       password: string
       authDbState: any
-      setSigninOpen: (signinOpen: boolean) => void
+      setSignupOpen: (signupOpen: boolean) => void
     }) => async () => {
       let responce
       try {
         responce = await authDbState.state.authDb.signUp(email, password)
       } catch (error) {
-        console.log('Signin: error logging in:', error)
+        console.log('Signup: error logging in:', error)
       }
-      console.log('Signin: responce logging in:', responce)
+      console.log('Signup: responce logging in:', responce)
       // TODO: log in
-      setSigninOpen(false)
+      setSignupOpen(false)
     },
     onToggleShowPass: ({
       showPass,
@@ -88,7 +88,7 @@ const enhance = compose(
   }),
 )
 
-const Signin = ({
+const Signup = ({
   email,
   password,
   showPass,
@@ -99,10 +99,10 @@ const Signin = ({
   setPasswordErrorText,
   onBlurEmail,
   onBlurPassword,
-  fetchLogin,
+  onClickSignup,
   user,
   open,
-  setSigninOpen,
+  setSignupOpen,
   close,
   onToggleShowPass,
   db,
@@ -119,10 +119,10 @@ const Signin = ({
   setPasswordErrorText: () => void
   onBlurEmail: () => void
   onBlurPassword: () => void
-  fetchLogin: () => void
+  onClickSignup: () => void
   user: Object
   open: boolean
-  setSigninOpen: (signinOpen: boolean) => void
+  setSignupOpen: (signupOpen: boolean) => void
   close: () => void
   onToggleShowPass: () => void
   db: any
@@ -188,7 +188,7 @@ const Signin = ({
       </StyledDiv>
       <DialogActions>
         <Button onClick={close}>abbrechen</Button>
-        <Button color="primary" onClick={fetchLogin}>
+        <Button color="primary" onClick={onClickSignup}>
           Konto erstellen
         </Button>
       </DialogActions>
@@ -196,4 +196,4 @@ const Signin = ({
   </ErrorBoundary>
 )
 
-export default enhance(Signin)
+export default enhance(Signup)
