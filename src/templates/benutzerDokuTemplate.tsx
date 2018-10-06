@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider'
 
 import Layout from '../components/Layout'
 import MenuItem from './MenuItem'
+import ErrorBoundary from '../components/ErrorBoundary'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -65,33 +66,35 @@ const BenutzerDokuTemplate = ({ data }: { data: any }) => {
   const { edges } = allMarkdownRemark
 
   return (
-    <Layout>
-      <Container>
-        <Menu>
-          <MenuTitle>
-            <MenuTitleLink to="/Benutzer-Dokumentation/">
-              Benutzer-Dokumentation
-            </MenuTitleLink>
-          </MenuTitle>
-          <List component="nav">
-            <Divider />
-            {edges
-              .filter((n: any) => !!n && !!n.node)
-              .map(({ node }: { node: any }) => (
-                <MenuItem post={node} key={node.id} />
-              ))}
-          </List>
-        </Menu>
-        <Doku>
-          <h1>{frontmatter.title}</h1>
-          <DokuDate>{frontmatter.date}</DokuDate>
-          <div
-            className="blog-post-content"
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
-        </Doku>
-      </Container>
-    </Layout>
+    <ErrorBoundary>
+      <Layout>
+        <Container>
+          <Menu>
+            <MenuTitle>
+              <MenuTitleLink to="/Benutzer-Dokumentation/">
+                Benutzer-Dokumentation
+              </MenuTitleLink>
+            </MenuTitle>
+            <List component="nav">
+              <Divider />
+              {edges
+                .filter((n: any) => !!n && !!n.node)
+                .map(({ node }: { node: any }) => (
+                  <MenuItem post={node} key={node.id} />
+                ))}
+            </List>
+          </Menu>
+          <Doku>
+            <h1>{frontmatter.title}</h1>
+            <DokuDate>{frontmatter.date}</DokuDate>
+            <div
+              className="blog-post-content"
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          </Doku>
+        </Container>
+      </Layout>
+    </ErrorBoundary>
   )
 }
 

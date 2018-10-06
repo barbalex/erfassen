@@ -1,10 +1,8 @@
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import { FaUserCircle as UserIcon } from 'react-icons/fa'
 import styled from 'styled-components'
 import { Link, navigate } from 'gatsby'
 import { Location } from '@reach/router'
@@ -12,6 +10,7 @@ import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 
 import Account from './Account'
+import ErrorBoundary from '../ErrorBoundary'
 
 const SiteTitle = styled(Typography)`
   display: none;
@@ -47,37 +46,39 @@ const Header: React.SFC<Props> = ({ onClickSiteTitle }) => (
       const { pathname } = location
 
       return (
-        <AppBar position="fixed">
-          <Toolbar>
-            <SiteTitle
-              variant="title"
-              color="inherit"
-              noWrap
-              title="Home"
-              onClick={onClickSiteTitle}
-            >
-              erfassen.ch
-            </SiteTitle>
-            <Spacer />
-            <NavButton
-              variant={pathname === '/' ? 'outlined' : 'text'}
-              component={Link}
-              to="/"
-              active={(pathname === '/').toString()}
-            >
-              Home
-            </NavButton>
-            <NavButton
-              variant={pathname === '/Projekte/' ? 'outlined' : 'text'}
-              component={Link}
-              to="/Projekte/"
-              active={(pathname === '/Projekte/').toString()}
-            >
-              Projekte
-            </NavButton>
-            <Account />
-          </Toolbar>
-        </AppBar>
+        <ErrorBoundary>
+          <AppBar position="fixed">
+            <Toolbar>
+              <SiteTitle
+                variant="title"
+                color="inherit"
+                noWrap
+                title="Home"
+                onClick={onClickSiteTitle}
+              >
+                erfassen.ch
+              </SiteTitle>
+              <Spacer />
+              <NavButton
+                variant={pathname === '/' ? 'outlined' : 'text'}
+                component={Link}
+                to="/"
+                active={(pathname === '/').toString()}
+              >
+                Home
+              </NavButton>
+              <NavButton
+                variant={pathname === '/Projekte/' ? 'outlined' : 'text'}
+                component={Link}
+                to="/Projekte/"
+                active={(pathname === '/Projekte/').toString()}
+              >
+                Projekte
+              </NavButton>
+              <Account />
+            </Toolbar>
+          </AppBar>
+        </ErrorBoundary>
       )
     }}
   </Location>

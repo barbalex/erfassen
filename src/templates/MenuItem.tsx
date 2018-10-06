@@ -9,6 +9,8 @@ import { Location } from '@reach/router'
 import styled from 'styled-components'
 import get from 'lodash/get'
 
+import ErrorBoundary from '../components/ErrorBoundary'
+
 interface ListItemProps {
   active: string
 }
@@ -39,14 +41,16 @@ const TechnDokuMenuItem = ({
       ).toString()
 
       return (
-        <>
-          <ListItem button onClick={onClickMenuItem} active={active}>
-            <ListItemText onClick={onClickMenuItem}>
-              {get(post, 'frontmatter.title', '(Titel fehlt)')}
-            </ListItemText>
-          </ListItem>
-          <Divider />
-        </>
+        <ErrorBoundary>
+          <>
+            <ListItem button onClick={onClickMenuItem} active={active}>
+              <ListItemText onClick={onClickMenuItem}>
+                {get(post, 'frontmatter.title', '(Titel fehlt)')}
+              </ListItemText>
+            </ListItem>
+            <Divider />
+          </>
+        </ErrorBoundary>
       )
     }}
   </Location>
