@@ -17,8 +17,8 @@ import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
 
 import ErrorBoundary from '../ErrorBoundary'
-import couchUrl from '../../utils/couchUrl'
 import withAuthDbState from '../../state/withAuthDb'
+import { Props as authDbStateProps } from '../../state/AuthDb'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -53,7 +53,7 @@ const enhance = compose(
     }: {
       email: string
       password: string
-      authDbState: any
+      authDbState: authDbStateProps
       setSignupOpen: (signupOpen: boolean) => void
     }) => async () => {
       let signUpResponce
@@ -76,7 +76,7 @@ const enhance = compose(
         console.log('Signup: error logging in:', error)
       }
       console.log('Signup: logInResponce logging in:', logInResponce)
-      // TODO: save email to store and show it in menu
+      authDbState.setName(email)
       setSignupOpen(false)
     },
     onToggleShowPass: ({

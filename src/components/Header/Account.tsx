@@ -10,6 +10,8 @@ import withState from 'recompose/withState'
 import Signup from './Signup'
 import Login from './Login'
 import ErrorBoundary from '../ErrorBoundary'
+import withAuthDbState from '../../state/withAuthDb'
+import { Props as authDbStateProps } from '../../state/AuthDb'
 
 interface Props {
   anchorEl: EventTarget | null
@@ -22,9 +24,11 @@ interface Props {
   loginOpen: boolean
   setLoginOpen: (signupOpen: boolean) => void
   onClickLognin: (signupOpen: boolean) => void
+  authDbState: authDbStateProps
 }
 
 const enhance = compose(
+  withAuthDbState,
   withState('anchorEl', 'setAnchorEl', null),
   withState('signupOpen', 'setSignupOpen', false),
   withState('loginOpen', 'setLoginOpen', false),
@@ -76,6 +80,7 @@ const Account: React.SFC<Props> = ({
   onClickLogin,
   setSignupOpen,
   setLoginOpen,
+  authDbState,
 }) => (
   <ErrorBoundary>
     <>
