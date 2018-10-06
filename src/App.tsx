@@ -6,9 +6,15 @@ import { createGlobalStyle } from 'styled-components'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import red from '@material-ui/core/colors/red'
 import teal from '@material-ui/core/colors/teal'
+import PouchDB from 'pouchdb'
+import pouchdbAuthentication from 'pouchdb-authentication'
 
 import { DbContext } from './context/db'
+import { AuthDbContext } from './context/authDb'
 import createDb from './utils/createDb'
+import couchUrl from './utils/couchUrl'
+
+PouchDB.plugin(pouchdbAuthentication)
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -87,8 +93,15 @@ declare global {
 
 const enhance = compose(
   withState('db', 'setDb', null),
+  withState('authDb', 'setAuthDb', null),
   withLifecycle({
-    async onDidMount({ setDb }: { setDb: (db: any) => void }) {
+    async onDidMount({
+      setDb,
+      setAuthDb,
+    }: {
+      setDb: (db: any) => void
+      setAuthDb: (authDb: any) => void
+    }) {
       if (window.db) return
       let db
       try {
@@ -102,18 +115,31 @@ const enhance = compose(
       // db is also set on window
       // and used if db is undefined
       window.db = db
+      // now to the auth db
+      const authDb = new PouchDB(couchUrl)
+      setAuthDb(authDb)
     },
   }),
 )
 
-const App = ({ db, element }: { db: any; element: Component }) => (
+const App = ({
+  db,
+  authDb,
+  element,
+}: {
+  db: any
+  authDb: any
+  element: Component
+}) => (
   <DbContext.Provider value={db}>
-    <MuiThemeProvider theme={theme}>
-      <>
-        <GlobalStyle />
-        {element}
-      </>
-    </MuiThemeProvider>
+    <AuthDbContext.Provider value={authDb}>
+      <MuiThemeProvider theme={theme}>
+        <>
+          <GlobalStyle />
+          {element}
+        </>
+      </MuiThemeProvider>
+    </AuthDbContext.Provider>
   </DbContext.Provider>
 )
 

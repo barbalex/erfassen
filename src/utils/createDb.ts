@@ -1,5 +1,4 @@
 import rxdb, { removeDatabase } from 'rxdb'
-import PouchDB from 'pouchdb'
 
 import pouchdbAdapterHttp from 'pouchdb-adapter-http'
 import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
@@ -12,6 +11,7 @@ import messageSchema from '../schemas/message.json'
 
 rxdb.plugin(pouchdbAdapterHttp)
 rxdb.plugin(pouchdbAdapterIdb)
+rxdb.plugin(pouchdbAuthentication)
 
 export default async () => {
   let db
@@ -30,7 +30,7 @@ export default async () => {
   // maybe use
   // https://github.com/rafamel/rxdb-utils#models
   // to make this easier
-  const mDB = await db.collection({
+  await db.collection({
     name: 'message',
     schema: messageSchema,
   })
@@ -67,14 +67,6 @@ export default async () => {
       .find()
       .where('type')
       .eq('beob'),
-  })
-  PouchDB.plugin(pouchdbAuthentication)
-  const authPouch = new PouchDB('auth')
-  console.log('createDb, db:', {
-    db,
-    dbSignup: db.signUp,
-    authPouch,
-    authPouchSignup: authPouch.signUp,
   })
 
   return db

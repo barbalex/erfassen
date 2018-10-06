@@ -17,6 +17,7 @@ import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
 
 import ErrorBoundary from '../ErrorBoundary'
+import { withDb } from '../../context/db'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -31,6 +32,7 @@ const StyledInput = styled(Input)`
 `
 
 const enhance = compose(
+  withDb,
   withState('email', 'setEmail', ''),
   withState('password', 'setPassword', ''),
   withState('showPass', 'setShowPass', false),
@@ -42,8 +44,29 @@ const enhance = compose(
     }: {
       setSigninOpen: (signinOpen: boolean) => void
     }) => () => setSigninOpen(false),
-    fetchLogin: () => async () => {
+    fetchLogin: ({
+      db,
+      email,
+      password,
+    }: {
+      db: any
+      email: string
+      password: string
+    }) => async () => {
       // TODO
+      console.log('Signin:', {
+        db,
+        email,
+        password,
+        messageDbSignup: db.message.pouch.signUp,
+      })
+      let responce
+      try {
+        responce = await db.message.pouch.signUp(email, password)
+      } catch (error) {
+        console.log('Signin: error logging in:', error)
+      }
+      console.log('Signin: responce logging in:', responce)
     },
     onToggleShowPass: ({
       showPass,
@@ -55,12 +78,18 @@ const enhance = compose(
       setShowPass(!showPass)
     },
   }),
-  withHandlers({
-    onBlurEmail: () => () => {
-      // TODO
+  withHandlers<any, any>({
+    onBlurEmail: ({ setEmail }: { setEmail: (email: string) => void }) => (
+      event: Event,
+    ) => {
+      setEmail(event.target.value)
     },
-    onBlurPassword: () => () => {
-      // TODO
+    onBlurPassword: ({
+      setPassword,
+    }: {
+      setPassword: (password: string) => void
+    }) => (event: Event) => {
+      setPassword(event.target.value)
     },
   }),
 )
@@ -82,6 +111,7 @@ const Signin = ({
   setSigninOpen,
   close,
   onToggleShowPass,
+  db,
 }: {
   email: string
   showPass: boolean
@@ -101,6 +131,7 @@ const Signin = ({
   setSigninOpen: (signinOpen: boolean) => void
   close: () => void
   onToggleShowPass: () => void
+  db: any
 }) => (
   <ErrorBoundary>
     <StyledDialog aria-labelledby="dialog-title" open={open}>
@@ -164,7 +195,7 @@ const Signin = ({
       <DialogActions>
         <Button onClick={close}>abbrechen</Button>
         <Button color="primary" onClick={fetchLogin}>
-          anmelden
+          Konto erstellen
         </Button>
       </DialogActions>
     </StyledDialog>
