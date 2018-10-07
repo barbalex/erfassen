@@ -1,4 +1,12 @@
 import { Container } from 'unstated'
+/**
+ * somehow gatsby manages to sometimes (not always)
+ * drag this file through node which makes
+ * pouchdb-browser complain fetch is missing
+ * using pouchdb is no solution because that complains
+ * to miss many bindings
+ */
+import 'isomorphic-fetch'
 import PouchDB from 'pouchdb-browser'
 import pouchdbAuthentication from 'pouchdb-authentication'
 import get from 'lodash/get'
