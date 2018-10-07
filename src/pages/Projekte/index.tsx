@@ -9,8 +9,11 @@ import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
 
 import Layout from '../../components/Layout'
-import withRxDb from '../../state/withRxDb.js'
+import withRxDbState from '../../state/withRxDb.js'
+import withAuthState from '../../state/withAuth'
+import { Props as authStateProps } from '../../state/Auth'
 import ErrorBoundary from '../../components/ErrorBoundary'
+import Login from '../../components/Header/Login'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -25,11 +28,15 @@ const ReflexContainer = styled(OrigReflexContainer)`
 
 interface Props {
   rxDbState: any
+  authState: authStateProps
 }
 
-const enhance = compose(withRxDb)
+const enhance = compose(
+  withRxDbState,
+  withAuthState,
+)
 
-const ProjektePage: React.SFC<Props> = ({ rxDbState }) => {
+const ProjektePage: React.SFC<Props> = ({ rxDbState, authState }) => {
   const { rxDb } = rxDbState.state
   if (!rxDb) {
     return (
@@ -46,6 +53,7 @@ const ProjektePage: React.SFC<Props> = ({ rxDbState }) => {
   const beobs = rxDb.beob
     ? rxDb.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
     : []*/
+  const { name } = authState.state
 
   return (
     <ErrorBoundary>
@@ -90,6 +98,7 @@ const ProjektePage: React.SFC<Props> = ({ rxDbState }) => {
             </ReflexElement>
           </ReflexContainer>
         </Container>
+        {!name && <Login open={!name} setLoginOpen={authState.setLoginOpen} />}
       </Layout>
     </ErrorBoundary>
   )
