@@ -6,10 +6,10 @@
 import React from 'react'
 import { Subscribe } from 'unstated'
 
-import AuthDbState from './AuthDb'
+import AuthState from './Auth'
 
 export default WrappedComponent => props => (
-  <Subscribe to={[AuthDbState]}>
-    {value => <WrappedComponent authDbState={value} {...props} />}
+  <Subscribe to={[AuthState]}>
+    {value => <WrappedComponent authState={value} {...props} />}
   </Subscribe>
 )

@@ -11,8 +11,8 @@ import styled from 'styled-components'
 import Signup from './Signup'
 import Login from './Login'
 import ErrorBoundary from '../ErrorBoundary'
-import withAuthDbState from '../../state/withAuthDb'
-import { Props as authDbStateProps } from '../../state/AuthDb'
+import withAuthState from '../../state/withAuth'
+import { Props as authStateProps } from '../../state/Auth'
 
 const IconContainer = styled.div`
   position: relative;
@@ -28,6 +28,8 @@ const UserNameDiv = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  /* ensure cursor is not changed */
+  z-index: -1;
 `
 
 interface Props {
@@ -35,20 +37,14 @@ interface Props {
   setAnchorEl: (anchorEl: EventTarget | null) => void
   onClickMenu: (event: Event) => void
   onCloseMenu: (event: Event) => void
-  signupOpen: boolean
-  setSignupOpen: (signupOpen: boolean) => void
   onClickSignup: (signupOpen: boolean) => void
-  loginOpen: boolean
-  setLoginOpen: (signupOpen: boolean) => void
   onClickLognin: (signupOpen: boolean) => void
-  authDbState: authDbStateProps
+  authState: authStateProps
 }
 
 const enhance = compose(
-  withAuthDbState,
+  withAuthState,
   withState('anchorEl', 'setAnchorEl', null),
-  withState('signupOpen', 'setSignupOpen', false),
-  withState('loginOpen', 'setLoginOpen', false),
   withHandlers<any, any>({
     onClickMenu: ({
       setAnchorEl,
@@ -61,28 +57,24 @@ const enhance = compose(
       setAnchorEl: (anchorEl: EventTarget | null) => void
     }) => () => setAnchorEl(null),
     onClickSignup: ({
-      setSignupOpen,
-      signupOpen,
       setAnchorEl,
+      authState,
     }: {
-      signupOpen: boolean
-      setSignupOpen: (signupOpen: boolean) => void
       setAnchorEl: (anchorEl: EventTarget | null) => void
+      authState: authStateProps
     }) => () => {
       setAnchorEl(null)
-      setSignupOpen(!signupOpen)
+      authState.setSignupOpen(!authState.state.signupOpen)
     },
     onClickLogin: ({
-      setLoginOpen,
-      loginOpen,
       setAnchorEl,
+      authState,
     }: {
-      loginOpen: boolean
-      setLoginOpen: (loginOpen: boolean) => void
       setAnchorEl: (anchorEl: EventTarget | null) => void
+      authState: authStateProps
     }) => () => {
       setAnchorEl(null)
-      setLoginOpen(!loginOpen)
+      authState.setLoginOpen(!authState.state.loginOpen)
     },
   }),
 )
@@ -91,15 +83,13 @@ const Account: React.SFC<Props> = ({
   anchorEl,
   onCloseMenu,
   onClickMenu,
-  signupOpen,
-  loginOpen,
   onClickSignup,
   onClickLogin,
-  setSignupOpen,
-  setLoginOpen,
-  authDbState,
+  authState,
 }) => {
-  console.log('Account, name:', authDbState.state.name)
+  console.log('Account, name:', authState.state.name)
+  const { name, signupOpen, loginOpen } = authState.state
+  const { setSignupOpen, setLoginOpen } = authState
   return (
     <ErrorBoundary>
       <>
@@ -113,7 +103,7 @@ const Account: React.SFC<Props> = ({
           >
             <UserIcon />
           </IconButton>
-          <UserNameDiv>{authDbState.state.name || ''}</UserNameDiv>
+          <UserNameDiv>{authState.state.name || ''}</UserNameDiv>
         </IconContainer>
         <Menu
           id="menu-appbar"

@@ -17,8 +17,8 @@ import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
 
 import ErrorBoundary from '../ErrorBoundary'
-import withAuthDbState from '../../state/withAuthDb'
-import { Props as authDbStateProps } from '../../state/AuthDb'
+import withAuthState from '../../state/withAuth'
+import { Props as authStateProps } from '../../state/Auth'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -33,7 +33,7 @@ const StyledInput = styled(Input)`
 `
 
 const enhance = compose(
-  withAuthDbState,
+  withAuthState,
   withState('email', 'setEmail', ''),
   withState('password', 'setPassword', ''),
   withState('showPass', 'setShowPass', false),
@@ -48,17 +48,17 @@ const enhance = compose(
     onClickSignup: ({
       email,
       password,
-      authDbState,
+      authState,
       setSignupOpen,
     }: {
       email: string
       password: string
-      authDbState: authDbStateProps
+      authState: authStateProps
       setSignupOpen: (signupOpen: boolean) => void
     }) => async () => {
       let signUpResponce
       try {
-        signUpResponce = await authDbState.state.authDb.signUp(email, password)
+        signUpResponce = await authState.state.authDb.signUp(email, password)
       } catch (error) {
         console.log('Signup: error logging in:', error)
       }
@@ -66,7 +66,7 @@ const enhance = compose(
       // TODO: log in
       let logInResponce
       try {
-        logInResponce = await authDbState.state.authDb.logIn(email, password)
+        logInResponce = await authState.state.authDb.logIn(email, password)
       } catch (error) {
         if (error.name === 'unauthorized' || error.name === 'forbidden') {
           // name or password incorrect
@@ -76,7 +76,7 @@ const enhance = compose(
         console.log('Signup: error logging in:', error)
       }
       console.log('Signup: logInResponce logging in:', logInResponce)
-      authDbState.setName(email)
+      authState.setName(email)
       setSignupOpen(false)
     },
     onToggleShowPass: ({

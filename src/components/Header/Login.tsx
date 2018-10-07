@@ -17,8 +17,8 @@ import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
 
 import ErrorBoundary from '../ErrorBoundary'
-import withAuthDbState from '../../state/withAuthDb'
-import { Props as authDbStateProps } from '../../state/AuthDb'
+import withAuthState from '../../state/withAuth'
+import { Props as authStateProps } from '../../state/Auth'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -33,32 +33,28 @@ const StyledInput = styled(Input)`
 `
 
 const enhance = compose(
-  withAuthDbState,
+  withAuthState,
   withState('email', 'setEmail', ''),
   withState('password', 'setPassword', ''),
   withState('showPass', 'setShowPass', false),
   withState('emailErrorText', 'setEmailErrorText', ''),
   withState('passwordErrorText', 'setPasswordErrorText', ''),
   withHandlers<any, any>({
-    close: ({
-      setLoginOpen,
-    }: {
-      setLoginOpen: (loginOpen: boolean) => void
-    }) => () => setLoginOpen(false),
+    close: ({ authState }: { authState: authStateProps }) => () =>
+      authState.setLoginOpen(false),
     onClickLogin: ({
       email,
       password,
-      authDbState,
-      setLoginOpen,
+      authState,
     }: {
       email: string
       password: string
-      authDbState: authDbStateProps
-      setLoginOpen: (loginOpen: boolean) => void
+      authState: authStateProps
     }) => async () => {
+      const { setName, setLoginOpen, state } = authState
       let logInResponce
       try {
-        logInResponce = await authDbState.state.authDb.logIn(email, password)
+        logInResponce = await state.authDb.logIn(email, password)
       } catch (error) {
         if (error.name === 'unauthorized' || error.name === 'forbidden') {
           // name or password incorrect
@@ -69,7 +65,7 @@ const enhance = compose(
         throw error
       }
       console.log('Login: logInResponce logging in:', logInResponce)
-      authDbState.setName(email)
+      setName(email)
       setLoginOpen(false)
     },
     onToggleShowPass: ({
@@ -106,12 +102,9 @@ const Login = ({
   onBlurEmail,
   onBlurPassword,
   onClickLogin,
-  user,
   open,
-  setLoginOpen,
   close,
   onToggleShowPass,
-  db,
 }: {
   email: string
   showPass: boolean
@@ -126,12 +119,9 @@ const Login = ({
   onBlurEmail: () => void
   onBlurPassword: () => void
   onClickLogin: () => void
-  user: Object
   open: boolean
-  setLoginOpen: (loginOpen: boolean) => void
   close: () => void
   onToggleShowPass: () => void
-  db: any
 }) => (
   <ErrorBoundary>
     <StyledDialog aria-labelledby="dialog-title" open={open}>
