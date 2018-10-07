@@ -40,10 +40,10 @@ Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authen
    * let user confirm firmly by typing his email in to text field :white_medium_square:
    * delete userDoc :white_medium_square:
 2. server-side
-   * on delete userDoc :white_medium_square:
-   * remove user from projects :white_medium_square:
-   * delete userDb :white_medium_square:
-   * delete user's projects :white_medium_square:
+   * remove user from projects :construction:
+   * delete userDb :construction:
+   * delete user's projects :construction:
+   * remove user from members of message db :construction:
 
 ## 2. project / db
 ### create
