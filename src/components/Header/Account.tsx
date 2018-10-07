@@ -87,9 +87,9 @@ const Account: React.SFC<Props> = ({
   onClickLogin,
   authState,
 }) => {
-  console.log('Account, name:', authState.state.name)
   const { name, signupOpen, loginOpen } = authState.state
   const { setSignupOpen, setLoginOpen } = authState
+
   return (
     <ErrorBoundary>
       <>
@@ -103,7 +103,7 @@ const Account: React.SFC<Props> = ({
           >
             <UserIcon />
           </IconButton>
-          <UserNameDiv>{authState.state.name || ''}</UserNameDiv>
+          <UserNameDiv>{name || ''}</UserNameDiv>
         </IconContainer>
         <Menu
           id="menu-appbar"
