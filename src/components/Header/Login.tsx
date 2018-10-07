@@ -65,7 +65,7 @@ const enhance = compose(
         throw error
       }
       console.log('Login: logInResponce logging in:', logInResponce)
-      setName(email)
+      setName(logInResponce.name)
       setLoginOpen(false)
     },
     onToggleShowPass: ({
@@ -124,17 +124,17 @@ const Login = ({
   onToggleShowPass: () => void
 }) => (
   <ErrorBoundary>
-    <StyledDialog aria-labelledby="dialog-title" open={open}>
-      <DialogTitle id="dialog-title">Anmeldung</DialogTitle>
+    <StyledDialog aria-labelledby="login-dialog-title" open={open}>
+      <DialogTitle id="login-dialog-title">Anmeldung</DialogTitle>
       <StyledDiv>
         <FormControl
           error={!!emailErrorText}
           fullWidth
-          aria-describedby="emailHelper"
+          aria-describedby="loginEmailHelper"
         >
-          <InputLabel htmlFor="email">Email</InputLabel>
+          <InputLabel htmlFor="loginEmail">Email</InputLabel>
           <StyledInput
-            id="email"
+            id="loginEmail"
             defaultValue={email}
             onBlur={onBlurEmail}
             autoFocus
@@ -144,16 +144,18 @@ const Login = ({
               }
             }}
           />
-          <FormHelperText id="emailHelper">{emailErrorText}</FormHelperText>
+          <FormHelperText id="loginEmailHelper">
+            {emailErrorText}
+          </FormHelperText>
         </FormControl>
         <FormControl
           error={!!passwordErrorText}
           fullWidth
-          aria-describedby="passwortHelper"
+          aria-describedby="loginPasswortHelper"
         >
-          <InputLabel htmlFor="passwort">Passwort</InputLabel>
+          <InputLabel htmlFor="loginPasswort">Passwort</InputLabel>
           <StyledInput
-            id="passwort"
+            id="loginPasswort"
             type={showPass ? 'text' : 'password'}
             defaultValue={password}
             onBlur={onBlurPassword}
@@ -177,7 +179,7 @@ const Login = ({
               </InputAdornment>
             }
           />
-          <FormHelperText id="passwortHelper">
+          <FormHelperText id="loginPasswortHelper">
             {passwordErrorText}
           </FormHelperText>
         </FormControl>
