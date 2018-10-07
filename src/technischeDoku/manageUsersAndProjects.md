@@ -14,71 +14,70 @@ Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authen
 ## 1. user
 ### create
 1. app-side
-   * user clicks menu to create account
-   * [pouchdb.signUp](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbsignupusername-password--options--callback) creates the user in CoudhDB's _users db
-   * do not save username and password: PouchDB remains logged in as long as the cookie is valid
-   * pop up login form as no valid cookie exists
-   * log in
+   * user clicks menu to create account :white_check_mark:
+   * [pouchdb.signUp](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbsignupusername-password--options--callback) creates the user in CoudhDB's `_users` db :white_check_mark:
+   * do not save username and password: PouchDB remains logged in as long as the cookie is valid :white_check_mark:
+   * pop up login form as no valid cookie exists :white_check_mark:
+   * log in :white_check_mark:
 2. server-side:
-   * on create user
-   * [create userDb](http://docs.couchdb.org/en/stable/config/couch-peruser.html)
-   * find projects with users email in projectDef.users and list them in projects key in the users doc in the _users db
+   * [create userDb](http://docs.couchdb.org/en/stable/config/couch-peruser.html) :white_check_mark:
+   * find projects with users email in projectDef.users and list them in projects key in the users doc in the `_users` db :white_medium_square:
 3. app-side:
    * [pouchdb.getUser](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbgetuserusername--opts-callback)
-   * create userDb
-   * create userDoc collection
-   * sync userDoc collection<br/>
+   * create userDb :white_medium_square:
+   * create userDoc collection :white_medium_square:
+   * sync userDoc collection :white_medium_square:<br/>
       catch if Sync errors because db does not yet exist
 
 ### edit
 1. app-side:
-   * make sure billing info is valid
+   * make sure billing info is valid :white_medium_square:
 
 ### delete
 1. app-side
-   * menu to remove account with all data
-   * tell user what is going to be deleted, foremost: what projects
-   * let user confirm firmly by typing his email in to text field
-   * delete userDoc
+   * menu to remove account with all data :white_medium_square:
+   * tell user what is going to be deleted, foremost: what projects :white_medium_square:
+   * let user confirm firmly by typing his email in to text field :white_medium_square:
+   * delete userDoc :white_medium_square:
 2. server-side
-   * on delete userDoc
-   * remove user from projects
-   * delete userDb
-   * delete user's projects
+   * on delete userDoc :white_medium_square:
+   * remove user from projects :white_medium_square:
+   * delete userDb :white_medium_square:
+   * delete user's projects :white_medium_square:
 
 ## 2. project / db
 ### create
 1. app-side:
-   * name it `project_userName_projectName` (replace @ & . with $$ & $) (hex encode user- and project name? https://stackoverflow.com/a/51624609)
-   * create new db and collections
-   * create projectDef doc in it's collection
-   * add projectDef.users
-   * add projectDef.billing
-   * check billing validity?
-   * copy projectDef doc to messageDb
+   * name it `project_userName_projectName` (replace @ & . with $$ & $) (hex encode user- and project name? https://stackoverflow.com/a/51624609) :white_medium_square:
+   * create new db and collections :white_medium_square:
+   * create projectDef doc in it's collection :white_medium_square:
+   * add projectDef.users :white_medium_square:
+   * add projectDef.billing :white_medium_square:
+   * check billing validity? :white_medium_square:
+   * copy projectDef doc to messageDb :white_medium_square:
 2. server-side:
-   * on new projectDef doc in messageDb
-   * create new project db, including [security doc](http://docs.couchdb.org/en/latest/api/database/security.html)
-   * add this user to admin members of project db (ensure only members can access it)
-   * loop projectDef.users
-   * add users as admin members to project db
-   * add dbName to every user's userDb projects list
-   * delete projectDef doc in messageDb
+   * on new projectDef doc in messageDb :white_medium_square:
+   * create new project db, including [security doc](http://docs.couchdb.org/en/latest/api/database/security.html) :white_medium_square:
+   * add this user to admin members of project db (ensure only members can access it) :white_medium_square:
+   * loop projectDef.users :white_medium_square:
+   * add users as admin members to project db :white_medium_square:
+   * add dbName to every user's userDb projects list :white_medium_square:
+   * delete projectDef doc in messageDb :white_medium_square:
 3. app-side:
-   * on delete projectDef doc in messageDb
-   * sync project's collections
+   * on delete projectDef doc in messageDb :white_medium_square:
+   * sync project's collections :white_medium_square:
 
 ### edit
 1. server-side
-   * on edit projectDef doc in project db
-   * if one of projectDef.users was removed, remove project name from userDoc's project list
-   * if one of projectDef.users was added, add project name in userDoc's project list
+   * on edit projectDef doc in project db :white_medium_square:
+   * if one of projectDef.users was removed, remove project name from userDoc's project list :white_medium_square:
+   * if one of projectDef.users was added, add project name in userDoc's project list :white_medium_square:
 
 ### delete
 1. server-side
-   * on delete projectDef doc in project, i.e. db
-   * loop projectDef.users
-   * remove project name from userDoc's project list
-   * delete project db
+   * on delete projectDef doc in project, i.e. db :white_medium_square:
+   * loop projectDef.users :white_medium_square:
+   * remove project name from userDoc's project list :white_medium_square:
+   * delete project db :white_medium_square:
 2. app-side
    * TODO: need to clear data from rxdb/pouch?
