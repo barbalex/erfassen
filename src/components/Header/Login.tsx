@@ -140,7 +140,7 @@ const Login = ({
             autoFocus
             onKeyPress={e => {
               if (e.key === 'Enter') {
-                onBlurEmail()
+                onBlurEmail(e)
               }
             }}
           />
@@ -161,7 +161,7 @@ const Login = ({
             onBlur={onBlurPassword}
             onKeyPress={e => {
               if (e.key === 'Enter') {
-                onBlurPassword()
+                onBlurPassword(e)
               }
             }}
             autoComplete="current-password"
