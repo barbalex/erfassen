@@ -172,7 +172,7 @@ const IndexPage: React.SFC<{}> = () => (
                 fluid={data.file.childImageSharp.fluid}
                 style={bgImageStyle}
               />
-              <PageTitle align="center" variant="title" color="inherit" noWrap>
+              <PageTitle align="center" variant="h6" color="inherit" noWrap>
                 Erfassen Sie:
               </PageTitle>
               <CardContainer>

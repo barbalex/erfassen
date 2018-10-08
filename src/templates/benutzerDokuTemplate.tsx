@@ -87,10 +87,7 @@ const BenutzerDokuTemplate = ({ data }: { data: any }) => {
           <Doku>
             <h1>{frontmatter.title}</h1>
             <DokuDate>{frontmatter.date}</DokuDate>
-            <div
-              className="blog-post-content"
-              dangerouslySetInnerHTML={{ __html: html }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: html }} />
           </Doku>
         </Container>
       </Layout>

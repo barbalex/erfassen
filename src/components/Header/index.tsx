@@ -50,7 +50,7 @@ const Header: React.SFC<Props> = ({ onClickSiteTitle }) => (
           <AppBar position="fixed">
             <Toolbar>
               <SiteTitle
-                variant="title"
+                variant="h6"
                 color="inherit"
                 noWrap
                 title="Home"
