@@ -9,7 +9,12 @@ sort: 3
 This document describes how creating, editing and deleting users and projects is managed.<br/>
 It's rather cryptic and probably most useful for myself.<br/><br/>
 
-Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/recipes.md#some-people-can-read-some-docs-some-people-can-write-those-same-docs).
+Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/recipes.md#some-people-can-read-some-docs-some-people-can-write-those-same-docs).<br/><br/>
+
+Symbols:
+* :white_check_mark:: done
+* :ballot_box_with_check:: written but untested
+* :white_medium_square:: todo
 
 ## 1. user
 ### create
