@@ -102,9 +102,9 @@ const Login = ({
   onBlurEmail,
   onBlurPassword,
   onClickLogin,
-  open,
   close,
   onToggleShowPass,
+  authState,
 }: {
   email: string
   showPass: boolean
@@ -119,12 +119,15 @@ const Login = ({
   onBlurEmail: () => void
   onBlurPassword: () => void
   onClickLogin: () => void
-  open: boolean
   close: () => void
   onToggleShowPass: () => void
+  authState: authStateProps
 }) => (
   <ErrorBoundary>
-    <StyledDialog aria-labelledby="login-dialog-title" open={open}>
+    <StyledDialog
+      aria-labelledby="login-dialog-title"
+      open={authState.state.loginOpen}
+    >
       <DialogTitle id="login-dialog-title">Anmeldung</DialogTitle>
       <StyledDiv>
         <FormControl
