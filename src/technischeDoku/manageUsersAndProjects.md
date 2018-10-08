@@ -31,8 +31,8 @@ Symbols:
 3. app-side:
    * [pouchdb.getUser](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbgetuserusername--opts-callback)
    * create userDb :white_medium_square:
-   * create userDoc collection :white_medium_square:
-   * sync userDoc collection :white_medium_square:<br/>
+   * create userDoc collection :construction:
+   * sync userDoc collection :construction:<br/>
       catch if Sync errors because db does not yet exist
 
 ### edit
