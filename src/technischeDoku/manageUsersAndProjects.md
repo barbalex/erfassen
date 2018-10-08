@@ -25,7 +25,7 @@ Symbols:
    * pop up login form as no valid cookie exists :white_check_mark:
    * log in :white_check_mark:
 2. server-side:
-   * [create userDb](http://docs.couchdb.org/en/stable/config/couch-peruser.html) :ballot_box_with_check:
+   * [create userDb](http://docs.couchdb.org/en/stable/config/couch-peruser.html) :white_check_mark:
    * create user doc in userDb :ballot_box_with_check:
    * find projects with users email in `_security` members and list them in projects key in the user's doc :ballot_box_with_check:
 3. app-side:
@@ -47,7 +47,7 @@ Symbols:
    * delete userDoc :white_medium_square:
 2. server-side
    * remove user from projects :construction:
-   * delete userDb :construction:
+   * delete userDb :white_check_mark:
    * delete user's projects :construction:
    * remove user from members of message db :construction:
 
