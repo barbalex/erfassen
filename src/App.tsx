@@ -8,6 +8,9 @@ import createGlobalStyle from './utils/createGlobalStyle'
 
 const GlobalStyle = createGlobalStyle()
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     type: 'light',
     primary: { main: teal[800] },

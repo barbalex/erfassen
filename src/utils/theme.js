@@ -1,5 +1,4 @@
 const theme = {
-  useNextVariants: true,
   title: 'Homegrown',
   baseFontSize: '16px',
   headerFontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
