@@ -29,7 +29,7 @@ export interface Props {
   setLoginOpen: (loginOpen: boolean) => void
 }
 
-export default class AuthDbContainer extends Container<StateProps> {
+export default class AuthContainer extends Container<StateProps> {
   constructor(props: StateProps) {
     super()
     const authDb = new PouchDB(couchUrl())
@@ -44,7 +44,9 @@ export default class AuthDbContainer extends Container<StateProps> {
       .getSession()
       .then((resp: any) => {
         const name = get(resp, 'userCtx.name', null)
-        if (name) this.setState(state => ({ name }))
+        if (name) {
+          this.setState(state => ({ name }))
+        }
       })
       .catch((error: Error) => {
         throw error
