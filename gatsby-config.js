@@ -49,10 +49,10 @@ module.exports = {
         name: 'erfassen.ch',
         short_name: 'erfassen',
         start_url: '/',
-        background_color: '#663399',
-        theme_color: '#663399',
+        background_color: '#00695c',
+        theme_color: '#00695c',
         display: 'minimal-ui',
-        icon: 'src/images/erfassen-512x512.png', // This path is relative to the root of the site.
+        icon: 'src/images/erfassen-512x512.png',
       },
     },
     {
