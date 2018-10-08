@@ -88,7 +88,6 @@ const Account: React.SFC<Props> = ({
   authState,
 }) => {
   const { name, signupOpen, loginOpen } = authState.state
-  const { setSignupOpen, setLoginOpen } = authState
 
   return (
     <ErrorBoundary>
@@ -122,10 +121,8 @@ const Account: React.SFC<Props> = ({
           <MenuItem onClick={onClickLogin}>Anmelden</MenuItem>
           <MenuItem onClick={onClickSignup}>Konto erstellen</MenuItem>
         </Menu>
-        {signupOpen && (
-          <Signup open={signupOpen} setSignupOpen={setSignupOpen} />
-        )}
-        {loginOpen && <Login open={loginOpen} setLoginOpen={setLoginOpen} />}
+        {signupOpen && <Signup />}
+        {loginOpen && <Login />}
       </>
     </ErrorBoundary>
   )
