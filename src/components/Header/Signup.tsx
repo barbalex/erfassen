@@ -18,7 +18,10 @@ import withState from 'recompose/withState'
 
 import ErrorBoundary from '../ErrorBoundary'
 import withAuthState from '../../state/withAuth'
+import withRxDbState from '../../state/withRxDb'
 import { Props as authStateProps } from '../../state/Auth'
+import { Props as rxDbStateProps } from '../../state/RxDb'
+import rxdb from 'rxdb'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -34,39 +37,34 @@ const StyledInput = styled(Input)`
 
 const enhance = compose(
   withAuthState,
+  withRxDbState,
   withState('email', 'setEmail', ''),
   withState('password', 'setPassword', ''),
   withState('showPass', 'setShowPass', false),
   withState('emailErrorText', 'setEmailErrorText', ''),
   withState('passwordErrorText', 'setPasswordErrorText', ''),
   withHandlers<any, any>({
-    close: ({
-      setSignupOpen,
-    }: {
-      setSignupOpen: (signupOpen: boolean) => void
-    }) => () => setSignupOpen(false),
+    close: ({ authState }: { authState: authStateProps }) => () =>
+      authState.setSignupOpen(false),
     onClickSignup: ({
       email,
       password,
       authState,
-      setSignupOpen,
+      rxDbState,
     }: {
       email: string
       password: string
       authState: authStateProps
-      setSignupOpen: (signupOpen: boolean) => void
+      rxDbState: rxDbStateProps
     }) => async () => {
-      let signUpResponce
       try {
-        signUpResponce = await authState.state.authDb.signUp(email, password)
+        await authState.state.authDb.signUp(email, password)
       } catch (error) {
         console.log('Signup: error logging in:', error)
       }
-      console.log('Signup: signUpResponce logging in:', signUpResponce)
-      // TODO: log in
-      let logInResponce
+      // log in
       try {
-        logInResponce = await authState.state.authDb.logIn(email, password)
+        await authState.state.authDb.logIn(email, password)
       } catch (error) {
         if (error.name === 'unauthorized' || error.name === 'forbidden') {
           // name or password incorrect
@@ -75,9 +73,12 @@ const enhance = compose(
         }
         console.log('Signup: error logging in:', error)
       }
-      console.log('Signup: logInResponce logging in:', logInResponce)
       authState.setName(email)
-      setSignupOpen(false)
+      authState.setSignupOpen(false)
+      console.log('Signup, rxDb', rxDbState.state.rxDb)
+      // TODO:
+      // create userDoc Collection
+      // then sync it
     },
     onToggleShowPass: ({
       showPass,
@@ -114,11 +115,10 @@ const Signup = ({
   onBlurPassword,
   onClickSignup,
   user,
-  open,
-  setSignupOpen,
   close,
   onToggleShowPass,
   db,
+  authState,
 }: {
   email: string
   showPass: boolean
@@ -134,14 +134,16 @@ const Signup = ({
   onBlurPassword: () => void
   onClickSignup: () => void
   user: Object
-  open: boolean
-  setSignupOpen: (signupOpen: boolean) => void
   close: () => void
   onToggleShowPass: () => void
   db: any
+  authState: authStateProps
 }) => (
   <ErrorBoundary>
-    <StyledDialog aria-labelledby="dialog-title" open={open}>
+    <StyledDialog
+      aria-labelledby="dialog-title"
+      open={authState.state.signupOpen}
+    >
       <DialogTitle id="dialog-title">Neues Konto</DialogTitle>
       <StyledDiv>
         <FormControl
