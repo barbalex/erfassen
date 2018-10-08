@@ -26,7 +26,7 @@ Symbols:
    * log in :white_check_mark:
 2. server-side:
    * [create userDb](http://docs.couchdb.org/en/stable/config/couch-peruser.html) :white_check_mark:
-   * create user doc in userDb :ballot_box_with_check:
+   * create user doc in userDb :white_check_mark:
    * find projects with users email in `_security` members and list them in projects key in the user's doc :ballot_box_with_check:
 3. app-side:
    * [pouchdb.getUser](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbgetuserusername--opts-callback)
