@@ -142,7 +142,7 @@ const Signup = ({
 }) => (
   <ErrorBoundary>
     <StyledDialog aria-labelledby="dialog-title" open={open}>
-      <DialogTitle id="dialog-title">Anmeldung</DialogTitle>
+      <DialogTitle id="dialog-title">Neues Konto</DialogTitle>
       <StyledDiv>
         <FormControl
           error={!!emailErrorText}

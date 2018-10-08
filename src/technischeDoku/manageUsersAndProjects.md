@@ -48,7 +48,10 @@ Inspired by [PouchDB's docs](https://github.com/pouchdb-community/pouchdb-authen
 ## 2. project / db
 ### create
 1. app-side:
-   * name it `project_userName_projectName` (replace @ & . with $$ & $) (hex encode user- and project name? https://stackoverflow.com/a/51624609) :white_medium_square:
+   * user creates new project :white_medium_square:
+   * gives it a name :white_medium_square:
+   * can add users _but only existing ones_ (important because daemon needs to add the project to their userDb's userDoc) :white_medium_square:
+   * name it `project_userName_projectName` (replace `@` with `_at_` and `.` with `_p_`) :white_medium_square:
    * create new db and collections :white_medium_square:
    * create projectDef doc in it's collection :white_medium_square:
    * add projectDef.users :white_medium_square:
