@@ -14,10 +14,13 @@ export default async ({
   // create userDoc Collection
   // then sync it
   const userDbName = userDbNameFromUserName(email)
-  await rxDb.collection({
-    name: userDbName,
-    schema: userDocSchema,
-  })
+  if (!rxDb.isRxDatabase(rxDb[userDbName])) {
+    await rxDb.collection({
+      name: userDbName,
+      schema: userDocSchema,
+    })
+  }
+  // TODO: how to know if is already being synced?
   rxDb[userDbName].sync({
     remote: `http://localhost:5984/${userDbName}/`,
     options: {
