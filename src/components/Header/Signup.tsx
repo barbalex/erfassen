@@ -21,7 +21,9 @@ import withAuthState from '../../state/withAuth'
 import withRxDbState from '../../state/withRxDb'
 import { Props as authStateProps } from '../../state/Auth'
 import { Props as rxDbStateProps } from '../../state/RxDb'
-import rxdb from 'rxdb'
+import userDbNameFromUserName from '../../utils/userDbNameFromUserName'
+import userDocSchema from '../../schemas/userDoc.json'
+import createAndSyncUserCollection from '../../utils/createAndSyncUserCollection'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -75,10 +77,7 @@ const enhance = compose(
       }
       authState.setName(email)
       authState.setSignupOpen(false)
-      console.log('Signup, rxDb', rxDbState.state.rxDb)
-      // TODO:
-      // create userDoc Collection
-      // then sync it
+      createAndSyncUserCollection({ rxDbState, email })
     },
     onToggleShowPass: ({
       showPass,
