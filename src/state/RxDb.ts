@@ -4,12 +4,12 @@ import createRxDb from '../utils/createRxDb'
 
 interface StateProps {
   rxDb: any
-  sync: Object
+  syncs: Object
 }
 export interface Props {
   state: StateProps
   setRxDb: (rxDb: any) => void
-  setSyncKey: ({ key, sync }: { key: string; sync: Object }) => void
+  setSyncKey: () => void
 }
 declare global {
   interface Window {
@@ -29,16 +29,18 @@ export default class RxDbContainer extends Container<StateProps> {
     const rxDb = typeof window === 'undefined' ? null : window.rxDb || null
     this.state = {
       rxDb,
-      sync: {},
+      syncs: {},
     }
     // create initial state
     if (
       (typeof window !== 'undefined' && !window.rxDb) ||
       typeof window === 'undefined'
     ) {
+      // as hard as I tried, could not get typescript to type .then correctly
       createRxDb()
-        .then((rxDb: any) => {
-          this.setState(state => ({ rxDb }))
+        .then(({ rxDb, syncs }) => {
+          this.setState(state => ({ rxDb, syncs }))
+          console.log({ syncs })
           if (typeof window !== 'undefined') window.rxDb = rxDb
         })
         .catch(error => {
@@ -50,7 +52,8 @@ export default class RxDbContainer extends Container<StateProps> {
   setRxDb(rxDb: any) {
     this.setState(state => ({ rxDb }))
   }
-  setSyncKey({ key, sync }: { key: string; sync: Object }) {
+
+  setSyncKey({ key, sync }: { key: string; sync: any }) {
     this.setState(state => ({
       ...state,
       [key]: sync,

@@ -10,7 +10,7 @@ export default async ({
   rxDbState: rxDbStateProps
   email: string
 }) => {
-  const { rxDb } = rxDbState.state
+  const { rxDb, syncs } = rxDbState.state
   // create userDoc Collection
   // then sync it
   const userDbName = userDbNameFromUserName(email)
@@ -21,16 +21,20 @@ export default async ({
     })
   }
   // TODO: how to know if is already being synced?
-  rxDb[userDbName].sync({
-    remote: `http://localhost:5984/${userDbName}/`,
-    options: {
-      live: true,
-      retry: true,
-    },
-    query: rxDb[userDbName]
-      .find()
-      .where('type')
-      .eq('user'),
-  })
+  // set sync key in rxdb's sync state
+  const isAlreadyBeingSynced: boolean = !!syncs[userDbName]
+  if (!isAlreadyBeingSynced) {
+    rxDb[userDbName].sync({
+      remote: `http://localhost:5984/${userDbName}/`,
+      options: {
+        live: true,
+        retry: true,
+      },
+      query: rxDb[userDbName]
+        .find()
+        .where('type')
+        .eq('user'),
+    })
+  }
   console.log('Signup', { rxDb, userDbName })
 }
