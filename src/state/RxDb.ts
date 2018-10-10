@@ -4,10 +4,12 @@ import createRxDb from '../utils/createRxDb'
 
 interface StateProps {
   rxDb: any
+  sync: Object
 }
 export interface Props {
   state: StateProps
   setRxDb: (rxDb: any) => void
+  setSyncKey: ({ key, sync }: { key: string; sync: Object }) => void
 }
 declare global {
   interface Window {
@@ -27,6 +29,7 @@ export default class RxDbContainer extends Container<StateProps> {
     const rxDb = typeof window === 'undefined' ? null : window.rxDb || null
     this.state = {
       rxDb,
+      sync: {},
     }
     // create initial state
     if (
@@ -46,5 +49,11 @@ export default class RxDbContainer extends Container<StateProps> {
 
   setRxDb(rxDb: any) {
     this.setState(state => ({ rxDb }))
+  }
+  setSyncKey({ key, sync }: { key: string; sync: Object }) {
+    this.setState(state => ({
+      ...state,
+      [key]: sync,
+    }))
   }
 }
