@@ -20,8 +20,6 @@ export default async ({
       schema: userDocSchema,
     })
   }
-  // TODO: how to know if is already being synced?
-  // set sync key in rxdb's sync state
   const isAlreadyBeingSynced: boolean = !!syncs[userDbName]
   if (!isAlreadyBeingSynced) {
     rxDb[userDbName].sync({
