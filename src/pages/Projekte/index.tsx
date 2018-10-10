@@ -37,8 +37,8 @@ const enhance = compose(
 )
 
 const ProjektePage: React.SFC<Props> = ({ rxDbState, authState }) => {
-  const { rxDb } = rxDbState.state
-  if (!rxDb) {
+  const { dbs } = rxDbState.state
+  if (!dbs) {
     return (
       <Layout>
         <LoadingContainer>Lade daten...</LoadingContainer>
@@ -47,11 +47,11 @@ const ProjektePage: React.SFC<Props> = ({ rxDbState, authState }) => {
   }
 
   /*
-  const orte = rxDb.ort
-    ? rxDb.ort.dump().then((orte: any) => console.log('orte:', orte.docs))
+  const orte = dbs.erfassen.ort
+    ? dbs.erfassen.ort.dump().then((orte: any) => console.log('orte:', orte.docs))
     : []
-  const beobs = rxDb.beob
-    ? rxDb.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
+  const beobs = dbs.erfassen.beob
+    ? dbs.erfassen.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
     : []*/
   const { name } = authState.state
 
@@ -77,7 +77,7 @@ const ProjektePage: React.SFC<Props> = ({ rxDbState, authState }) => {
               <p>Form</p>
               <button
                 onClick={async () =>
-                  rxDb.ort.insert({
+                  dbs.erfassen.ort.insert({
                     name: 'test-ort',
                     type: 'ort',
                   })
@@ -87,7 +87,7 @@ const ProjektePage: React.SFC<Props> = ({ rxDbState, authState }) => {
               </button>
               <button
                 onClick={async () =>
-                  rxDb.beob.insert({
+                  dbs.erfassen.beob.insert({
                     art: 'test-art',
                     type: 'beob',
                   })

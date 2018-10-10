@@ -1,4 +1,5 @@
-import { Props as authStateProps } from '../state/Auth'
+import rxdb from 'rxdb'
+
 import { Props as rxDbStateProps } from '../state/RxDb'
 import userDbNameFromUserName from './userDbNameFromUserName'
 import userDocSchema from '../schemas/userDoc.json'
@@ -10,29 +11,38 @@ export default async ({
   rxDbState: rxDbStateProps
   email: string
 }) => {
-  const { rxDb, syncs } = rxDbState.state
+  const { dbs, syncs } = rxDbState.state
   // create userDoc Collection
   // then sync it
   const userDbName = userDbNameFromUserName(email)
-  if (!rxDb.isRxDatabase(rxDb[userDbName])) {
-    await rxDb.collection({
+  console.log('createAndSyncUserCollections', { dbs, syncs, rxDbState })
+  let userDb
+  if (!rxdb.isRxDatabase(dbs[userDbName])) {
+    userDb = await rxdb.create({
+      name: userDbName,
+      adapter: 'idb',
+    })
+    await userDb.collection({
       name: userDbName,
       schema: userDocSchema,
     })
   }
   const isAlreadyBeingSynced: boolean = !!syncs[userDbName]
+  let sync
   if (!isAlreadyBeingSynced) {
-    rxDb[userDbName].sync({
+    sync = userDb.sync({
       remote: `http://localhost:5984/${userDbName}/`,
       options: {
         live: true,
         retry: true,
       },
-      query: rxDb[userDbName]
+      query: dbs[userDbName][userDbName]
         .find()
         .where('type')
         .eq('user'),
     })
   }
-  console.log('Signup', { rxDb, userDbName })
+  rxDbState.addDb({ name: userDbName, userDb })
+  rxDbState.addSync({ name: userDbName, sync })
+  console.log('Signup', { dbs, userDbName })
 }

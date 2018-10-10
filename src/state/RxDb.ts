@@ -3,22 +3,22 @@ import { Container } from 'unstated'
 import createRxDb from '../utils/createRxDb'
 
 interface StateProps {
-  rxDb: any
+  dbs: any
   syncs: Object
 }
 export interface Props {
   state: StateProps
-  setRxDb: (rxDb: any) => void
-  setSyncKey: () => void
+  addDb: () => void
+  addSync: () => void
 }
 declare global {
   interface Window {
-    rxDb: any
+    dbs: any
   }
 }
 
 /**
- * window.rxDb is a hack
+ * window.dbs is a hack
  * state gets lost in live update in gatsby
  * so need to set it on window and fetch it from there
  * to enable nice dev experience
@@ -26,22 +26,22 @@ declare global {
 export default class RxDbContainer extends Container<StateProps> {
   constructor(props: StateProps) {
     super()
-    const rxDb = typeof window === 'undefined' ? null : window.rxDb || null
+    const dbs = typeof window === 'undefined' ? null : window.dbs || null
     this.state = {
-      rxDb,
+      dbs,
       syncs: {},
     }
     // create initial state
     if (
-      (typeof window !== 'undefined' && !window.rxDb) ||
+      (typeof window !== 'undefined' && !window.dbs) ||
       typeof window === 'undefined'
     ) {
       // as hard as I tried, could not get typescript to type .then correctly
       createRxDb()
-        .then(({ rxDb, syncs }) => {
-          this.setState(state => ({ rxDb, syncs }))
+        .then(({ dbs, syncs }) => {
+          this.setState(state => ({ dbs, syncs }))
           console.log({ syncs })
-          if (typeof window !== 'undefined') window.rxDb = rxDb
+          if (typeof window !== 'undefined') window.dbs = dbs
         })
         .catch(error => {
           throw error
@@ -49,14 +49,29 @@ export default class RxDbContainer extends Container<StateProps> {
     }
   }
 
-  setRxDb(rxDb: any) {
-    this.setState(state => ({ rxDb }))
+  addDb({ name, db }: { name: string; db: any }) {
+    this.setState(state => {
+      const newDbs = {
+        ...state.dbs,
+        [name]: db,
+      }
+      return {
+        dbs: newDbs,
+        syncs: state.syncs,
+      }
+    })
   }
 
-  setSyncKey({ key, sync }: { key: string; sync: any }) {
-    this.setState(state => ({
-      ...state,
-      [key]: sync,
-    }))
+  addSync({ name, sync }: { name: string; sync: any }) {
+    this.setState(state => {
+      const newSyncs = {
+        ...state.syncs,
+        [name]: sync,
+      }
+      return {
+        dbs: state.dbs,
+        syncs: newSyncs,
+      }
+    })
   }
 }
