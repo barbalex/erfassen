@@ -54,6 +54,7 @@ const ProjektePage: React.SFC<Props> = ({ rxDbState, authState }) => {
     ? dbs.erfassen.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
     : []*/
   const { name } = authState.state
+  console.log('Projekte', { dbs })
 
   return (
     <ErrorBoundary>
