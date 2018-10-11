@@ -84,7 +84,7 @@ const enhance = compose(
       authState: authStateProps
     }) => () => {
       setAnchorEl(null)
-      authState.setLoginOpen(!authState.state.loginOpen)
+      authState.logOut()
     },
   }),
 )

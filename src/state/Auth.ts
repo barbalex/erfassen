@@ -33,6 +33,7 @@ export interface Props {
   setSignupOpen: (signupOpen: boolean) => void
   setLoginOpen: (loginOpen: boolean) => void
   logIn: () => void
+  logOut: () => void
 }
 
 export default class AuthContainer extends Container<StateProps> {
@@ -90,5 +91,14 @@ export default class AuthContainer extends Container<StateProps> {
     }
     console.log('Login: logInResponce logging in:', logInResponce)
     this.setState(state => ({ name: logInResponce.name, loginOpen: false }))
+  }
+
+  logOut = async () => {
+    try {
+      await this.state.authDb.logOut()
+    } catch (error) {
+      throw error
+    }
+    this.setState(state => ({ name: null, loginOpen: false }))
   }
 }
