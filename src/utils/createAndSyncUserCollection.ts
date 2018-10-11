@@ -1,4 +1,7 @@
 import rxdb from 'rxdb'
+import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
+
+rxdb.plugin(pouchdbAdapterIdb)
 
 import { Props as rxDbStateProps } from '../state/RxDb'
 import userDbNameFromUserName from './userDbNameFromUserName'
