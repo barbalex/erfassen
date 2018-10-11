@@ -69,7 +69,7 @@ export default async () => {
       live: true,
       retry: true,
     },
-    query: db.beob
+    query: dbs.erfassen.beob
       .find()
       .where('type')
       .eq('beob'),

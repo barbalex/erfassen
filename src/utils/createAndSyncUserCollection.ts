@@ -27,7 +27,7 @@ export default async ({
       schema: userDocSchema,
     })
   }
-  const isAlreadyBeingSynced: boolean = !!syncs[userDbName]
+  const isAlreadyBeingSynced: boolean = !!syncs && !!syncs[userDbName]
   let sync
   if (!isAlreadyBeingSynced) {
     sync = userDb.sync({
@@ -36,7 +36,7 @@ export default async ({
         live: true,
         retry: true,
       },
-      query: dbs[userDbName][userDbName]
+      query: userDb
         .find()
         .where('type')
         .eq('user'),
