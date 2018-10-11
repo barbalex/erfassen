@@ -27,18 +27,18 @@ export default async ({
       schema: userDocSchema,
     })
   }
-  await rxDbState.addDb({ name: userDbName, userDb })
+  // await rxDbState.addDb({ name: userDbName, userDb })
   const isAlreadyBeingSynced: boolean = !!syncs && !!syncs[userDbName]
   console.log('createAndSyncUserCollections', { dbs })
   let sync
   if (!isAlreadyBeingSynced) {
-    sync = userDb.sync({
+    sync = userDb.user.sync({
       remote: `http://localhost:5984/${userDbName}/`,
       options: {
         live: true,
         retry: true,
       },
-      query: dbs[userDbName].user
+      query: userDb.user
         .find()
         .where('type')
         .eq('user'),
