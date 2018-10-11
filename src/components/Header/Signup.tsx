@@ -66,17 +66,10 @@ const enhance = compose(
       }
       // log in
       try {
-        await authState.state.authDb.logIn(email, password)
+        await authState.logIn({ email, password })
       } catch (error) {
-        if (error.name === 'unauthorized' || error.name === 'forbidden') {
-          // name or password incorrect
-        } else {
-          // cosmic rays, a meteor, etc.
-        }
-        console.log('Signup: error logging in:', error)
+        throw error
       }
-      authState.setName(email)
-      authState.setSignupOpen(false)
       createAndSyncUserCollection({ rxDbState, email })
     },
     onToggleShowPass: ({

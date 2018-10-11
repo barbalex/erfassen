@@ -51,22 +51,11 @@ const enhance = compose(
       password: string
       authState: authStateProps
     }) => async () => {
-      const { setName, setLoginOpen, state } = authState
-      let logInResponce
       try {
-        logInResponce = await state.authDb.logIn(email, password)
+        await authState.logIn({ email, password })
       } catch (error) {
-        if (error.name === 'unauthorized' || error.name === 'forbidden') {
-          // name or password incorrect
-        } else {
-          // cosmic rays, a meteor, etc.
-        }
-        console.log('Login: error logging in:', error)
         throw error
       }
-      console.log('Login: logInResponce logging in:', logInResponce)
-      setName(logInResponce.name)
-      setLoginOpen(false)
     },
     onToggleShowPass: ({
       showPass,

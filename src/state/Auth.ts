@@ -15,6 +15,11 @@ import couchUrl from '../utils/couchUrl'
 
 PouchDB.plugin(pouchdbAuthentication)
 
+interface LogInProps {
+  email: string
+  password: string
+}
+
 interface StateProps {
   authDb: any
   name: string | null
@@ -27,6 +32,7 @@ export interface Props {
   setName: (name: string | null) => void
   setSignupOpen: (signupOpen: boolean) => void
   setLoginOpen: (loginOpen: boolean) => void
+  logIn: () => void
 }
 
 export default class AuthContainer extends Container<StateProps> {
@@ -69,19 +75,18 @@ export default class AuthContainer extends Container<StateProps> {
     this.setState(state => ({ loginOpen }))
   }
 
-  login = async ({ email, password }: { email: string; password: string }) => {
-    const { logIn } = this.state.authDb
+  logIn = async ({ email, password }: LogInProps) => {
     let logInResponce: any
     try {
-      logInResponce = await logIn(email, password)
+      logInResponce = await this.state.authDb.logIn(email, password)
     } catch (error) {
       if (error.name === 'unauthorized' || error.name === 'forbidden') {
         // name or password incorrect
+        throw new Error('Name oder Passwort stimmt nicht')
       } else {
         // cosmic rays, a meteor, etc.
+        throw error
       }
-      console.log('Login: error logging in:', error)
-      throw error
     }
     console.log('Login: logInResponce logging in:', logInResponce)
     this.setState(state => ({ name: logInResponce.name, loginOpen: false }))

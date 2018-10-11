@@ -76,6 +76,16 @@ const enhance = compose(
       setAnchorEl(null)
       authState.setLoginOpen(!authState.state.loginOpen)
     },
+    onClickLogout: ({
+      setAnchorEl,
+      authState,
+    }: {
+      setAnchorEl: (anchorEl: EventTarget | null) => void
+      authState: authStateProps
+    }) => () => {
+      setAnchorEl(null)
+      authState.setLoginOpen(!authState.state.loginOpen)
+    },
   }),
 )
 
@@ -84,6 +94,7 @@ const Account: React.SFC<Props> = ({
   onCloseMenu,
   onClickMenu,
   onClickSignup,
+  onClickLogout,
   onClickLogin,
   authState,
 }) => {
@@ -118,7 +129,8 @@ const Account: React.SFC<Props> = ({
           open={!!anchorEl}
           onClose={onCloseMenu}
         >
-          <MenuItem onClick={onClickLogin}>Anmelden</MenuItem>
+          {!name && <MenuItem onClick={onClickLogin}>Anmelden</MenuItem>}
+          {name && <MenuItem onClick={onClickLogout}>Abmelden</MenuItem>}
           <MenuItem onClick={onClickSignup}>Konto erstellen</MenuItem>
         </Menu>
         {signupOpen && <Signup />}
