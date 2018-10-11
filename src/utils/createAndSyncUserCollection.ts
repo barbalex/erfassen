@@ -23,11 +23,13 @@ export default async ({
       adapter: 'idb',
     })
     await userDb.collection({
-      name: userDbName,
+      name: 'user',
       schema: userDocSchema,
     })
   }
+  await rxDbState.addDb({ name: userDbName, userDb })
   const isAlreadyBeingSynced: boolean = !!syncs && !!syncs[userDbName]
+  console.log('createAndSyncUserCollections', { dbs })
   let sync
   if (!isAlreadyBeingSynced) {
     sync = userDb.sync({
@@ -36,13 +38,12 @@ export default async ({
         live: true,
         retry: true,
       },
-      query: userDb
+      query: dbs[userDbName].user
         .find()
         .where('type')
         .eq('user'),
     })
   }
-  rxDbState.addDb({ name: userDbName, userDb })
   rxDbState.addSync({ name: userDbName, sync })
   console.log('Signup', { dbs, userDbName })
 }
