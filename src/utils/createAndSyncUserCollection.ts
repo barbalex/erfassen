@@ -27,7 +27,8 @@ export default async ({
       schema: userDocSchema,
     })
   }
-  // await rxDbState.addDb({ name: userDbName, userDb })
+  // TODO: enable next line again
+  rxDbState.addDb({ name: userDbName, db: userDb })
   const isAlreadyBeingSynced: boolean = !!syncs && !!syncs[userDbName]
   console.log('createAndSyncUserCollections', { dbs })
   let sync
