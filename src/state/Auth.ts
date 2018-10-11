@@ -53,19 +53,37 @@ export default class AuthContainer extends Container<StateProps> {
       })
   }
 
-  setAuthDb(authDb: any) {
+  setAuthDb = (authDb: any) => {
     this.setState(state => ({ authDb }))
   }
 
-  setName(name: string | null) {
+  setName = (name: string | null) => {
     this.setState(state => ({ name }))
   }
 
-  setSignupOpen(signupOpen: boolean) {
+  setSignupOpen = (signupOpen: boolean) => {
     this.setState(state => ({ signupOpen }))
   }
 
-  setLoginOpen(loginOpen: boolean) {
+  setLoginOpen = (loginOpen: boolean) => {
     this.setState(state => ({ loginOpen }))
+  }
+
+  login = async ({ email, password }: { email: string; password: string }) => {
+    const { logIn } = this.state.authDb
+    let logInResponce: any
+    try {
+      logInResponce = await logIn(email, password)
+    } catch (error) {
+      if (error.name === 'unauthorized' || error.name === 'forbidden') {
+        // name or password incorrect
+      } else {
+        // cosmic rays, a meteor, etc.
+      }
+      console.log('Login: error logging in:', error)
+      throw error
+    }
+    console.log('Login: logInResponce logging in:', logInResponce)
+    this.setState(state => ({ name: logInResponce.name, loginOpen: false }))
   }
 }

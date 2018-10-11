@@ -49,7 +49,7 @@ export default class RxDbContainer extends Container<StateProps> {
     }
   }
 
-  addDb({ name, db }: { name: string; db: any }) {
+  addDb = ({ name, db }: { name: string; db: any }) => {
     console.log('RxDb, addDb', { name, db, dbs: this.state.dbs })
     this.setState(state => {
       const newDbs = {
@@ -64,7 +64,7 @@ export default class RxDbContainer extends Container<StateProps> {
     })
   }
 
-  addSync({ name, sync }: { name: string; sync: any }) {
+  addSync = ({ name, sync }: { name: string; sync: any }) => {
     this.setState(state => {
       const newSyncs = {
         ...state.syncs,
