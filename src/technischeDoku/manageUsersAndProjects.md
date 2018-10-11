@@ -30,8 +30,8 @@ Symbols:
    * find projects with users email in `_security` members and list them in projects key in the user's doc :ballot_box_with_check:
 3. app-side:
    * [pouchdb.getUser](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbgetuserusername--opts-callback)
-   * create userDb :white_medium_square:
-   * create userDoc collection :construction:
+   * create userDb :white_check_mark:
+   * create userDoc collection :white_check_mark:
    * sync userDoc collection :construction:<br/>
       catch if Sync errors because db does not yet exist
 
