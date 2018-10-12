@@ -3,19 +3,17 @@ import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 
 rxdb.plugin(pouchdbAdapterIdb)
 
-import { Props as rxDbStateProps } from '../state/RxDb'
-import RxDbState from '../state/RxDb'
+import { Props as authStateProps } from '../state/Auth'
 import userDbNameFromUserName from './userDbNameFromUserName'
 import userDocSchema from '../schemas/userDoc.json'
 
 export default async ({
-  //authState,
+  authState,
   email,
 }: {
-  //authState: rxDbStateProps
+  authState: authStateProps
   email: string
 }) => {
-  const authState = new RxDbState()
   console.log('createAndSyncUserCollections', { authState })
   const { dbs, syncs } = authState.state
   // create userDoc Collection

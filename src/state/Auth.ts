@@ -14,7 +14,6 @@ import get from 'lodash/get'
 import createRxDb from '../utils/createRxDb'
 import couchUrl from '../utils/couchUrl'
 import createAndSyncUserCollection from '../utils/createAndSyncUserCollection'
-import { Props as rxDbStateProps } from './RxDb'
 
 PouchDB.plugin(pouchdbAuthentication)
 
@@ -128,7 +127,7 @@ export default class AuthContainer extends Container<StateProps> {
       authDb: new PouchDB(couchUrl()),
     }))
     // TODO: need to reset dbs and syncs first, to remove all traces of previous users?
-    createAndSyncUserCollection({ email })
+    createAndSyncUserCollection({ email, authState: this })
   }
 
   logOut = async () => {
@@ -150,13 +149,13 @@ export default class AuthContainer extends Container<StateProps> {
   }
 
   addDb = ({ name, db }: { name: string; db: any }) => {
-    console.log('RxDb, addDb', { name, db, dbs: this.state.dbs })
+    console.log('Auth, addDb', { name, db, dbs: this.state.dbs })
     this.setState(state => {
       const newDbs = {
         ...state.dbs,
         [name]: db,
       }
-      console.log('RxDb, addDb', { newDbs })
+      console.log('Auth, addDb', { newDbs })
       window.dbs = newDbs
       return {
         dbs: newDbs,
