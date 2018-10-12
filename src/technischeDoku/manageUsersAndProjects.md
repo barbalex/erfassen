@@ -54,32 +54,40 @@ Symbols:
 ### create
 1. app-side:
    * user creates new project :white_medium_square:
-   * gives it a name :white_medium_square:
+   * names it :white_medium_square:
+   * create projectDef doc in message db
+2. server-side, on new projectDef doc in messageDb:
+   * create new project db :white_medium_square:
    * name it `project_userName_projectName` (replace `@` with `_at_` and `.` with `_p_`) :white_medium_square:
-   * can add users by email :white_medium_square:
-   * create new db and collections :white_medium_square:
-   * create projectDef doc in it's collection :white_medium_square:
-   * add projectDef.users :white_medium_square:
-   * add projectDef.billing :white_medium_square:
-   * check billing validity? :white_medium_square:
-   * copy projectDef doc to messageDb :white_medium_square:
-2. server-side:
-   * on new projectDef doc in messageDb :white_medium_square:
-   * create new project db, including [security doc](http://docs.couchdb.org/en/latest/api/database/security.html) :white_medium_square:
-   * add this user to members of project db (ensure only members can access it) :white_medium_square:
-   * loop projectDef.users :white_medium_square:
-   * add users as admin members to project db :white_medium_square:
-   * add dbName to every user's userDb projects list :white_medium_square:
+   * add user to members in [security doc](http://docs.couchdb.org/en/latest/api/database/security.html) (ensure only members can access it) :white_medium_square:
+   * create projectDef doc in project db :white_medium_square:
    * delete projectDef doc in messageDb :white_medium_square:
-3. app-side:
-   * on delete projectDef doc in messageDb :white_medium_square:
+3. app-side, on delete projectDef doc in messageDb:
    * sync project's collections :white_medium_square:
 
 ### edit
-1. server-side
-   * on edit projectDef doc in project db :white_medium_square:
-   * if one of projectDef.users was removed, remove project name from userDoc's project list :white_medium_square:
-   * if one of projectDef.users was added, add project name in userDoc's project list :white_medium_square:
+#### edit project's user
+1. app-side:
+   * user can add users by email :white_medium_square:
+   * add projectDef.users :white_medium_square:
+   * add projectDef.billing :white_medium_square:
+   * check billing validity? :white_medium_square:
+2. server-side, on edit projectDef doc in project db :white_medium_square:
+   * if one of projectDef.users was added:
+      * add project name in userDoc's project list :white_medium_square:
+      * add user as member to project db's security doc :white_medium_square:
+   * if one of projectDef.users was removed:
+      * remove project name from userDoc's project list :white_medium_square:
+      * remove user from project db's members in security doc :white_medium_square:
+
+#### edit project's tables
+1. app-side:
+   * user can add table :white_medium_square:
+      * create new collection :white_medium_square:
+   * user can remove table :white_medium_square:
+      * delete collection :white_medium_square:
+2. server-side:
+   * no action needed
 
 ### delete
 1. server-side
