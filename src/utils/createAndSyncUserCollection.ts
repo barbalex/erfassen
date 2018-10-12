@@ -9,15 +9,15 @@ import userDbNameFromUserName from './userDbNameFromUserName'
 import userDocSchema from '../schemas/userDoc.json'
 
 export default async ({
-  //rxDbState,
+  //authState,
   email,
 }: {
-  //rxDbState: rxDbStateProps
+  //authState: rxDbStateProps
   email: string
 }) => {
-  const rxDbState = new RxDbState()
-  console.log('createAndSyncUserCollections', { rxDbState })
-  const { dbs, syncs } = rxDbState.state
+  const authState = new RxDbState()
+  console.log('createAndSyncUserCollections', { authState })
+  const { dbs, syncs } = authState.state
   // create userDoc Collection
   // then sync it
   const userDbName = userDbNameFromUserName(email)
@@ -40,7 +40,7 @@ export default async ({
       throw error
     }
   }
-  rxDbState.addDb({ name: userDbName, db: userDb })
+  authState.addDb({ name: userDbName, db: userDb })
   const isAlreadyBeingSynced: boolean = !!syncs && !!syncs[userDbName]
   console.log('createAndSyncUserCollections', { dbs })
   let sync
@@ -57,6 +57,6 @@ export default async ({
         .eq('user'),
     })
   }
-  rxDbState.addSync({ name: userDbName, sync })
+  authState.addSync({ name: userDbName, sync })
   console.log('Signup', { dbs, userDbName })
 }

@@ -18,7 +18,6 @@ import withState from 'recompose/withState'
 
 import ErrorBoundary from '../ErrorBoundary'
 import withAuthState from '../../state/withAuth'
-import withRxDbState from '../../state/withRxDb'
 import { Props as authStateProps } from '../../state/Auth'
 
 const StyledDialog = styled(Dialog)``
@@ -35,7 +34,6 @@ const StyledInput = styled(Input)`
 
 const enhance = compose(
   withAuthState,
-  withRxDbState,
   withState('email', 'setEmail', ''),
   withState('password', 'setPassword', ''),
   withState('showPass', 'setShowPass', false),

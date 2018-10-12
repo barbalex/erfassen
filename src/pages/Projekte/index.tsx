@@ -9,7 +9,6 @@ import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
 
 import Layout from '../../components/Layout'
-import withRxDbState from '../../state/withRxDb.js'
 import withAuthState from '../../state/withAuth'
 import { Props as authStateProps } from '../../state/Auth'
 import ErrorBoundary from '../../components/ErrorBoundary'
@@ -27,17 +26,13 @@ const ReflexContainer = styled(OrigReflexContainer)`
 `
 
 interface Props {
-  rxDbState: any
   authState: authStateProps
 }
 
-const enhance = compose(
-  withRxDbState,
-  withAuthState,
-)
+const enhance = compose(withAuthState)
 
-const ProjektePage: React.SFC<Props> = ({ rxDbState, authState }) => {
-  const { dbs } = rxDbState.state
+const ProjektePage: React.SFC<Props> = ({ authState }) => {
+  const { dbs, name } = authState.state
   if (!dbs) {
     return (
       <Layout>
@@ -53,7 +48,6 @@ const ProjektePage: React.SFC<Props> = ({ rxDbState, authState }) => {
   const beobs = dbs.erfassen.beob
     ? dbs.erfassen.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
     : []*/
-  const { name } = authState.state
   console.log('Projekte', { dbs })
 
   return (
