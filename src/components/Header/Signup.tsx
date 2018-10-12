@@ -20,10 +20,6 @@ import ErrorBoundary from '../ErrorBoundary'
 import withAuthState from '../../state/withAuth'
 import withRxDbState from '../../state/withRxDb'
 import { Props as authStateProps } from '../../state/Auth'
-import { Props as rxDbStateProps } from '../../state/RxDb'
-import userDbNameFromUserName from '../../utils/userDbNameFromUserName'
-import userDocSchema from '../../schemas/userDoc.json'
-import createAndSyncUserCollection from '../../utils/createAndSyncUserCollection'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -52,12 +48,10 @@ const enhance = compose(
       email,
       password,
       authState,
-      rxDbState,
     }: {
       email: string
       password: string
       authState: authStateProps
-      rxDbState: rxDbStateProps
     }) => async () => {
       try {
         await authState.state.authDb.signUp(email, password)
@@ -70,7 +64,6 @@ const enhance = compose(
       } catch (error) {
         throw error
       }
-      createAndSyncUserCollection({ rxDbState, email })
     },
     onToggleShowPass: ({
       showPass,

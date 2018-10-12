@@ -4,23 +4,26 @@ import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 rxdb.plugin(pouchdbAdapterIdb)
 
 import { Props as rxDbStateProps } from '../state/RxDb'
+import RxDbState from '../state/RxDb'
 import userDbNameFromUserName from './userDbNameFromUserName'
 import userDocSchema from '../schemas/userDoc.json'
 
 export default async ({
-  rxDbState,
+  //rxDbState,
   email,
 }: {
-  rxDbState: rxDbStateProps
+  //rxDbState: rxDbStateProps
   email: string
 }) => {
+  const rxDbState = new RxDbState()
+  console.log('createAndSyncUserCollections', { rxDbState })
   const { dbs, syncs } = rxDbState.state
   // create userDoc Collection
   // then sync it
   const userDbName = userDbNameFromUserName(email)
-  console.log('createAndSyncUserCollections', { dbs, syncs, rxDbState })
+  console.log('createAndSyncUserCollections', { dbs, syncs })
   let userDb
-  if (!rxdb.isRxDatabase(dbs[userDbName])) {
+  try {
     userDb = await rxdb.create({
       name: userDbName,
       adapter: 'idb',
@@ -29,8 +32,14 @@ export default async ({
       name: 'user',
       schema: userDocSchema,
     })
+  } catch (error) {
+    if (error.message.includes('already exists')) {
+      console.log('user db already exists')
+      return
+    } else {
+      throw error
+    }
   }
-  // TODO: enable next line again
   rxDbState.addDb({ name: userDbName, db: userDb })
   const isAlreadyBeingSynced: boolean = !!syncs && !!syncs[userDbName]
   console.log('createAndSyncUserCollections', { dbs })

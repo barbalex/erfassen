@@ -12,12 +12,15 @@ import pouchdbAuthentication from 'pouchdb-authentication'
 import get from 'lodash/get'
 
 import couchUrl from '../utils/couchUrl'
+import createAndSyncUserCollection from '../utils/createAndSyncUserCollection'
+import { Props as rxDbStateProps } from './RxDb'
 
 PouchDB.plugin(pouchdbAuthentication)
 
 interface LogInProps {
   email: string
   password: string
+  rxDbState: rxDbStateProps
 }
 
 interface StateProps {
@@ -53,6 +56,7 @@ export default class AuthContainer extends Container<StateProps> {
         const name = get(resp, 'userCtx.name', null)
         if (name) {
           this.setState(state => ({ name }))
+          // TODO: createAndSyncUserCollection
         }
       })
       .catch((error: Error) => {
@@ -89,8 +93,14 @@ export default class AuthContainer extends Container<StateProps> {
         throw error
       }
     }
-    console.log('Login: logInResponce logging in:', logInResponce)
-    this.setState(state => ({ name: logInResponce.name, loginOpen: false }))
+    console.log('Auth, logIn: logInResponce logging in:', logInResponce)
+    this.setState(state => ({
+      name: logInResponce.name,
+      loginOpen: false,
+      authDb: new PouchDB(couchUrl()),
+    }))
+    // TODO: need to reset dbs and syncs first, to remove all traces of previous users?
+    createAndSyncUserCollection({ email })
   }
 
   logOut = async () => {
@@ -100,5 +110,6 @@ export default class AuthContainer extends Container<StateProps> {
       throw error
     }
     this.setState(state => ({ name: null, loginOpen: false }))
+    // TODO: remove user collection, stop syncing
   }
 }

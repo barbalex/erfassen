@@ -57,6 +57,7 @@ export default class RxDbContainer extends Container<StateProps> {
         [name]: db,
       }
       console.log('RxDb, addDb', { newDbs })
+      window.dbs = newDbs
       return {
         dbs: newDbs,
         //syncs: state.syncs,

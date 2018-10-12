@@ -46,15 +46,20 @@ const enhance = compose(
       email,
       password,
       authState,
+      setEmailErrorText,
+      setPasswordErrorText,
     }: {
       email: string
       password: string
       authState: authStateProps
+      setEmailErrorText: () => void
+      setPasswordErrorText: () => void
     }) => async () => {
       try {
         await authState.logIn({ email, password })
       } catch (error) {
-        throw error
+        setEmailErrorText(error.message)
+        setPasswordErrorText(error.message)
       }
     },
     onToggleShowPass: ({
