@@ -36,6 +36,7 @@ export interface Props {
   setName: (name: string | null) => void
   setSignupOpen: (signupOpen: boolean) => void
   setLoginOpen: (loginOpen: boolean) => void
+  signUp: () => void
   logIn: () => void
   logOut: () => void
   addDb: () => void
@@ -107,7 +108,36 @@ export default class AuthContainer extends Container<StateProps> {
     this.setState(state => ({ loginOpen }))
   }
 
+  signUp = async ({ email, password }: LogInProps) => {
+    // first logout
+    try {
+      await this.logOut()
+    } catch (error) {
+      console.log('Auth, signUp: Error logging out:', error)
+    }
+
+    try {
+      await this.state.authDb.signUp(email, password)
+    } catch (error) {
+      console.log('Signup: error logging in:', error)
+    }
+    this.setSignupOpen(false)
+    // log in
+    try {
+      await this.logIn({ email, password })
+    } catch (error) {
+      throw error
+    }
+  }
+
   logIn = async ({ email, password }: LogInProps) => {
+    // first logout
+    try {
+      await this.logOut()
+    } catch (error) {
+      console.log('Auth, logIn: Error logging out:', error)
+    }
+
     let logInResponce: any
     try {
       logInResponce = await this.state.authDb.logIn(email, password)
@@ -147,6 +177,7 @@ export default class AuthContainer extends Container<StateProps> {
       dbs: null,
       syncs: {},
     }))
+    return
   }
 
   addDb = ({ name, db }: { name: string; db: any }) => {

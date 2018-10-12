@@ -52,16 +52,9 @@ const enhance = compose(
       authState: authStateProps
     }) => async () => {
       try {
-        await authState.state.authDb.signUp(email, password)
+        await authState.signUp({ email, password })
       } catch (error) {
         console.log('Signup: error logging in:', error)
-      }
-      authState.setSignupOpen(false)
-      // log in
-      try {
-        await authState.logIn({ email, password })
-      } catch (error) {
-        throw error
       }
     },
     onToggleShowPass: ({
