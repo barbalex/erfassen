@@ -55,8 +55,8 @@ Symbols:
 1. app-side:
    * user creates new project :white_medium_square:
    * gives it a name :white_medium_square:
-   * can add users by email :white_medium_square:
    * name it `project_userName_projectName` (replace `@` with `_at_` and `.` with `_p_`) :white_medium_square:
+   * can add users by email :white_medium_square:
    * create new db and collections :white_medium_square:
    * create projectDef doc in it's collection :white_medium_square:
    * add projectDef.users :white_medium_square:
@@ -66,7 +66,7 @@ Symbols:
 2. server-side:
    * on new projectDef doc in messageDb :white_medium_square:
    * create new project db, including [security doc](http://docs.couchdb.org/en/latest/api/database/security.html) :white_medium_square:
-   * add this user to admin members of project db (ensure only members can access it) :white_medium_square:
+   * add this user to members of project db (ensure only members can access it) :white_medium_square:
    * loop projectDef.users :white_medium_square:
    * add users as admin members to project db :white_medium_square:
    * add dbName to every user's userDb projects list :white_medium_square:
