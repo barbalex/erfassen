@@ -136,10 +136,11 @@ export default class AuthContainer extends Container<StateProps> {
     } catch (error) {
       throw error
     }
+    const { dbs, syncs } = this.state
     // remove all dbs
-    Object.keys(this.state.dbs).forEach((db: any) => db.remove())
+    Object.values(dbs).forEach((db: any) => db.remove())
     // stop all syncing
-    Object.keys(this.state.syncs).forEach((sync: any) => sync.cancel())
+    Object.values(syncs).forEach((sync: any) => sync.cancel())
     this.setState(state => ({
       name: null,
       loginOpen: false,
