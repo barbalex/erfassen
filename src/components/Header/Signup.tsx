@@ -56,6 +56,7 @@ const enhance = compose(
       } catch (error) {
         console.log('Signup: error logging in:', error)
       }
+      authState.setSignupOpen(false)
       // log in
       try {
         await authState.logIn({ email, password })

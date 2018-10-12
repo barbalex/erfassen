@@ -4655,9 +4655,9 @@ dom-serializer@0, dom-serializer@~0.1.0:
     entities "~1.1.1"
 
 dom-testing-library@^3.1.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/dom-testing-library/-/dom-testing-library-3.9.0.tgz#acb7fb77afa389e61e420c3d81cff64a4d33498f"
-  integrity sha512-Wk0QFL8PR42rhsgJV9nfnP1MM65ERHEPR7SDtf5JXLKPr1fu+VZaztt/tD7pWTyVJI6wwFwtN8pbdZmj+Mfg3g==
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/dom-testing-library/-/dom-testing-library-3.10.0.tgz#81160503e565764ef22dfa0edb63d2ab08ad6112"
+  integrity sha512-21PYjLsZfzgxIXAlfGlMu2/EOv7VTZbdcox1nBmiYG7S2vff7XvgnI1jCfjv5/la44/skxhMBUwivY7H/VvSqw==
   dependencies:
     mutationobserver-shim "^0.3.2"
     pretty-format "^23.6.0"
