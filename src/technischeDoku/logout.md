@@ -3,7 +3,7 @@ typ: 'technDoku'
 path: "/Technische-Dokumentation/Logout"
 date: "2018-10-01"
 title: "Log out"
-sort: 5
+sort: 6
 ---
 
 This document describes what happens on logout app-side.<br/><br/>  
