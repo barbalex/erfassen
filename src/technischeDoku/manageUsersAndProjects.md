@@ -54,9 +54,11 @@ Symbols:
 ## 2. project / db
 ### create
 1. app-side:
-   * user creates new project :white_medium_square:
-   * names it :white_medium_square:
-   * create projectDef doc in message db
+   * Tree includes node "Projekte: eigene" (besides "Projekte: mitarbeit") :white_medium_square:
+      * top node is empty text-input that creates new project when user inputs name :white_medium_square:
+   * user names new project :white_medium_square:
+   * user confirms the new name :white_medium_square:
+   * app creates projectDef doc in message db :white_medium_square:
 2. server-side, on new projectDef doc in messageDb:
    * create new project db :white_medium_square:
    * name it `project_userName_projectName` (replace `@` with `_at_` and `.` with `_p_`) :white_medium_square:
