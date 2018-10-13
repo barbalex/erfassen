@@ -70,7 +70,6 @@ export default class AuthContainer extends Container<StateProps> {
         const name = get(resp, 'userCtx.name', null)
         if (name) {
           this.setState(state => ({ name }))
-          // TODO: createAndSyncUserCollection
           createAndSyncUserCollection({ email: name, authState: this })
           // create initial dbs state
           if (
@@ -147,13 +146,12 @@ export default class AuthContainer extends Container<StateProps> {
         throw error
       }
     }
-    console.log('Auth, logIn: logInResponce logging in:', logInResponce)
+    //console.log('Auth, logIn: logInResponce logging in:', logInResponce)
     this.setState(state => ({
       name: logInResponce.name,
       loginOpen: false,
       authDb: new PouchDB(couchUrl()),
     }))
-    // TODO: need to reset dbs and syncs first, to remove all traces of previous users?
     createAndSyncUserCollection({ email, authState: this })
   }
 
@@ -182,13 +180,13 @@ export default class AuthContainer extends Container<StateProps> {
   }
 
   addDb = ({ name, db }: { name: string; db: any }) => {
-    console.log('Auth, addDb', { name, db, dbs: this.state.dbs })
+    //console.log('Auth, addDb', { name, db, dbs: this.state.dbs })
     this.setState(state => {
       const newDbs = {
         ...state.dbs,
         [name]: db,
       }
-      console.log('Auth, addDb', { newDbs })
+      //console.log('Auth, addDb', { newDbs })
       window.dbs = newDbs
       return {
         dbs: newDbs,
