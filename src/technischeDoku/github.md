@@ -3,7 +3,7 @@ typ: 'technDoku'
 path: "/Technische-Dokumentation/GitHub"
 date: "2018-10-04"
 title: "GitHub"
-sort: 5
+sort: 6
 ---
 
 Sie finden den Code von erfassen.ch in zwei Repositorien auf GitHub:
