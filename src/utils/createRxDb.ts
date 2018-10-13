@@ -7,11 +7,12 @@ import zeitSchema from '../schemas/zeit.json'
 import ortSchema from '../schemas/ort.json'
 import beobSchema from '../schemas/beob.json'
 import messageSchema from '../schemas/message.json'
+import { Props as AuthStateProps } from '../state/Auth'
 
 rxdb.plugin(pouchdbAdapterHttp)
 rxdb.plugin(pouchdbAdapterIdb)
 
-export default async () => {
+export default async (AuthState: AuthStateProps) => {
   // TODO:
   // 1. fetch userDoc and it's project list
   // 2. for every project create an rxdb
@@ -75,5 +76,6 @@ export default async () => {
       .eq('beob'),
   })
 
-  return { dbs, syncs }
+  AuthState.setDbs(dbs)
+  AuthState.setSyncs(syncs)
 }

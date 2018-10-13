@@ -39,7 +39,9 @@ export interface Props {
   signUp: () => void
   logIn: () => void
   logOut: () => void
+  setDbs: (dbs: any) => void
   addDb: () => void
+  setSyncs: (syncs: Object) => void
   addSync: () => void
 }
 declare global {
@@ -81,7 +83,7 @@ export default class AuthContainer extends Container<StateProps> {
       typeof window === 'undefined'
     ) {
       // as hard as I tried, could not get typescript to type .then correctly
-      createRxDb()
+      createRxDb(this)
         .then(({ dbs, syncs }) => {
           this.setState(state => ({ dbs, syncs }))
           if (typeof window !== 'undefined') window.dbs = dbs
@@ -180,6 +182,10 @@ export default class AuthContainer extends Container<StateProps> {
     return
   }
 
+  setDbs = (dbs: any) => {
+    this.setState(state => ({ dbs }))
+  }
+
   addDb = ({ name, db }: { name: string; db: any }) => {
     console.log('Auth, addDb', { name, db, dbs: this.state.dbs })
     this.setState(state => {
@@ -191,9 +197,12 @@ export default class AuthContainer extends Container<StateProps> {
       window.dbs = newDbs
       return {
         dbs: newDbs,
-        //syncs: state.syncs,
       }
     })
+  }
+
+  setSyncs = (syncs: Object) => {
+    this.setState(state => ({ syncs }))
   }
 
   addSync = ({ name, sync }: { name: string; sync: any }) => {
