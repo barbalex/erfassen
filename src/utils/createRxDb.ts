@@ -78,4 +78,5 @@ export default async (AuthState: AuthStateProps) => {
 
   AuthState.setDbs(dbs)
   AuthState.setSyncs(syncs)
+  if (typeof window !== 'undefined') window.dbs = dbs
 }

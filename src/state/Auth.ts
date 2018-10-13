@@ -71,27 +71,22 @@ export default class AuthContainer extends Container<StateProps> {
         if (name) {
           this.setState(state => ({ name }))
           // TODO: createAndSyncUserCollection
+          createAndSyncUserCollection({ email: name, authState: this })
+          // create initial dbs state
+          if (
+            (typeof window !== 'undefined' && !window.dbs) ||
+            typeof window === 'undefined'
+          ) {
+            // as hard as I tried, could not get typescript to type .then correctly
+            createRxDb(this).catch((error: Error) => {
+              throw error
+            })
+          }
         }
       })
       .catch((error: Error) => {
         throw error
       })
-
-    // create initial dbs state
-    if (
-      (typeof window !== 'undefined' && !window.dbs) ||
-      typeof window === 'undefined'
-    ) {
-      // as hard as I tried, could not get typescript to type .then correctly
-      createRxDb(this)
-        .then(({ dbs, syncs }) => {
-          this.setState(state => ({ dbs, syncs }))
-          if (typeof window !== 'undefined') window.dbs = dbs
-        })
-        .catch(error => {
-          throw error
-        })
-    }
   }
 
   setAuthDb = (authDb: any) => {
