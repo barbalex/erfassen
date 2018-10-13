@@ -25,10 +25,26 @@ export default async ({
     userDb = await rxdb.create({
       name: userDbName,
       adapter: 'idb',
+      // force pouch to always include credentials
+      // see: https://github.com/pouchdb-community/pouchdb-authentication/issues/239#issuecomment-410489376
+      pouchSettings: {
+        fetch(url: any, opts: any) {
+          opts.credentials = 'include'
+          return (PouchDB as any).fetch(url, opts)
+        },
+      } as PouchDB.Configuration.RemoteDatabaseConfiguration,
     })
     await userDb.collection({
       name: 'user',
       schema: userDocSchema,
+      // force pouch to always include credentials
+      // see: https://github.com/pouchdb-community/pouchdb-authentication/issues/239#issuecomment-410489376
+      pouchSettings: {
+        fetch(url: any, opts: any) {
+          opts.credentials = 'include'
+          return (PouchDB as any).fetch(url, opts)
+        },
+      } as PouchDB.Configuration.RemoteDatabaseConfiguration,
     })
   } catch (error) {
     if (error.message.includes('already exists')) {
