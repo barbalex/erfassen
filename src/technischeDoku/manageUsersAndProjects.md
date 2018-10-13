@@ -60,11 +60,12 @@ Symbols:
 2. server-side, on new projectDef doc in messageDb:
    * create new project db :white_medium_square:
    * name it `project_userName_projectName` (replace `@` with `_at_` and `.` with `_p_`) :white_medium_square:
-   * add user to members in [security doc](http://docs.couchdb.org/en/latest/api/database/security.html) (ensure only members can access it) :white_medium_square:
+   * add user to members in [security doc](http://docs.couchdb.org/en/latest/api/database/security.html) (ensure only members can access it) (do not do this momentarily due to PouchDB issue) :white_medium_square:
    * create projectDef doc in project db :white_medium_square:
    * delete projectDef doc in messageDb :white_medium_square:
 3. app-side, on delete projectDef doc in messageDb:
    * sync project's collections :white_medium_square:
+   * show user tools to edit project :white_medium_square:
 
 ### edit
 #### edit project's user
