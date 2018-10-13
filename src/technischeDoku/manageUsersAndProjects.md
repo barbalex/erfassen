@@ -72,9 +72,7 @@ Symbols:
 #### edit project's user
 1. app-side:
    * user can add users by email :white_medium_square:
-   * add projectDef.users :white_medium_square:
-   * add projectDef.billing :white_medium_square:
-   * check billing validity? :white_medium_square:
+   * app adds user to projectDef.users :white_medium_square:
 2. server-side, on edit projectDef doc in project db :white_medium_square:
    * if one of projectDef.users was added:
       * add project name in userDoc's project list :white_medium_square:
@@ -86,9 +84,16 @@ Symbols:
 #### edit project's tables
 1. app-side:
    * user can add table :white_medium_square:
-      * create new collection :white_medium_square:
+      * app creates new collection :white_medium_square:
    * user can remove table :white_medium_square:
-      * delete collection :white_medium_square:
+      * app deletes collection :white_medium_square:
+2. server-side:
+   * no action needed
+
+#### edit other project values
+1. app-side:
+   * add projectDef.billing :white_medium_square:
+   * check billing validity? :white_medium_square:
 2. server-side:
    * no action needed
 
