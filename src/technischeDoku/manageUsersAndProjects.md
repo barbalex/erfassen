@@ -32,8 +32,7 @@ Symbols:
 3. app-side:
    * create userDb :white_check_mark:
    * create userDoc collection :white_check_mark:
-   * sync userDoc collection :construction:<br/>
-      catch if Sync errors because db does not yet exist
+   * sync userDoc collection :white_check_mark:
 
 ### edit
 1. app-side:
