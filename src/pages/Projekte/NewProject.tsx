@@ -33,8 +33,8 @@ const enhance = compose(
   withAuthState,
   withState('name', 'setName', ''),
   withState('name2', 'setName2', ''),
-  withState('nameErrorText', 'setNameErrorText', ''),
-  withState('name2ErrorText', 'setName2ErrorText', ''),
+  withState('nameHelperText', 'setNameHelperText', ''),
+  withState('name2HelperText', 'setName2HelperText', ''),
   withHandlers<any, any>({
     close: ({ authState }: { authState: authStateProps }) => () =>
       authState.setLoginOpen(false),
@@ -42,21 +42,21 @@ const enhance = compose(
       name,
       name2,
       authState,
-      setNameErrorText,
-      setName2ErrorText,
+      setNameHelperText,
+      setName2HelperText,
     }: {
       name: string
       name2: string
       authState: authStateProps
-      setNameErrorText: () => void
-      setName2ErrorText: () => void
+      setNameHelperText: () => void
+      setName2HelperText: () => void
     }) => async () => {
       console.log({ name, name2 })
       try {
         await authState.logIn({ name, name2 })
       } catch (error) {
-        setNameErrorText(error.message)
-        setName2ErrorText(error.message)
+        setNameHelperText(error.message)
+        setName2HelperText(error.message)
       }
     },
   }),
@@ -73,76 +73,84 @@ const enhance = compose(
 const NewProject = ({
   name,
   name2,
-  nameErrorText,
-  name2ErrorText,
-  setNameErrorText,
-  setName2ErrorText,
+  nameHelperText,
+  name2HelperText,
+  setNameHelperText,
+  setName2HelperText,
   onBlurName,
   onBlurName2,
   onClickLogin,
   close,
   authState,
+  newProjectOpen,
 }: {
   name: string
   setName: () => void
   name2: string
   setName2: () => void
-  nameErrorText: string
-  setNameErrorText: () => void
-  name2ErrorText: string
-  setName2ErrorText: () => void
+  nameHelperText: string
+  setNameHelperText: () => void
+  name2HelperText: string
+  setName2HelperText: () => void
   onBlurName: () => void
   onBlurName2: () => void
   onClickLogin: () => void
   close: () => void
   authState: authStateProps
+  newProjectOpen: boolean
 }) => (
   <ErrorBoundary>
-    <StyledDialog
-      aria-labelledby="login-dialog-title"
-      open={authState.state.loginOpen}
-    >
-      <DialogTitle id="login-dialog-title">Anmeldung</DialogTitle>
+    <StyledDialog aria-labelledby="login-dialog-title" open={newProjectOpen}>
+      <DialogTitle id="login-dialog-title">Neues Projekt</DialogTitle>
       <StyledDiv>
         <FormControl
-          error={!!nameErrorText}
+          error={!!nameHelperText}
           fullWidth
           aria-describedby="nameHelper"
         >
-          <InputLabel htmlFor="name">Email</InputLabel>
+          <InputLabel htmlFor="name">Name</InputLabel>
           <StyledInput
             id="name"
             defaultValue=""
             onBlur={onBlurName}
             autoFocus
-          />
-          <FormHelperText id="nameHelper">{nameErrorText}</FormHelperText>
-        </FormControl>
-        <FormControl
-          error={!!name2ErrorText}
-          fullWidth
-          aria-describedby="loginPasswortHelper"
-        >
-          <InputLabel htmlFor="loginPasswort">Passwort</InputLabel>
-          <StyledInput
-            id="loginPasswort"
-            type="text"
-            defaultValue={name2}
-            onBlur={onBlurName2}
-            autoComplete="current-name2"
+            autoComplete="off"
             autoCorrect="off"
-            spellCheck="false"
+            spellCheck={false}
           />
-          <FormHelperText id="loginPasswortHelper">
-            {name2ErrorText}
-          </FormHelperText>
+          <FormHelperText id="nameHelper">{nameHelperText}</FormHelperText>
         </FormControl>
+        {name && (
+          <FormControl
+            error={!!name2HelperText}
+            fullWidth
+            aria-describedby="loginName2Helper"
+          >
+            <InputLabel htmlFor="name2">Name (nochmals)</InputLabel>
+            <StyledInput
+              id="name2"
+              type="text"
+              defaultValue=""
+              onBlur={onBlurName2}
+              autoComplete="off"
+              autoCorrect="off"
+              spellCheck={false}
+            />
+            <FormHelperText id="loginName2Helper">
+              {name2HelperText ||
+                'Bitte den Namen nochmals eingeben und prüfen: er kann danach nicht mehr verändert werden'}
+            </FormHelperText>
+          </FormControl>
+        )}
       </StyledDiv>
       <DialogActions>
         <Button onClick={close}>abbrechen</Button>
-        <Button color="primary" onClick={onClickLogin}>
-          Anmelden
-        </Button>
+        {name &&
+          name2 && (
+            <Button color="primary" onClick={onClickLogin}>
+              Projekt erstellen
+            </Button>
+          )}
       </DialogActions>
     </StyledDialog>
   </ErrorBoundary>
