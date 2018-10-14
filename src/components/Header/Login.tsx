@@ -55,6 +55,7 @@ const enhance = compose(
       setEmailErrorText: () => void
       setPasswordErrorText: () => void
     }) => async () => {
+      console.log({ email, password })
       try {
         await authState.logIn({ email, password })
       } catch (error) {
@@ -156,11 +157,6 @@ const Login = ({
             type={showPass ? 'text' : 'password'}
             defaultValue={password}
             onBlur={onBlurPassword}
-            onKeyPress={e => {
-              if (e.key === 'Enter') {
-                onBlurPassword(e)
-              }
-            }}
             autoComplete="current-password"
             autoCorrect="off"
             spellCheck="false"
