@@ -110,7 +110,12 @@ const ProjektePage: React.SFC<Props> = ({
           </ReflexContainer>
         </Container>
         {!name && <Login open={!name} setLoginOpen={authState.setLoginOpen} />}
-        {newProjectOpen && <NewProject newProjectOpen={newProjectOpen} />}
+        {newProjectOpen && (
+          <NewProject
+            newProjectOpen={newProjectOpen}
+            setNewProjectOpen={setNewProjectOpen}
+          />
+        )}
       </Layout>
     </ErrorBoundary>
   )

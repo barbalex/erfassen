@@ -36,9 +36,12 @@ const enhance = compose(
   withState('nameHelperText', 'setNameHelperText', ''),
   withState('name2HelperText', 'setName2HelperText', ''),
   withHandlers<any, any>({
-    close: ({ authState }: { authState: authStateProps }) => () =>
-      authState.setLoginOpen(false),
-    onClickLogin: ({
+    close: ({
+      setNewProjectOpen,
+    }: {
+      setNewProjectOpen: (newProjectOpen: boolean) => void
+    }) => () => setNewProjectOpen(false),
+    onClickCreate: ({
       name,
       name2,
       authState,
@@ -79,10 +82,11 @@ const NewProject = ({
   setName2HelperText,
   onBlurName,
   onBlurName2,
-  onClickLogin,
+  onClickCreate,
   close,
   authState,
   newProjectOpen,
+  setNewProjectOpen,
 }: {
   name: string
   setName: () => void
@@ -94,10 +98,11 @@ const NewProject = ({
   setName2HelperText: () => void
   onBlurName: () => void
   onBlurName2: () => void
-  onClickLogin: () => void
+  onClickCreate: () => void
   close: () => void
   authState: authStateProps
   newProjectOpen: boolean
+  setNewProjectOpen: (newProjectOpen: boolean) => void
 }) => (
   <ErrorBoundary>
     <StyledDialog aria-labelledby="login-dialog-title" open={newProjectOpen}>
@@ -147,7 +152,7 @@ const NewProject = ({
         <Button onClick={close}>abbrechen</Button>
         {name &&
           name2 && (
-            <Button color="primary" onClick={onClickLogin}>
+            <Button color="primary" onClick={onClickCreate}>
               Projekt erstellen
             </Button>
           )}
