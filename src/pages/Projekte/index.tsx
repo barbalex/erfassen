@@ -44,6 +44,7 @@ const ProjektePage: React.SFC<Props> = ({
   newProjectOpen,
   setNewProjectOpen,
 }) => {
+  /*
   const { dbs, name } = authState.state
   if (!dbs) {
     return (
@@ -51,7 +52,7 @@ const ProjektePage: React.SFC<Props> = ({
         <LoadingContainer>Lade daten...</LoadingContainer>
       </Layout>
     )
-  }
+  }*/
 
   /*
   const orte = dbs.erfassen.ort
@@ -60,7 +61,7 @@ const ProjektePage: React.SFC<Props> = ({
   const beobs = dbs.erfassen.beob
     ? dbs.erfassen.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
     : []*/
-  console.log('Projekte', { dbs })
+  //console.log('Projekte', { dbs })
 
   return (
     <ErrorBoundary>
@@ -109,8 +110,8 @@ const ProjektePage: React.SFC<Props> = ({
           </ReflexContainer>
         </Container>
         {!name && <Login open={!name} setLoginOpen={authState.setLoginOpen} />}
+        {newProjectOpen && <NewProject />}
       </Layout>
-      {newProjectOpen && <NewProject />}
     </ErrorBoundary>
   )
 }
