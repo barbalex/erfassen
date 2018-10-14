@@ -7,12 +7,15 @@ import {
 } from 'react-reflex'
 import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
+import withHandlers from 'recompose/withHandlers'
+import withState from 'recompose/withState'
 
 import Layout from '../../components/Layout'
 import withAuthState from '../../state/withAuth'
 import { Props as authStateProps } from '../../state/Auth'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Login from '../../components/Header/Login'
+import NewProject from './NewProject'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -27,11 +30,20 @@ const ReflexContainer = styled(OrigReflexContainer)`
 
 interface Props {
   authState: authStateProps
+  newProjectOpen: boolean
+  setNewProjectOpen: (newProjectOpen: boolean) => void
 }
 
-const enhance = compose(withAuthState)
+const enhance = compose(
+  withAuthState,
+  withState('newProjectOpen', 'setNewProjectOpen', false),
+)
 
-const ProjektePage: React.SFC<Props> = ({ authState }) => {
+const ProjektePage: React.SFC<Props> = ({
+  authState,
+  newProjectOpen,
+  setNewProjectOpen,
+}) => {
   const { dbs, name } = authState.state
   if (!dbs) {
     return (
@@ -62,6 +74,9 @@ const ProjektePage: React.SFC<Props> = ({ authState }) => {
               renderOnResize={true}
             >
               <p>Tree</p>
+              <button onClick={() => setNewProjectOpen(true)}>
+                create project
+              </button>
             </ReflexElement>
             <ReflexSplitter />
             <ReflexElement
@@ -95,6 +110,7 @@ const ProjektePage: React.SFC<Props> = ({ authState }) => {
         </Container>
         {!name && <Login open={!name} setLoginOpen={authState.setLoginOpen} />}
       </Layout>
+      {newProjectOpen && <NewProject />}
     </ErrorBoundary>
   )
 }

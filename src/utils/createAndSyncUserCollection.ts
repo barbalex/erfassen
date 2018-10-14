@@ -14,12 +14,12 @@ export default async ({
   authState: authStateProps
   email: string
 }) => {
-  console.log('createAndSyncUserCollections', { authState })
+  //console.log('createAndSyncUserCollections', { authState })
   const { dbs, syncs } = authState.state
   // create userDoc Collection
   // then sync it
   const userDbName = userDbNameFromUserName(email)
-  console.log('createAndSyncUserCollections', { dbs, syncs })
+  //console.log('createAndSyncUserCollections', { dbs, syncs })
   let userDb
   try {
     userDb = await rxdb.create({
@@ -56,7 +56,7 @@ export default async ({
   }
   authState.addDb({ name: userDbName, db: userDb })
   const isAlreadyBeingSynced: boolean = !!syncs && !!syncs[userDbName]
-  console.log('createAndSyncUserCollections', { dbs })
+  //console.log('createAndSyncUserCollections', { dbs })
   let sync
   if (!isAlreadyBeingSynced) {
     sync = userDb.user.sync({
@@ -72,5 +72,5 @@ export default async ({
     })
   }
   authState.addSync({ name: userDbName, sync })
-  console.log('Signup', { dbs, userDbName })
+  //console.log('Signup', { dbs, userDbName })
 }
