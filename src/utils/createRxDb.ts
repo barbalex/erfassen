@@ -28,7 +28,7 @@ export default async (AuthState: AuthStateProps) => {
   // maybe use
   // https://github.com/rafamel/rxdb-utils#models
   // to make this easier
-  const projectDefCollection = await messageDb.collection({
+  await messageDb.collection({
     name: 'projectdef',
     schema: projectDefMessageSchema,
   })
@@ -38,14 +38,14 @@ export default async (AuthState: AuthStateProps) => {
    * reason: be able to check if replication exists already
    * before starting new one
    */
-  console.log('createRxDb', { messageDb, projectDefCollection })
-  const projectdefSync = await projectDefCollection.sync({
+  console.log('createRxDb', { messageDb })
+  const projectdefSync = await messageDb.projectdef.sync({
     remote: 'http://localhost:5984/messages/',
     options: {
       live: true,
       retry: true,
     },
-    query: projectDefCollection
+    query: messageDb.projectdef
       .find()
       .where('type')
       .eq('projectDef'),
