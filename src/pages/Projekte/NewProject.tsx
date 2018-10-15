@@ -54,7 +54,6 @@ const enhance = compose(
       setNameHelperText: () => void
       setName2HelperText: () => void
     }) => async () => {
-      console.log({ name, name2 })
       if (name !== name2) {
         return setNameHelperText('Die Namen müssen übereinstimmen')
       }
