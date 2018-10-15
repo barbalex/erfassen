@@ -59,6 +59,9 @@ const enhance = compose(
       if (name !== name2) {
         return setNameHelperText('Die Namen müssen übereinstimmen')
       }
+      if (!/^[a-z][a-z0-9_$()+/-]*$/.test(name)) {
+        return setNameHelperText('Dieser Name ist nicht zulässig')
+      }
       const { dbs, name: user } = authState.state
 
       try {
