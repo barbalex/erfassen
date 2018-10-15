@@ -15,7 +15,6 @@ export default async (AuthState: AuthStateProps) => {
   // 2. for every project create an rxdb
   // 3. for every project fetch typeDefs doc and extract table list
   // 4. for every table create collection and sync it
-  let syncs: any = {}
   let messageDb
   try {
     messageDb = await rxdb.create({
@@ -39,6 +38,7 @@ export default async (AuthState: AuthStateProps) => {
    * reason: be able to check if replication exists already
    * before starting new one
    */
+  console.log('createRxDb', { messageDb, projectDefCollection })
   const projectdefSync = await projectDefCollection.sync({
     remote: 'http://localhost:5984/messages/',
     options: {

@@ -76,7 +76,6 @@ export default class AuthContainer extends Container<StateProps> {
             (typeof window !== 'undefined' && !window.dbs) ||
             typeof window === 'undefined'
           ) {
-            // as hard as I tried, could not get typescript to type .then correctly
             createRxDb(this).catch((error: Error) => {
               throw error
             })
