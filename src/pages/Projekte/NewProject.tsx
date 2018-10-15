@@ -30,14 +30,12 @@ const StyledInput = styled(Input)`
   }
 `
 const StyledFormHelperText = styled(FormHelperText)`
+  margin-bottom: 5px !important;
   div {
     padding: 2px 0;
   }
   li {
     margin-bottom: 2px !important;
-  }
-  li:last-of-type {
-    margin-bottom: 5px !important;
   }
 `
 
