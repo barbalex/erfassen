@@ -47,12 +47,14 @@ const enhance = compose(
       authState,
       setNameHelperText,
       setName2HelperText,
+      setNewProjectOpen,
     }: {
       name: string
       name2: string
       authState: authStateProps
       setNameHelperText: () => void
       setName2HelperText: () => void
+      setNewProjectOpen: (newProjectOpen: boolean) => void
     }) => async () => {
       if (name !== name2) {
         return setNameHelperText('Die Namen müssen übereinstimmen')
@@ -67,9 +69,10 @@ const enhance = compose(
         })
       } catch (error) {
         setNameHelperText(error.message)
-        setName2HelperText(error.message)
+        return setName2HelperText(error.message)
       }
       setNameHelperText('')
+      setNewProjectOpen(false)
     },
   }),
   withHandlers<any, any>({
@@ -121,6 +124,7 @@ const NewProject = ({
           error={!!nameHelperText}
           fullWidth
           aria-describedby="nameHelper"
+          required={true}
         >
           <InputLabel htmlFor="name">Name</InputLabel>
           <StyledInput
@@ -134,37 +138,42 @@ const NewProject = ({
           />
           <FormHelperText id="nameHelper">{nameHelperText}</FormHelperText>
         </FormControl>
-        {name && (
-          <FormControl
-            error={!!name2HelperText}
-            fullWidth
-            aria-describedby="loginName2Helper"
-          >
-            <InputLabel htmlFor="name2">Name (nochmals)</InputLabel>
-            <StyledInput
-              id="name2"
-              type="text"
-              defaultValue=""
-              onBlur={onBlurName2}
-              autoComplete="off"
-              autoCorrect="off"
-              spellCheck={false}
-            />
-            <FormHelperText id="loginName2Helper">
-              {name2HelperText ||
-                'Bitte den Namen nochmals eingeben und prüfen: er kann danach nicht mehr verändert werden'}
-            </FormHelperText>
-          </FormControl>
-        )}
+        <FormControl
+          error={!!name2HelperText}
+          fullWidth
+          aria-describedby="loginName2Helper"
+          required={true}
+        >
+          <InputLabel htmlFor="name2">Name</InputLabel>
+          <StyledInput
+            id="name2"
+            type="text"
+            defaultValue=""
+            onBlur={onBlurName2}
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck={false}
+          />
+          <FormHelperText id="loginName2Helper">
+            {name2HelperText || (
+              <>
+                <span>Bitte den Namen prüfen und nochmals eingeben.</span>
+                <br />
+                <span>Er kann danach nicht mehr verändert werden</span>
+              </>
+            )}
+          </FormHelperText>
+        </FormControl>
       </StyledDiv>
       <DialogActions>
         <Button onClick={close}>abbrechen</Button>
-        {name &&
-          name2 && (
-            <Button color="primary" onClick={onClickCreate}>
-              Projekt erstellen
-            </Button>
-          )}
+        <Button
+          color="primary"
+          onClick={onClickCreate}
+          disabled={!(name && name2)}
+        >
+          Projekt erstellen
+        </Button>
       </DialogActions>
     </StyledDialog>
   </ErrorBoundary>
