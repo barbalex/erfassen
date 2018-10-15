@@ -42,6 +42,10 @@ const enhance = compose(
   withHandlers<any, any>({
     close: ({ authState }: { authState: authStateProps }) => () =>
       authState.setLoginOpen(false),
+    onClickSignup: ({ authState }: { authState: authStateProps }) => () => {
+      authState.setLoginOpen(false)
+      authState.setSignupOpen(true)
+    },
     onClickLogin: ({
       email,
       password,
@@ -98,6 +102,7 @@ const Login = ({
   onBlurEmail,
   onBlurPassword,
   onClickLogin,
+  onClickSignup,
   close,
   onToggleShowPass,
   authState,
@@ -115,6 +120,7 @@ const Login = ({
   onBlurEmail: () => void
   onBlurPassword: () => void
   onClickLogin: () => void
+  onClickSignup: () => void
   close: () => void
   onToggleShowPass: () => void
   authState: authStateProps
@@ -183,6 +189,7 @@ const Login = ({
         <Button color="primary" onClick={onClickLogin}>
           Anmelden
         </Button>
+        <Button onClick={onClickSignup}>Neues Konto</Button>
       </DialogActions>
     </StyledDialog>
   </ErrorBoundary>
