@@ -9,7 +9,10 @@
     },
     "name": {
       "type": "string"
+    },
+    "user": {
+      "type": "string"
     }
   },
-  "required": ["name"]
+  "required": ["name", "user"]
 }
