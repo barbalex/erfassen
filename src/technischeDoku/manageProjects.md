@@ -20,9 +20,9 @@ Symbols:
 1. app-side:
    * Tree includes node "Projekte: eigene" (besides "Projekte: mitarbeit") :white_medium_square:
       * top node is empty text-input that creates new project when user inputs name :white_medium_square:
-   * user names new project :white_medium_square:
-   * user confirms the new name :white_medium_square:
-   * app creates projectDef doc in message db :white_medium_square:
+   * user names new project :white_check_mark:
+   * user confirms the new name :white_check_mark:
+   * app creates projectDef doc in message db :white_check_mark:
 2. server-side, on new projectDef doc in messageDb:
    * create new project db :white_medium_square:
    * name it `project_userName_projectName` (replace `@` with `_at_` and `.` with `_p_`) :white_medium_square:
