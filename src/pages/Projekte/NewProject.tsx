@@ -55,8 +55,13 @@ const enhance = compose(
       setName2HelperText: () => void
     }) => async () => {
       console.log({ name, name2 })
+      const { dbs } = authState.state
+
       try {
-        await authState.logIn({ name, name2 })
+        await dbs.messages.projectdef_messsages.insert({
+          name: 'test-projekt',
+          type: 'projectDefMessage',
+        })
       } catch (error) {
         setNameHelperText(error.message)
         setName2HelperText(error.message)

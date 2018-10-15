@@ -44,8 +44,8 @@ const ProjektePage: React.SFC<Props> = ({
   newProjectOpen,
   setNewProjectOpen,
 }) => {
+  const { dbs, syncs } = authState.state
   /*
-  const { dbs, name } = authState.state
   if (!dbs) {
     return (
       <Layout>
@@ -54,14 +54,7 @@ const ProjektePage: React.SFC<Props> = ({
     )
   }*/
 
-  /*
-  const orte = dbs.erfassen.ort
-    ? dbs.erfassen.ort.dump().then((orte: any) => console.log('orte:', orte.docs))
-    : []
-  const beobs = dbs.erfassen.beob
-    ? dbs.erfassen.beob.dump().then((beobs: any) => console.log('beobs:', beobs.docs))
-    : []*/
-  //console.log('Projekte', { dbs })
+  console.log('Projekte', { dbs, syncs })
 
   return (
     <ErrorBoundary>
@@ -86,26 +79,6 @@ const ProjektePage: React.SFC<Props> = ({
               renderOnResize={true}
             >
               <p>Form</p>
-              <button
-                onClick={async () =>
-                  dbs.erfassen.ort.insert({
-                    name: 'test-ort',
-                    type: 'ort',
-                  })
-                }
-              >
-                insert ort
-              </button>
-              <button
-                onClick={async () =>
-                  dbs.erfassen.beob.insert({
-                    art: 'test-art',
-                    type: 'beob',
-                  })
-                }
-              >
-                insert beob
-              </button>
             </ReflexElement>
           </ReflexContainer>
         </Container>

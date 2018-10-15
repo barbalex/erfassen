@@ -3,10 +3,7 @@ import rxdb from 'rxdb'
 import pouchdbAdapterHttp from 'pouchdb-adapter-http'
 import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 
-import zeitSchema from '../schemas/zeit.json'
-import ortSchema from '../schemas/ort.json'
-import beobSchema from '../schemas/beob.json'
-import messageSchema from '../schemas/message.json'
+import projectDefMessageSchema from '../schemas/projectDefMessage.json'
 import { Props as AuthStateProps } from '../state/Auth'
 
 rxdb.plugin(pouchdbAdapterHttp)
@@ -21,8 +18,8 @@ export default async (AuthState: AuthStateProps) => {
   let syncs: any = {}
   let dbs = {}
   try {
-    dbs.erfassen = await rxdb.create({
-      name: 'erfassen',
+    dbs.messages = await rxdb.create({
+      name: 'messages',
       adapter: 'idb',
     })
   } catch (error) {
@@ -31,17 +28,9 @@ export default async (AuthState: AuthStateProps) => {
   // maybe use
   // https://github.com/rafamel/rxdb-utils#models
   // to make this easier
-  await dbs.erfassen.collection({
-    name: 'message',
-    schema: messageSchema,
-  })
-  await dbs.erfassen.collection({
-    name: 'zeit',
-    schema: zeitSchema,
-  })
-  await dbs.erfassen.collection({
-    name: 'ort',
-    schema: ortSchema,
+  await dbs.messages.collection({
+    name: 'projectdef_messsages',
+    schema: projectDefMessageSchema,
   })
   /**
    * create global sync object
@@ -49,31 +38,16 @@ export default async (AuthState: AuthStateProps) => {
    * reason: be able to check if replication exists already
    * before starting new one
    */
-  syncs.ort = await dbs.erfassen.ort.sync({
+  syncs.projectdef_messsages = await dbs.messages.projectdef_messsages.sync({
     remote: 'http://localhost:5984/erfassen/',
     options: {
       live: true,
       retry: true,
     },
-    query: dbs.erfassen.ort
+    query: dbs.messages.projectdef_messsages
       .find()
       .where('type')
-      .eq('ort'),
-  })
-  await dbs.erfassen.collection({
-    name: 'beob',
-    schema: beobSchema,
-  })
-  syncs.beob = dbs.erfassen.beob.sync({
-    remote: 'http://localhost:5984/erfassen/',
-    options: {
-      live: true,
-      retry: true,
-    },
-    query: dbs.erfassen.beob
-      .find()
-      .where('type')
-      .eq('beob'),
+      .eq('projectDefMessage'),
   })
 
   AuthState.setDbs(dbs)
