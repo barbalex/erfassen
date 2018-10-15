@@ -7,8 +7,8 @@ import {
 } from 'react-reflex'
 import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
-import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
+import withLifecycle from '@hocs/with-lifecycle'
 
 import Layout from '../../components/Layout'
 import withAuthState from '../../state/withAuth'
@@ -37,6 +37,12 @@ interface Props {
 const enhance = compose(
   withAuthState,
   withState('newProjectOpen', 'setNewProjectOpen', false),
+  withLifecycle({
+    onDidMount({ authState }: { authState: authStateProps }) {
+      const { name } = authState.state
+      if (!name) authState.setLoginOpen(true)
+    },
+  }),
 )
 
 const ProjektePage: React.SFC<Props> = ({
@@ -44,7 +50,7 @@ const ProjektePage: React.SFC<Props> = ({
   newProjectOpen,
   setNewProjectOpen,
 }) => {
-  const { dbs, syncs, name } = authState.state
+  const { dbs, syncs } = authState.state
   /*
   if (!dbs) {
     return (
@@ -54,7 +60,7 @@ const ProjektePage: React.SFC<Props> = ({
     )
   }*/
 
-  console.log('Projekte', { dbs, syncs, name })
+  console.log('Projekte', { dbs, syncs })
 
   return (
     <ErrorBoundary>
@@ -82,7 +88,6 @@ const ProjektePage: React.SFC<Props> = ({
             </ReflexElement>
           </ReflexContainer>
         </Container>
-        {!name && <Login open={!name} setLoginOpen={authState.setLoginOpen} />}
         {newProjectOpen && (
           <NewProject
             newProjectOpen={newProjectOpen}
