@@ -106,6 +106,7 @@ const enhance = compose(
           type: 'projectDef',
         })
       } catch (error) {
+        console.log('Error creating new project:', error)
         setNameHelperText(error.message)
         return setName2HelperText(error.message)
       }

@@ -59,7 +59,7 @@ const enhance = compose(
       try {
         await authState.logIn({ email, password })
       } catch (error) {
-        console.Login('Error logging in:', error)
+        console.log('Error logging in:', error)
         setEmailErrorText(error.message)
         setPasswordErrorText(error.message)
       }
