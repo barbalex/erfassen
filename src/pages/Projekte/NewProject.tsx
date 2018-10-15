@@ -16,6 +16,7 @@ import withState from 'recompose/withState'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import withAuthState from '../../state/withAuth'
 import { Props as authStateProps } from '../../state/Auth'
+import getProjectDbName from '../../utils/getProjectDbName'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -26,6 +27,17 @@ const StyledDiv = styled.div`
 const StyledInput = styled(Input)`
   &:before {
     border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+  }
+`
+const StyledFormHelperText = styled(FormHelperText)`
+  div {
+    padding: 2px 0;
+  }
+  li {
+    margin-bottom: 2px !important;
+  }
+  li:last-of-type {
+    margin-bottom: 5px !important;
   }
 `
 
@@ -56,13 +68,38 @@ const enhance = compose(
       setName2HelperText: () => void
       setNewProjectOpen: (newProjectOpen: boolean) => void
     }) => async () => {
+      // ensure names are equal
       if (name !== name2) {
         return setNameHelperText('Die Namen müssen übereinstimmen')
       }
+      // ensure name is valid for couch db
       if (!/^[a-z][a-z0-9_$()+/-]*$/.test(name)) {
-        return setNameHelperText('Dieser Name ist nicht zulässig')
+        return setNameHelperText(
+          <>
+            <div>Dieser Name ist leider nicht zulässig.</div>
+            <div>Regeln für Namen:</div>
+            <ul>
+              <li>Beginnt mit einem Buchstaben</li>
+              <li>Zulässige Zeichen sind:</li>
+              <ul>
+                <li>Buchstaben</li>
+                <li>Zahlen</li>
+                <li>_, $, (, ), +, / und -</li>
+              </ul>
+            </ul>
+          </>,
+        )
       }
       const { dbs, name: user } = authState.state
+      const projectDbName = getProjectDbName({
+        userName: user,
+        projectName: name,
+      })
+      // check if this dbname already exists
+      const dbNames = Object.keys(dbs)
+      if (dbNames.includes(projectDbName)) {
+        return setNameHelperText('Dieser Name wird schon benutzt')
+      }
 
       try {
         await dbs.messages.projectdef.insert({
@@ -139,7 +176,9 @@ const NewProject = ({
             autoCorrect="off"
             spellCheck={false}
           />
-          <FormHelperText id="nameHelper">{nameHelperText}</FormHelperText>
+          <StyledFormHelperText id="nameHelper">
+            {nameHelperText}
+          </StyledFormHelperText>
         </FormControl>
         <FormControl
           error={!!name2HelperText}
@@ -157,7 +196,7 @@ const NewProject = ({
             autoCorrect="off"
             spellCheck={false}
           />
-          <FormHelperText id="loginName2Helper">
+          <StyledFormHelperText id="loginName2Helper">
             {name2HelperText || (
               <>
                 <span>Bitte den Namen prüfen und nochmals eingeben.</span>
@@ -165,7 +204,7 @@ const NewProject = ({
                 <span>Er kann danach nicht mehr verändert werden</span>
               </>
             )}
-          </FormHelperText>
+          </StyledFormHelperText>
         </FormControl>
       </StyledDiv>
       <DialogActions>
