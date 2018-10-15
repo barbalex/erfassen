@@ -44,7 +44,7 @@ const ProjektePage: React.SFC<Props> = ({
   newProjectOpen,
   setNewProjectOpen,
 }) => {
-  const { dbs, syncs } = authState.state
+  const { dbs, syncs, name } = authState.state
   /*
   if (!dbs) {
     return (
@@ -54,7 +54,7 @@ const ProjektePage: React.SFC<Props> = ({
     )
   }*/
 
-  console.log('Projekte', { dbs, syncs })
+  console.log('Projekte', { dbs, syncs, name })
 
   return (
     <ErrorBoundary>

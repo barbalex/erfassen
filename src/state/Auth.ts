@@ -182,11 +182,12 @@ export default class AuthContainer extends Container<StateProps> {
   addDb = ({ name, db }: { name: string; db: any }) => {
     //console.log('Auth, addDb', { name, db, dbs: this.state.dbs })
     this.setState(state => {
+      console.log('Auth, addDb', { dbs: state.dbs })
       const newDbs = {
         ...state.dbs,
         [name]: db,
       }
-      //console.log('Auth, addDb', { newDbs })
+      console.log('Auth, addDb', { newDbs })
       window.dbs = newDbs
       return {
         dbs: newDbs,

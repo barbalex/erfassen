@@ -16,42 +16,40 @@ export default async (AuthState: AuthStateProps) => {
   // 3. for every project fetch typeDefs doc and extract table list
   // 4. for every table create collection and sync it
   let syncs: any = {}
-  let dbs = {}
+  let messageDb
   try {
-    dbs.messages = await rxdb.create({
+    messageDb = await rxdb.create({
       name: 'messages',
       adapter: 'idb',
     })
   } catch (error) {
     throw error
   }
+  AuthState.addDb({ name: 'messages', db: messageDb })
   // maybe use
   // https://github.com/rafamel/rxdb-utils#models
   // to make this easier
-  const msgCollection = await dbs.messages.collection({
+  await messageDb.collection({
     name: 'projectdef',
     schema: projectDefMessageSchema,
   })
-  console.log({ msgCollection })
   /**
    * create global sync object
    * and pass it sync responces
    * reason: be able to check if replication exists already
    * before starting new one
    */
-  syncs.projectdef = await dbs.messages.projectdef.sync({
+  const projectdefSync = await messageDb.projectdef.sync({
     remote: 'http://localhost:5984/messages/',
     options: {
       live: true,
       retry: true,
     },
-    query: dbs.messages.projectdef
+    query: messageDb.projectdef
       .find()
       .where('type')
       .eq('projectDef'),
   })
 
-  AuthState.setDbs(dbs)
-  AuthState.setSyncs(syncs)
-  if (typeof window !== 'undefined') window.dbs = dbs
+  AuthState.addSync({ name: 'projectDef', sync: projectdefSync })
 }
