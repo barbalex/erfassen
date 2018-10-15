@@ -28,26 +28,27 @@ export default async (AuthState: AuthStateProps) => {
   // maybe use
   // https://github.com/rafamel/rxdb-utils#models
   // to make this easier
-  await dbs.messages.collection({
-    name: 'projectdef_messsages',
+  const msgCollection = await dbs.messages.collection({
+    name: 'projectdef',
     schema: projectDefMessageSchema,
   })
+  console.log({ msgCollection })
   /**
    * create global sync object
    * and pass it sync responces
    * reason: be able to check if replication exists already
    * before starting new one
    */
-  syncs.projectdef_messsages = await dbs.messages.projectdef_messsages.sync({
-    remote: 'http://localhost:5984/erfassen/',
+  syncs.projectdef = await dbs.messages.projectdef.sync({
+    remote: 'http://localhost:5984/messages/',
     options: {
       live: true,
       retry: true,
     },
-    query: dbs.messages.projectdef_messsages
+    query: dbs.messages.projectdef
       .find()
       .where('type')
-      .eq('projectDefMessage'),
+      .eq('projectDef'),
   })
 
   AuthState.setDbs(dbs)

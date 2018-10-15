@@ -61,9 +61,9 @@ const enhance = compose(
       const { dbs } = authState.state
 
       try {
-        await dbs.messages.projectdef_messsages.insert({
+        await dbs.messages.projectdef.insert({
           name,
-          type: 'projectDefMessage',
+          type: 'projectDef',
         })
       } catch (error) {
         setNameHelperText(error.message)
