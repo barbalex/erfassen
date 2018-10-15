@@ -55,17 +55,21 @@ const enhance = compose(
       setName2HelperText: () => void
     }) => async () => {
       console.log({ name, name2 })
+      if (name !== name2) {
+        return setNameHelperText('Die Namen müssen übereinstimmen')
+      }
       const { dbs } = authState.state
 
       try {
         await dbs.messages.projectdef_messsages.insert({
-          name: 'test-projekt',
+          name,
           type: 'projectDefMessage',
         })
       } catch (error) {
         setNameHelperText(error.message)
         setName2HelperText(error.message)
       }
+      setNameHelperText('')
     },
   }),
   withHandlers<any, any>({
