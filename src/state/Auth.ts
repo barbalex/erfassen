@@ -152,6 +152,9 @@ export default class AuthContainer extends Container<StateProps> {
       authDb: new PouchDB(couchUrl()),
     }))
     createAndSyncUserCollection({ email, authState: this })
+    createRxDb(this).catch((error: Error) => {
+      throw error
+    })
   }
 
   logOut = async () => {
