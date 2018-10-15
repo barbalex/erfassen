@@ -174,7 +174,7 @@ const NewProject = ({
             autoCorrect="off"
             spellCheck={false}
           />
-          <StyledFormHelperText id="nameHelper">
+          <StyledFormHelperText id="nameHelper" component="div">
             {nameHelperText}
           </StyledFormHelperText>
         </FormControl>
@@ -194,7 +194,7 @@ const NewProject = ({
             autoCorrect="off"
             spellCheck={false}
           />
-          <StyledFormHelperText id="loginName2Helper">
+          <StyledFormHelperText id="loginName2Helper" component="div">
             {name2HelperText || (
               <>
                 <span>Bitte den Namen prüfen und nochmals eingeben.</span>
