@@ -126,11 +126,11 @@ const Signup = ({
         <FormControl
           error={!!emailErrorText}
           fullWidth
-          aria-describedby="emailHelper"
+          aria-describedby="signupEmailHelper"
         >
-          <InputLabel htmlFor="email">Email</InputLabel>
+          <InputLabel htmlFor="signupEmail">Email</InputLabel>
           <StyledInput
-            id="email"
+            id="signupEmail"
             defaultValue={email}
             onBlur={onBlurEmail}
             autoFocus
@@ -140,16 +140,18 @@ const Signup = ({
               }
             }}
           />
-          <FormHelperText id="emailHelper">{emailErrorText}</FormHelperText>
+          <FormHelperText id="signupEmailHelper">
+            {emailErrorText}
+          </FormHelperText>
         </FormControl>
         <FormControl
           error={!!passwordErrorText}
           fullWidth
-          aria-describedby="passwortHelper"
+          aria-describedby="signupPasswortHelper"
         >
-          <InputLabel htmlFor="passwort">Passwort</InputLabel>
+          <InputLabel htmlFor="signupPasswort">Passwort</InputLabel>
           <StyledInput
-            id="passwort"
+            id="signupPasswort"
             type={showPass ? 'text' : 'password'}
             defaultValue={password}
             onBlur={onBlurPassword}
@@ -173,7 +175,7 @@ const Signup = ({
               </InputAdornment>
             }
           />
-          <FormHelperText id="passwortHelper">
+          <FormHelperText id="signupPasswortHelper">
             {passwordErrorText}
           </FormHelperText>
         </FormControl>

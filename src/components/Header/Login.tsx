@@ -8,6 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
+import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import Button from '@material-ui/core/Button'
@@ -25,6 +26,11 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 24px;
+`
+const StyledTextField = styled(TextField)`
+  div:before {
+    border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+  }
 `
 const StyledInput = styled(Input)`
   &:before {
@@ -132,32 +138,15 @@ const Login = ({
     >
       <DialogTitle id="login-dialog-title">Anmeldung</DialogTitle>
       <StyledDiv>
-        <FormControl
-          error={!!emailErrorText}
+        <StyledTextField
+          label="Email"
+          defaultValue={email}
+          onBlur={onBlurEmail}
+          autoFocus
           fullWidth
-          aria-describedby="loginEmailHelper"
-        >
-          <InputLabel htmlFor="loginEmail">Email</InputLabel>
-          <StyledInput
-            id="loginEmail"
-            defaultValue={email}
-            onBlur={onBlurEmail}
-            autoFocus
-            onKeyPress={e => {
-              if (e.key === 'Enter') {
-                onBlurEmail(e)
-              }
-            }}
-          />
-          <FormHelperText id="loginEmailHelper">
-            {emailErrorText}
-          </FormHelperText>
-        </FormControl>
-        <FormControl
-          error={!!passwordErrorText}
-          fullWidth
-          aria-describedby="loginPasswortHelper"
-        >
+          helperText={emailErrorText}
+        />
+        <FormControl error={!!passwordErrorText} fullWidth>
           <InputLabel htmlFor="loginPasswort">Passwort</InputLabel>
           <StyledInput
             id="loginPasswort"
@@ -179,9 +168,7 @@ const Login = ({
               </InputAdornment>
             }
           />
-          <FormHelperText id="loginPasswortHelper">
-            {passwordErrorText}
-          </FormHelperText>
+          <FormHelperText>{passwordErrorText}</FormHelperText>
         </FormControl>
       </StyledDiv>
       <DialogActions>
