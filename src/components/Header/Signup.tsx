@@ -8,6 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
+import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import Button from '@material-ui/core/Button'
@@ -25,6 +26,11 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 24px;
+`
+const StyledTextField = styled(TextField)`
+  div:before {
+    border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+  }
 `
 const StyledInput = styled(Input)`
   &:before {
@@ -123,27 +129,14 @@ const Signup = ({
     >
       <DialogTitle id="dialog-title">Neues Konto</DialogTitle>
       <StyledDiv>
-        <FormControl
-          error={!!emailErrorText}
+        <StyledTextField
+          label="Email"
+          defaultValue={email}
+          onBlur={onBlurEmail}
+          autoFocus
           fullWidth
-          aria-describedby="signupEmailHelper"
-        >
-          <InputLabel htmlFor="signupEmail">Email</InputLabel>
-          <StyledInput
-            id="signupEmail"
-            defaultValue={email}
-            onBlur={onBlurEmail}
-            autoFocus
-            onKeyPress={e => {
-              if (e.key === 'Enter') {
-                onBlurEmail()
-              }
-            }}
-          />
-          <FormHelperText id="signupEmailHelper">
-            {emailErrorText}
-          </FormHelperText>
-        </FormControl>
+          helperText={emailErrorText}
+        />
         <FormControl
           error={!!passwordErrorText}
           fullWidth
