@@ -7,12 +7,12 @@
     "type": {
       "type": "string"
     },
-    "name": {
+    "projectName": {
       "type": "string"
     },
-    "user": {
+    "creatorName": {
       "type": "string"
     }
   },
-  "required": ["name", "user"]
+  "required": ["projectName", "creatorName"]
 }

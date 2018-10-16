@@ -41,8 +41,8 @@ const StyledFormHelperText = styled(FormHelperText)`
 
 const enhance = compose(
   withAuthState,
-  withState('name', 'setName', ''),
-  withState('name2', 'setName2', ''),
+  withState('projectName', 'setProjectName', ''),
+  withState('projectName2', 'setProjectName2', ''),
   withState('nameHelperText', 'setNameHelperText', ''),
   withState('name2HelperText', 'setName2HelperText', ''),
   withHandlers<any, any>({
@@ -52,26 +52,26 @@ const enhance = compose(
       setNewProjectOpen: (newProjectOpen: boolean) => void
     }) => () => setNewProjectOpen(false),
     onClickCreate: ({
-      name,
-      name2,
+      projectName,
+      projectName2,
       authState,
       setNameHelperText,
       setName2HelperText,
       setNewProjectOpen,
     }: {
-      name: string
-      name2: string
+      projectName: string
+      projectName2: string
       authState: authStateProps
       setNameHelperText: () => void
       setName2HelperText: () => void
       setNewProjectOpen: (newProjectOpen: boolean) => void
     }) => async () => {
       // ensure names are equal
-      if (name !== name2) {
+      if (projectName !== projectName2) {
         return setNameHelperText('Die Namen müssen übereinstimmen')
       }
-      // ensure name is valid for couch db
-      if (!/^[a-z][a-z0-9_$()+/-]*$/.test(name)) {
+      // ensure projectName is valid for couch db
+      if (!/^[a-z][a-z0-9_$()+/-]*$/.test(projectName)) {
         return setNameHelperText(
           <>
             <div>Dieser Name ist leider nicht zulässig.</div>
@@ -88,10 +88,10 @@ const enhance = compose(
           </>,
         )
       }
-      const { dbs, name: user } = authState.state
+      const { dbs, name: creatorName } = authState.state
       const projectDbName = getProjectDbName({
-        userName: user,
-        projectName: name,
+        creatorName,
+        projectName,
       })
       // check if this dbname already exists
       const dbNames = Object.keys(dbs)
@@ -101,8 +101,8 @@ const enhance = compose(
 
       try {
         await dbs.messages.projectdef.insert({
-          name,
-          user,
+          projectName,
+          creatorName,
           type: 'projectDef',
         })
       } catch (error) {
@@ -115,18 +115,22 @@ const enhance = compose(
     },
   }),
   withHandlers<any, any>({
-    onBlurName: ({ setName }: { setName: (name: string) => void }) => (
-      event: Event,
-    ) => setName(event.target.value),
-    onBlurName2: ({ setName2 }: { setName2: (name2: string) => void }) => (
-      event: Event,
-    ) => setName2(event.target.value),
+    onBlurName: ({
+      setProjectName,
+    }: {
+      setProjectName: (projectName: string) => void
+    }) => (event: Event) => setProjectName(event.target.value),
+    onBlurName2: ({
+      setProjectName2,
+    }: {
+      setProjectName2: (projectName2: string) => void
+    }) => (event: Event) => setProjectName2(event.target.value),
   }),
 )
 
 const NewProject = ({
-  name,
-  name2,
+  projectName,
+  projectName2,
   nameHelperText,
   name2HelperText,
   setNameHelperText,
@@ -139,10 +143,10 @@ const NewProject = ({
   newProjectOpen,
   setNewProjectOpen,
 }: {
-  name: string
-  setName: () => void
-  name2: string
-  setName2: () => void
+  projectName: string
+  setProjectName: () => void
+  projectName2: string
+  setProjectName2: () => void
   nameHelperText: string
   setNameHelperText: () => void
   name2HelperText: string
@@ -165,9 +169,9 @@ const NewProject = ({
           aria-describedby="nameHelper"
           required={true}
         >
-          <InputLabel htmlFor="name">Name</InputLabel>
+          <InputLabel htmlFor="projectName">Name</InputLabel>
           <StyledInput
-            id="name"
+            id="projectName"
             defaultValue=""
             onBlur={onBlurName}
             autoFocus
@@ -185,9 +189,9 @@ const NewProject = ({
           aria-describedby="loginName2Helper"
           required={true}
         >
-          <InputLabel htmlFor="name2">Name</InputLabel>
+          <InputLabel htmlFor="projectName2">Name</InputLabel>
           <StyledInput
-            id="name2"
+            id="projectName2"
             type="text"
             defaultValue=""
             onBlur={onBlurName2}
@@ -211,7 +215,7 @@ const NewProject = ({
         <Button
           color="primary"
           onClick={onClickCreate}
-          disabled={!(name && name2)}
+          disabled={!(projectName && projectName2)}
         >
           Projekt erstellen
         </Button>
