@@ -24,8 +24,8 @@ Symbols:
    * user confirms the new name :white_check_mark:
    * app creates projectDef doc in message db :white_check_mark:
 2. server-side, on new projectDef doc in messageDb:
-   * create new project db :white_medium_square:
-   * name it `project_userName_projectName` (replace `@` with `_at_` and `.` with `_p_`) :white_medium_square:
+   * create new project db :white_check_mark:
+   * name it `project_userName_projectName` (replace `@` with `_at_` and `.` with `_p_`) :white_check_mark:
    * add user to members in [security doc](http://docs.couchdb.org/en/latest/api/database/security.html) (ensure only members can access it) (do not do this momentarily due to PouchDB issue) :white_medium_square:
    * create projectDef doc in project db :white_medium_square:
    * delete projectDef doc in messageDb :white_medium_square:
