@@ -71,6 +71,6 @@ export default async ({
         .eq('user'),
     })
   }
-  authState.addSync({ name: userDbName, sync })
+  authState.addSync({ name: 'user', sync })
   console.log('createAndSyncUserCollection', { dbs, userDb, userDbName, sync })
 }

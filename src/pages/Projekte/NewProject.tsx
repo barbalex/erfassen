@@ -110,6 +110,7 @@ const enhance = compose(
         setNameHelperText(error.message)
         return setName2HelperText(error.message)
       }
+      console.log('finished creating new project')
       setNameHelperText('')
       setNewProjectOpen(false)
     },
