@@ -9,25 +9,15 @@ import get from 'lodash/get'
 
 import ErrorBoundary from '../../components/ErrorBoundary'
 
-interface ListItemProps {
-  active: string
-}
-
 const enhance = compose(
   withHandlers({
-    onClickMenuItem: ({ post }: { post: any }) => () => {
+    onClickMenuItem: ({ post }) => () => {
       navigate(`${post.frontmatter.path}/`)
     },
   }),
 )
 
-const TechnDokuMenuItem = ({
-  post,
-  onClickMenuItem,
-}: {
-  post: any
-  onClickMenuItem: () => void
-}) => (
+const TechnDokuMenuItem = ({ post, onClickMenuItem }) => (
   <ErrorBoundary>
     <>
       <MListItem button onClick={onClickMenuItem}>
