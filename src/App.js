@@ -11,11 +11,11 @@ import createGlobalStyle from './utils/createGlobalStyle'
 // force pouch to always include credentials
 // see: https://github.com/pouchdb-community/pouchdb-authentication/issues/239#issuecomment-410489376
 PouchDB.defaults({
-  fetch(url: any, opts: any) {
+  fetch(url, opts) {
     opts.credentials = 'include'
-    return (PouchDB as any).fetch(url, opts)
+    return PouchDB.fetch(url, opts)
   },
-} as PouchDB.Configuration.RemoteDatabaseConfiguration)
+})
 
 const GlobalStyle = createGlobalStyle()
 const theme = createMuiTheme({
@@ -31,7 +31,7 @@ const theme = createMuiTheme({
   },
 })
 
-const App = ({ element }: { element: any }) => (
+const App = ({ element }) => (
   <StateProvider>
     <MuiThemeProvider theme={theme}>
       <>
