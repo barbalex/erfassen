@@ -15,7 +15,6 @@ import withState from 'recompose/withState'
 
 import ErrorBoundary from '../../components/ErrorBoundary'
 import withAuthState from '../../state/withAuth'
-import { Props as authStateProps } from '../../state/Auth'
 import getProjectDbName from '../../utils/getProjectDbName'
 
 const StyledDialog = styled(Dialog)``
@@ -45,12 +44,8 @@ const enhance = compose(
   withState('projectName2', 'setProjectName2', ''),
   withState('nameHelperText', 'setNameHelperText', ''),
   withState('name2HelperText', 'setName2HelperText', ''),
-  withHandlers<any, any>({
-    close: ({
-      setNewProjectOpen,
-    }: {
-      setNewProjectOpen: (newProjectOpen: boolean) => void
-    }) => () => setNewProjectOpen(false),
+  withHandlers({
+    close: ({ setNewProjectOpen }) => () => setNewProjectOpen(false),
     onClickCreate: ({
       projectName,
       projectName2,
@@ -58,13 +53,6 @@ const enhance = compose(
       setNameHelperText,
       setName2HelperText,
       setNewProjectOpen,
-    }: {
-      projectName: string
-      projectName2: string
-      authState: authStateProps
-      setNameHelperText: () => void
-      setName2HelperText: () => void
-      setNewProjectOpen: (newProjectOpen: boolean) => void
     }) => async () => {
       // ensure names are equal
       if (projectName !== projectName2) {
@@ -115,17 +103,11 @@ const enhance = compose(
       setNewProjectOpen(false)
     },
   }),
-  withHandlers<any, any>({
-    onBlurName: ({
-      setProjectName,
-    }: {
-      setProjectName: (projectName: string) => void
-    }) => (event: Event) => setProjectName(event.target.value),
-    onBlurName2: ({
-      setProjectName2,
-    }: {
-      setProjectName2: (projectName2: string) => void
-    }) => (event: Event) => setProjectName2(event.target.value),
+  withHandlers({
+    onBlurName: ({ setProjectName }) => event =>
+      setProjectName(event.target.value),
+    onBlurName2: ({ setProjectName2 }) => event =>
+      setProjectName2(event.target.value),
   }),
 )
 
@@ -143,22 +125,6 @@ const NewProject = ({
   authState,
   newProjectOpen,
   setNewProjectOpen,
-}: {
-  projectName: string
-  setProjectName: () => void
-  projectName2: string
-  setProjectName2: () => void
-  nameHelperText: string
-  setNameHelperText: () => void
-  name2HelperText: string
-  setName2HelperText: () => void
-  onBlurName: () => void
-  onBlurName2: () => void
-  onClickCreate: () => void
-  close: () => void
-  authState: authStateProps
-  newProjectOpen: boolean
-  setNewProjectOpen: (newProjectOpen: boolean) => void
 }) => (
   <ErrorBoundary>
     <StyledDialog aria-labelledby="login-dialog-title" open={newProjectOpen}>
