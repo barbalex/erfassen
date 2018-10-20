@@ -55,12 +55,8 @@ const MenuTitleLink = styled(Link)`
     text-decoration: underline;
   }
 `
-const DokuDate = styled.p`
-  margin-bottom: 15px !important;
-  color: grey;
-`
 
-const Template = ({ data }: { data: any }) => {
+const Template = ({ data }) => {
   const { allMarkdownRemark } = data
   const { edges } = allMarkdownRemark
 
@@ -76,11 +72,9 @@ const Template = ({ data }: { data: any }) => {
             </MenuTitle>
             <List component="nav">
               <Divider />
-              {edges
-                .filter((n: any) => !!n && !!n.node)
-                .map(({ node }: { node: any }) => (
-                  <TechnDokuMenuItem post={node} key={node.id} />
-                ))}
+              {edges.filter(n => !!n && !!n.node).map(({ node }) => (
+                <TechnDokuMenuItem post={node} key={node.id} />
+              ))}
             </List>
           </Menu>
           <Doku>
