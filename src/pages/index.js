@@ -159,7 +159,7 @@ const query = graphql`
   }
 `
 
-const IndexPage: React.SFC<{}> = () => (
+const IndexPage = () => (
   <StaticQuery
     query={query}
     render={data => (
@@ -289,7 +289,7 @@ const IndexPage: React.SFC<{}> = () => (
                 <a
                   href="https://gabriel-software.ch"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                 >
                   Über uns
                 </a>
