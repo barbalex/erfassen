@@ -19,7 +19,6 @@ import withState from 'recompose/withState'
 
 import ErrorBoundary from '../ErrorBoundary'
 import withAuthState from '../../state/withAuth'
-import { Props as authStateProps } from '../../state/Auth'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -45,43 +44,23 @@ const enhance = compose(
   withState('showPass', 'setShowPass', false),
   withState('emailErrorText', 'setEmailErrorText', ''),
   withState('passwordErrorText', 'setPasswordErrorText', ''),
-  withHandlers<any, any>({
-    close: ({ authState }: { authState: authStateProps }) => () =>
-      authState.setSignupOpen(false),
-    onClickSignup: ({
-      email,
-      password,
-      authState,
-    }: {
-      email: string
-      password: string
-      authState: authStateProps
-    }) => async () => {
+  withHandlers({
+    close: ({ authState }) => () => authState.setSignupOpen(false),
+    onClickSignup: ({ email, password, authState }) => async () => {
       try {
         await authState.signUp({ email, password })
       } catch (error) {
         console.log('Signup: error logging in:', error)
       }
     },
-    onToggleShowPass: ({
-      showPass,
-      setShowPass,
-    }: {
-      showPass: boolean
-      setShowPass: (showPass: boolean) => void
-    }) => () => {
+    onToggleShowPass: ({ showPass, setShowPass }) => () => {
       setShowPass(!showPass)
     },
   }),
-  withHandlers<any, any>({
-    onBlurEmail: ({ setEmail }: { setEmail: (email: string) => void }) => (
-      event: Event,
-    ) => setEmail(event.target.value),
-    onBlurPassword: ({
-      setPassword,
-    }: {
-      setPassword: (password: string) => void
-    }) => (event: Event) => setPassword(event.target.value),
+  withHandlers({
+    onBlurEmail: ({ setEmail }) => event => setEmail(event.target.value),
+    onBlurPassword: ({ setPassword }) => event =>
+      setPassword(event.target.value),
   }),
 )
 
@@ -102,25 +81,6 @@ const Signup = ({
   onToggleShowPass,
   db,
   authState,
-}: {
-  email: string
-  showPass: boolean
-  setEmail: () => void
-  password: string
-  setShowPass: (showPass: boolean) => void
-  setPassword: () => void
-  emailErrorText: string
-  setEmailErrorText: () => void
-  passwordErrorText: string
-  setPasswordErrorText: () => void
-  onBlurEmail: () => void
-  onBlurPassword: () => void
-  onClickSignup: () => void
-  user: Object
-  close: () => void
-  onToggleShowPass: () => void
-  db: any
-  authState: authStateProps
 }) => (
   <ErrorBoundary>
     <StyledDialog
