@@ -89,8 +89,8 @@ const Template = ({ data }) => {
 export const pageQuery = graphql`
   query {
     allMarkdownRemark(
-      sort: { order: ASC, fields: [frontmatter___sort] },
-      filter: {fileAbsolutePath: {regex: "/(\/technischeDoku)/.*\\.md$/"}}
+      sort: { order: ASC, fields: [frontmatter___sort] }
+      filter: { fileAbsolutePath: { regex: "/(/technischeDoku)/.*/" } }
     ) {
       edges {
         node {
