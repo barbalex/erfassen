@@ -68,18 +68,13 @@ const Signup = ({
   email,
   password,
   showPass,
-  setShowPass,
   emailErrorText,
   passwordErrorText,
-  setEmailErrorText,
-  setPasswordErrorText,
   onBlurEmail,
   onBlurPassword,
   onClickSignup,
-  user,
   close,
   onToggleShowPass,
-  db,
   authState,
 }) => (
   <ErrorBoundary>

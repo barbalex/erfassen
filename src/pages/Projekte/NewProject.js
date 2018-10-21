@@ -116,15 +116,11 @@ const NewProject = ({
   projectName2,
   nameHelperText,
   name2HelperText,
-  setNameHelperText,
-  setName2HelperText,
   onBlurName,
   onBlurName2,
   onClickCreate,
   close,
-  authState,
   newProjectOpen,
-  setNewProjectOpen,
 }) => (
   <ErrorBoundary>
     <StyledDialog aria-labelledby="login-dialog-title" open={newProjectOpen}>
