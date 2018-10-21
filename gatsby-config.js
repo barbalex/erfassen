@@ -3,7 +3,6 @@ module.exports = {
     title: 'erfassen',
   },
   plugins: [
-    'gatsby-plugin-typescript',
     {
       resolve: 'gatsby-source-filesystem',
       options: {

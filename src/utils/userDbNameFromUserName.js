@@ -1,4 +1,4 @@
-module.exports = (name: string): string =>
+module.exports = name =>
   'user_' +
   name
     .toLowerCase()
