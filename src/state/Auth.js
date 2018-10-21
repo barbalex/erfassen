@@ -17,41 +17,8 @@ import createAndSyncUserCollection from '../utils/createAndSyncUserCollection'
 
 PouchDB.plugin(pouchdbAuthentication)
 
-interface LogInProps {
-  email: string
-  password: string
-}
-
-interface StateProps {
-  authDb: any
-  name: string | null
-  signupOpen: boolean
-  loginOpen: boolean
-  dbs: any
-  syncs: Object
-}
-export interface Props {
-  state: StateProps
-  setAuthDb: (authDb: any) => void
-  setName: (name: string | null) => void
-  setSignupOpen: (signupOpen: boolean) => void
-  setLoginOpen: (loginOpen: boolean) => void
-  signUp: () => void
-  logIn: () => void
-  logOut: () => void
-  setDbs: (dbs: any) => void
-  addDb: () => void
-  setSyncs: (syncs: Object) => void
-  addSync: () => void
-}
-declare global {
-  interface Window {
-    dbs: any
-  }
-}
-
-export default class AuthContainer extends Container<StateProps> {
-  constructor(props: StateProps) {
+export default class AuthContainer extends Container {
+  constructor(props) {
     super()
     const authDb = new PouchDB(couchUrl())
     const dbs = typeof window === 'undefined' ? null : window.dbs || null
@@ -66,7 +33,7 @@ export default class AuthContainer extends Container<StateProps> {
 
     authDb
       .getSession()
-      .then((resp: any) => {
+      .then(resp => {
         const name = get(resp, 'userCtx.name', null)
         if (name) {
           this.setState(state => ({ name }))
@@ -76,34 +43,34 @@ export default class AuthContainer extends Container<StateProps> {
             (typeof window !== 'undefined' && !window.dbs) ||
             typeof window === 'undefined'
           ) {
-            createRxDb(this).catch((error: Error) => {
+            createRxDb(this).catch(error => {
               throw error
             })
           }
         }
       })
-      .catch((error: Error) => {
+      .catch(error => {
         throw error
       })
   }
 
-  setAuthDb = (authDb: any) => {
+  setAuthDb = authDb => {
     this.setState(state => ({ authDb }))
   }
 
-  setName = (name: string | null) => {
+  setName = name => {
     this.setState(state => ({ name }))
   }
 
-  setSignupOpen = (signupOpen: boolean) => {
+  setSignupOpen = signupOpen => {
     this.setState(state => ({ signupOpen }))
   }
 
-  setLoginOpen = (loginOpen: boolean) => {
+  setLoginOpen = loginOpen => {
     this.setState(state => ({ loginOpen }))
   }
 
-  signUp = async ({ email, password }: LogInProps) => {
+  signUp = async ({ email, password }) => {
     // first logout
     try {
       await this.logOut()
@@ -125,7 +92,7 @@ export default class AuthContainer extends Container<StateProps> {
     }
   }
 
-  logIn = async ({ email, password }: LogInProps) => {
+  logIn = async ({ email, password }) => {
     // first logout
     try {
       await this.logOut()
@@ -133,7 +100,7 @@ export default class AuthContainer extends Container<StateProps> {
       console.log('Auth, logIn: Error logging out:', error)
     }
 
-    let logInResponce: any
+    let logInResponce
     try {
       logInResponce = await this.state.authDb.logIn(email, password)
     } catch (error) {
@@ -152,7 +119,7 @@ export default class AuthContainer extends Container<StateProps> {
       authDb: new PouchDB(couchUrl()),
     }))
     createAndSyncUserCollection({ email, authState: this })
-    createRxDb(this).catch((error: Error) => {
+    createRxDb(this).catch(error => {
       throw error
     })
   }
@@ -165,9 +132,9 @@ export default class AuthContainer extends Container<StateProps> {
     }
     const { dbs, syncs } = this.state
     // remove all dbs
-    Object.values(dbs).forEach((db: any) => db.remove())
+    Object.values(dbs).forEach(db => db.remove())
     // stop all syncing
-    Object.values(syncs).forEach((sync: any) => sync.cancel())
+    Object.values(syncs).forEach(sync => sync.cancel())
     this.setState(state => ({
       name: null,
       loginOpen: false,
@@ -177,11 +144,11 @@ export default class AuthContainer extends Container<StateProps> {
     return
   }
 
-  setDbs = (dbs: any) => {
+  setDbs = dbs => {
     this.setState(state => ({ dbs }))
   }
 
-  addDb = ({ name, db }: { name: string; db: any }) => {
+  addDb = ({ name, db }) => {
     //console.log('Auth, addDb', { name, db, dbs: this.state.dbs })
     this.setState(state => {
       console.log('Auth, addDb', { dbs: state.dbs })
@@ -197,11 +164,11 @@ export default class AuthContainer extends Container<StateProps> {
     })
   }
 
-  setSyncs = (syncs: Object) => {
+  setSyncs = syncs => {
     this.setState(state => ({ syncs }))
   }
 
-  addSync = ({ name, sync }: { name: string; sync: any }) => {
+  addSync = ({ name, sync }) => {
     this.setState(state => {
       const newSyncs = {
         ...state.syncs,

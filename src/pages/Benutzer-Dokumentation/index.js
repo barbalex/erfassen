@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout'
 import MenuItem from './MenuItem'
-import ErrorBoundary from '../components/ErrorBoundary'
+import ErrorBoundary from '../../components/ErrorBoundary'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -34,7 +34,6 @@ const Doku = styled.div`
   }
   h1,
   h3,
-  h4,
   ol {
     margin-bottom: 10px;
   }
@@ -56,14 +55,9 @@ const MenuTitleLink = styled(Link)`
     text-decoration: underline;
   }
 `
-const DokuDate = styled.p`
-  margin-bottom: 15px !important;
-  color: grey;
-`
 
-const BenutzerDokuTemplate = ({ data }: { data: any }) => {
-  const { markdownRemark, allMarkdownRemark } = data
-  const { frontmatter, html } = markdownRemark
+const Template = ({ data }) => {
+  const { allMarkdownRemark } = data
   const { edges } = allMarkdownRemark
 
   return (
@@ -78,17 +72,13 @@ const BenutzerDokuTemplate = ({ data }: { data: any }) => {
             </MenuTitle>
             <List component="nav">
               <Divider />
-              {edges
-                .filter((n: any) => !!n && !!n.node)
-                .map(({ node }: { node: any }) => (
-                  <MenuItem post={node} key={node.id} />
-                ))}
+              {edges.filter(n => !!n && !!n.node).map(({ node }) => (
+                <MenuItem post={node} key={node.id} />
+              ))}
             </List>
           </Menu>
           <Doku>
-            <h1>{frontmatter.title}</h1>
-            <DokuDate>{frontmatter.date}</DokuDate>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+            <p>Hoffentlich nützliche Infos für Sie</p>
           </Doku>
         </Container>
       </Layout>
@@ -97,26 +87,18 @@ const BenutzerDokuTemplate = ({ data }: { data: any }) => {
 }
 
 export const pageQuery = graphql`
-  query($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
-      html
-      frontmatter {
-        date(formatString: "DD.MM.YYYY")
-        path
-        title
-      }
-    }
+  query {
     allMarkdownRemark(
-      sort: { order: ASC, fields: [frontmatter___sort] },
-      filter: {fileAbsolutePath: {regex: "/(\/benutzerDoku)/.*\\.md$/"}}
+      sort: { order: ASC, fields: [frontmatter___sort] }
+      filter: { fileAbsolutePath: { regex: "/(/benutzerDoku)/.*.md$/" } }
     ) {
       edges {
         node {
           id
           frontmatter {
+            title
             date(formatString: "DD.MM.YYYY")
             path
-            title
           }
         }
       }
@@ -124,4 +106,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default BenutzerDokuTemplate
+export default Template

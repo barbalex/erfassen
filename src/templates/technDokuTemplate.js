@@ -61,7 +61,7 @@ const DokuDate = styled.p`
   color: grey;
 `
 
-const TechnDokuTemplate = ({ data }: { data: any }) => {
+const TechnDokuTemplate = ({ data }) => {
   const { markdownRemark, allMarkdownRemark } = data
   const { frontmatter, html } = markdownRemark
   const { edges } = allMarkdownRemark
@@ -78,11 +78,9 @@ const TechnDokuTemplate = ({ data }: { data: any }) => {
             </MenuTitle>
             <List component="nav">
               <Divider />
-              {edges
-                .filter((n: any) => !!n && !!n.node)
-                .map(({ node }: { node: any }) => (
-                  <MenuItem post={node} key={node.id} />
-                ))}
+              {edges.filter(n => !!n && !!n.node).map(({ node }) => (
+                <MenuItem post={node} key={node.id} />
+              ))}
             </List>
           </Menu>
           <Doku>
@@ -107,8 +105,8 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      sort: { order: ASC, fields: [frontmatter___sort] },
-      filter: {fileAbsolutePath: {regex: "/(\/technischeDoku)/.*\\.md$/"}}
+      sort: { order: ASC, fields: [frontmatter___sort] }
+      filter: { fileAbsolutePath: { regex: "/(/technischeDoku)/.*.md$/" } }
     ) {
       edges {
         node {

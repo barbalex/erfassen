@@ -11,9 +11,9 @@ require('isomorphic-fetch')
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
-  const technDokuTemplate = path.resolve(`src/templates/technDokuTemplate.tsx`)
+  const technDokuTemplate = path.resolve(`src/templates/technDokuTemplate.js`)
   const benutzerDokuTemplate = path.resolve(
-    `src/templates/benutzerDokuTemplate.tsx`,
+    `src/templates/benutzerDokuTemplate.js`,
   )
 
   return graphql(`

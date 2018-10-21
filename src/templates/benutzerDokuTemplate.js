@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 
-import Layout from '../../components/Layout'
-import TechnDokuMenuItem from './MenuItem'
-import ErrorBoundary from '../../components/ErrorBoundary'
+import Layout from '../components/Layout'
+import MenuItem from './MenuItem'
+import ErrorBoundary from '../components/ErrorBoundary'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -34,6 +34,7 @@ const Doku = styled.div`
   }
   h1,
   h3,
+  h4,
   ol {
     margin-bottom: 10px;
   }
@@ -60,8 +61,9 @@ const DokuDate = styled.p`
   color: grey;
 `
 
-const Template = ({ data }: { data: any }) => {
-  const { allMarkdownRemark } = data
+const BenutzerDokuTemplate = ({ data }) => {
+  const { markdownRemark, allMarkdownRemark } = data
+  const { frontmatter, html } = markdownRemark
   const { edges } = allMarkdownRemark
 
   return (
@@ -70,21 +72,21 @@ const Template = ({ data }: { data: any }) => {
         <Container>
           <Menu>
             <MenuTitle>
-              <MenuTitleLink to="/Technische-Dokumentation/">
-                Technische Dokumentation
+              <MenuTitleLink to="/Benutzer-Dokumentation/">
+                Benutzer-Dokumentation
               </MenuTitleLink>
             </MenuTitle>
             <List component="nav">
               <Divider />
-              {edges
-                .filter((n: any) => !!n && !!n.node)
-                .map(({ node }: { node: any }) => (
-                  <TechnDokuMenuItem post={node} key={node.id} />
-                ))}
+              {edges.filter(n => !!n && !!n.node).map(({ node }) => (
+                <MenuItem post={node} key={node.id} />
+              ))}
             </List>
           </Menu>
           <Doku>
-            <p>Hier erfahren Sie, wie erfassen.ch funktioniert</p>
+            <h1>{frontmatter.title}</h1>
+            <DokuDate>{frontmatter.date}</DokuDate>
+            <div dangerouslySetInnerHTML={{ __html: html }} />
           </Doku>
         </Container>
       </Layout>
@@ -93,18 +95,26 @@ const Template = ({ data }: { data: any }) => {
 }
 
 export const pageQuery = graphql`
-  query {
+  query($path: String!) {
+    markdownRemark(frontmatter: { path: { eq: $path } }) {
+      html
+      frontmatter {
+        date(formatString: "DD.MM.YYYY")
+        path
+        title
+      }
+    }
     allMarkdownRemark(
-      sort: { order: ASC, fields: [frontmatter___sort] },
-      filter: {fileAbsolutePath: {regex: "/(\/technischeDoku)/.*\\.md$/"}}
+      sort: { order: ASC, fields: [frontmatter___sort] }
+      filter: { fileAbsolutePath: { regex: "/(/benutzerDoku)/.*.md$/" } }
     ) {
       edges {
         node {
           id
           frontmatter {
-            title
             date(formatString: "DD.MM.YYYY")
             path
+            title
           }
         }
       }
@@ -112,4 +122,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Template
+export default BenutzerDokuTemplate

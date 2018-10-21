@@ -12,44 +12,29 @@ import withLifecycle from '@hocs/with-lifecycle'
 
 import Layout from '../../components/Layout'
 import withAuthState from '../../state/withAuth'
-import { Props as authStateProps } from '../../state/Auth'
 import ErrorBoundary from '../../components/ErrorBoundary'
-import Login from '../../components/Header/Login'
 import NewProject from './NewProject'
 
 const Container = styled.div`
   margin-top: 64px;
   min-height: calc(100vh - 64px);
 `
-const LoadingContainer = styled(Container)`
-  padding: 20px;
-`
 const ReflexContainer = styled(OrigReflexContainer)`
   height: calc(100vh - 64px) !important;
 `
-
-interface Props {
-  authState: authStateProps
-  newProjectOpen: boolean
-  setNewProjectOpen: (newProjectOpen: boolean) => void
-}
 
 const enhance = compose(
   withAuthState,
   withState('newProjectOpen', 'setNewProjectOpen', false),
   withLifecycle({
-    onDidMount({ authState }: { authState: authStateProps }) {
+    onDidMount({ authState }) {
       const { name } = authState.state
       if (!name) authState.setLoginOpen(true)
     },
   }),
 )
 
-const ProjektePage: React.SFC<Props> = ({
-  authState,
-  newProjectOpen,
-  setNewProjectOpen,
-}) => {
+const ProjektePage = ({ authState, newProjectOpen, setNewProjectOpen }) => {
   const { dbs, syncs } = authState.state
   /*
   if (!dbs) {

@@ -1,9 +1,20 @@
+/* eslint no-undef:0 */
 module.exports = {
   siteMetadata: {
     title: 'erfassen',
   },
   plugins: [
-    'gatsby-plugin-typescript',
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        test: /\.js$|\.jsx$/,
+        exclude: /(node_modules|cache|public|docs)/,
+        options: {
+          emitWarning: true,
+          failOnError: false,
+        },
+      },
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {

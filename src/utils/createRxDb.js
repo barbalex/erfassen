@@ -4,12 +4,11 @@ import pouchdbAdapterHttp from 'pouchdb-adapter-http'
 import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 
 import projectDefMessageSchema from '../schemas/projectDefMessage.json'
-import { Props as AuthStateProps } from '../state/Auth'
 
 rxdb.plugin(pouchdbAdapterHttp)
 rxdb.plugin(pouchdbAdapterIdb)
 
-export default async (authState: AuthStateProps) => {
+export default async authState => {
   // TODO:
   // 1. fetch userDoc and it's project list
   // 2. for every project create an rxdb
@@ -33,11 +32,11 @@ export default async (authState: AuthStateProps) => {
     // force pouch to always include credentials
     // see: https://github.com/pouchdb-community/pouchdb-authentication/issues/239#issuecomment-410489376
     pouchSettings: {
-      fetch(url: any, opts: any) {
+      fetch(url, opts) {
         opts.credentials = 'include'
-        return (PouchDB as any).fetch(url, opts)
+        return fetch(url, opts)
       },
-    } as PouchDB.Configuration.RemoteDatabaseConfiguration,
+    },
   })
   authState.addDb({ name: 'messages', db: messageDb })
   /**

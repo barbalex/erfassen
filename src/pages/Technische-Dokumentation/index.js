@@ -5,7 +5,7 @@ import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 
 import Layout from '../../components/Layout'
-import MenuItem from './MenuItem'
+import TechnDokuMenuItem from './MenuItem'
 import ErrorBoundary from '../../components/ErrorBoundary'
 
 const Container = styled.div`
@@ -56,7 +56,7 @@ const MenuTitleLink = styled(Link)`
   }
 `
 
-const Template = ({ data }: { data: any }) => {
+const Template = ({ data }) => {
   const { allMarkdownRemark } = data
   const { edges } = allMarkdownRemark
 
@@ -66,21 +66,19 @@ const Template = ({ data }: { data: any }) => {
         <Container>
           <Menu>
             <MenuTitle>
-              <MenuTitleLink to="/Benutzer-Dokumentation/">
-                Benutzer-Dokumentation
+              <MenuTitleLink to="/Technische-Dokumentation/">
+                Technische Dokumentation
               </MenuTitleLink>
             </MenuTitle>
             <List component="nav">
               <Divider />
-              {edges
-                .filter((n: any) => !!n && !!n.node)
-                .map(({ node }: { node: any }) => (
-                  <MenuItem post={node} key={node.id} />
-                ))}
+              {edges.filter(n => !!n && !!n.node).map(({ node }) => (
+                <TechnDokuMenuItem post={node} key={node.id} />
+              ))}
             </List>
           </Menu>
           <Doku>
-            <p>Hoffentlich nützliche Infos für Sie</p>
+            <p>Hier erfahren Sie, wie erfassen.ch funktioniert</p>
           </Doku>
         </Container>
       </Layout>
@@ -91,8 +89,8 @@ const Template = ({ data }: { data: any }) => {
 export const pageQuery = graphql`
   query {
     allMarkdownRemark(
-      sort: { order: ASC, fields: [frontmatter___sort] },
-      filter: {fileAbsolutePath: {regex: "/(\/benutzerDoku)/.*\\.md$/"}}
+      sort: { order: ASC, fields: [frontmatter___sort] }
+      filter: { fileAbsolutePath: { regex: "/(/technischeDoku)/.*.md$/" } }
     ) {
       edges {
         node {

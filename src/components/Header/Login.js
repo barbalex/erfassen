@@ -19,7 +19,6 @@ import withState from 'recompose/withState'
 
 import ErrorBoundary from '../ErrorBoundary'
 import withAuthState from '../../state/withAuth'
-import { Props as authStateProps } from '../../state/Auth'
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -45,47 +44,40 @@ const enhance = compose(
   withState('showPass', 'setShowPass', false),
   withState('emailErrorText', 'setEmailErrorText', ''),
   withState('passwordErrorText', 'setPasswordErrorText', ''),
-  withHandlers<any, any>({
-    close: ({ authState }: { authState: authStateProps }) => () =>
-      authState.setSignupOpen(false),
-    onClickSignup: ({
+  withHandlers({
+    close: ({ authState }) => () => authState.setLoginOpen(false),
+    onClickSignup: ({ authState }) => () => {
+      authState.setLoginOpen(false)
+      authState.setSignupOpen(true)
+    },
+    onClickLogin: ({
       email,
       password,
       authState,
-    }: {
-      email: string
-      password: string
-      authState: authStateProps
+      setEmailErrorText,
+      setPasswordErrorText,
     }) => async () => {
+      console.log({ email, password })
       try {
-        await authState.signUp({ email, password })
+        await authState.logIn({ email, password })
       } catch (error) {
-        console.log('Signup: error logging in:', error)
+        console.log('Error logging in:', error)
+        setEmailErrorText(error.message)
+        setPasswordErrorText(error.message)
       }
     },
-    onToggleShowPass: ({
-      showPass,
-      setShowPass,
-    }: {
-      showPass: boolean
-      setShowPass: (showPass: boolean) => void
-    }) => () => {
+    onToggleShowPass: ({ showPass, setShowPass }) => () => {
       setShowPass(!showPass)
     },
   }),
-  withHandlers<any, any>({
-    onBlurEmail: ({ setEmail }: { setEmail: (email: string) => void }) => (
-      event: Event,
-    ) => setEmail(event.target.value),
-    onBlurPassword: ({
-      setPassword,
-    }: {
-      setPassword: (password: string) => void
-    }) => (event: Event) => setPassword(event.target.value),
+  withHandlers({
+    onBlurEmail: ({ setEmail }) => event => setEmail(event.target.value),
+    onBlurPassword: ({ setPassword }) => event =>
+      setPassword(event.target.value),
   }),
 )
 
-const Signup = ({
+const Login = ({
   email,
   password,
   showPass,
@@ -96,38 +88,18 @@ const Signup = ({
   setPasswordErrorText,
   onBlurEmail,
   onBlurPassword,
+  onClickLogin,
   onClickSignup,
-  user,
   close,
   onToggleShowPass,
-  db,
   authState,
-}: {
-  email: string
-  showPass: boolean
-  setEmail: () => void
-  password: string
-  setShowPass: (showPass: boolean) => void
-  setPassword: () => void
-  emailErrorText: string
-  setEmailErrorText: () => void
-  passwordErrorText: string
-  setPasswordErrorText: () => void
-  onBlurEmail: () => void
-  onBlurPassword: () => void
-  onClickSignup: () => void
-  user: Object
-  close: () => void
-  onToggleShowPass: () => void
-  db: any
-  authState: authStateProps
 }) => (
   <ErrorBoundary>
     <StyledDialog
-      aria-labelledby="dialog-title"
-      open={authState.state.signupOpen}
+      aria-labelledby="login-dialog-title"
+      open={authState.state.loginOpen}
     >
-      <DialogTitle id="dialog-title">Neues Konto</DialogTitle>
+      <DialogTitle id="login-dialog-title">Anmeldung</DialogTitle>
       <StyledDiv>
         <StyledTextField
           label="Email"
@@ -137,22 +109,13 @@ const Signup = ({
           fullWidth
           helperText={emailErrorText}
         />
-        <FormControl
-          error={!!passwordErrorText}
-          fullWidth
-          aria-describedby="signupPasswortHelper"
-        >
-          <InputLabel htmlFor="signupPasswort">Passwort</InputLabel>
+        <FormControl error={!!passwordErrorText} fullWidth>
+          <InputLabel htmlFor="loginPasswort">Passwort</InputLabel>
           <StyledInput
-            id="signupPasswort"
+            id="loginPasswort"
             type={showPass ? 'text' : 'password'}
             defaultValue={password}
             onBlur={onBlurPassword}
-            onKeyPress={e => {
-              if (e.key === 'Enter') {
-                onBlurPassword()
-              }
-            }}
             autoComplete="current-password"
             autoCorrect="off"
             spellCheck="false"
@@ -168,19 +131,18 @@ const Signup = ({
               </InputAdornment>
             }
           />
-          <FormHelperText id="signupPasswortHelper">
-            {passwordErrorText}
-          </FormHelperText>
+          <FormHelperText>{passwordErrorText}</FormHelperText>
         </FormControl>
       </StyledDiv>
       <DialogActions>
         <Button onClick={close}>abbrechen</Button>
-        <Button color="primary" onClick={onClickSignup}>
-          Konto erstellen
+        <Button color="primary" onClick={onClickLogin}>
+          Anmelden
         </Button>
+        <Button onClick={onClickSignup}>Neues Konto</Button>
       </DialogActions>
     </StyledDialog>
   </ErrorBoundary>
 )
 
-export default enhance(Signup)
+export default enhance(Login)

@@ -22,10 +22,8 @@ const SiteTitle = styled(Typography)`
 const Spacer = styled.div`
   flex-grow: 1;
 `
-interface NavButtonProps {
-  active: boolean
-}
-const NavButton = styled<NavButtonProps, any>(Button)`
+
+const NavButton = styled(Button)`
   color: white !important;
   border: ${props => (props.active ? '1px white' : 'unset')};
   border-color: rgba(255, 255, 255, 0.5) !important;
@@ -36,11 +34,7 @@ const enhance = compose(
   withHandlers({ onClickSiteTitle: () => () => navigate('/') }),
 )
 
-interface Props {
-  onClickSiteTitle: () => void
-}
-
-const Header: React.SFC<Props> = ({ onClickSiteTitle }) => (
+const Header = ({ onClickSiteTitle }) => (
   <Location>
     {({ location }) => {
       const { pathname } = location

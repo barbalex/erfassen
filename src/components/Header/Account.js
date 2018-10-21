@@ -12,7 +12,6 @@ import Signup from './Signup'
 import Login from './Login'
 import ErrorBoundary from '../ErrorBoundary'
 import withAuthState from '../../state/withAuth'
-import { Props as authStateProps } from '../../state/Auth'
 
 const IconContainer = styled.div`
   position: relative;
@@ -32,64 +31,28 @@ const UserNameDiv = styled.div`
   z-index: -1;
 `
 
-interface Props {
-  anchorEl: EventTarget | null
-  setAnchorEl: (anchorEl: EventTarget | null) => void
-  onClickMenu: (event: Event) => void
-  onCloseMenu: (event: Event) => void
-  onClickSignup: (signupOpen: boolean) => void
-  onClickLognin: (signupOpen: boolean) => void
-  authState: authStateProps
-}
-
 const enhance = compose(
   withAuthState,
   withState('anchorEl', 'setAnchorEl', null),
-  withHandlers<any, any>({
-    onClickMenu: ({
-      setAnchorEl,
-    }: {
-      setAnchorEl: (anchorEl: EventTarget | null) => void
-    }) => (event: Event) => setAnchorEl(event.currentTarget),
-    onCloseMenu: ({
-      setAnchorEl,
-    }: {
-      setAnchorEl: (anchorEl: EventTarget | null) => void
-    }) => () => setAnchorEl(null),
-    onClickSignup: ({
-      setAnchorEl,
-      authState,
-    }: {
-      setAnchorEl: (anchorEl: EventTarget | null) => void
-      authState: authStateProps
-    }) => () => {
+  withHandlers({
+    onClickMenu: ({ setAnchorEl }) => event => setAnchorEl(event.currentTarget),
+    onCloseMenu: ({ setAnchorEl }) => () => setAnchorEl(null),
+    onClickSignup: ({ setAnchorEl, authState }) => () => {
       setAnchorEl(null)
       authState.setSignupOpen(!authState.state.signupOpen)
     },
-    onClickLogin: ({
-      setAnchorEl,
-      authState,
-    }: {
-      setAnchorEl: (anchorEl: EventTarget | null) => void
-      authState: authStateProps
-    }) => () => {
+    onClickLogin: ({ setAnchorEl, authState }) => () => {
       setAnchorEl(null)
       authState.setLoginOpen(!authState.state.loginOpen)
     },
-    onClickLogout: ({
-      setAnchorEl,
-      authState,
-    }: {
-      setAnchorEl: (anchorEl: EventTarget | null) => void
-      authState: authStateProps
-    }) => () => {
+    onClickLogout: ({ setAnchorEl, authState }) => () => {
       setAnchorEl(null)
       authState.logOut()
     },
   }),
 )
 
-const Account: React.SFC<Props> = ({
+const Account = ({
   anchorEl,
   onCloseMenu,
   onClickMenu,

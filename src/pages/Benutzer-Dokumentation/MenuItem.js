@@ -9,24 +9,17 @@ import get from 'lodash/get'
 
 import ErrorBoundary from '../../components/ErrorBoundary'
 
-interface ListItemProps {
-  active: string
-}
-
 const enhance = compose(
   withHandlers({
-    onClickMenuItem: ({ post }: { post: any }) => () => {
+    onClickMenuItem: ({ post }) => () => {
       navigate(`${post.frontmatter.path}/`)
     },
   }),
 )
 
-const TechnDokuMenuItem = ({
+const BenutzerDokuMenuItem = ({
   post,
   onClickMenuItem,
-}: {
-  post: any
-  onClickMenuItem: () => void
 }) => (
   <ErrorBoundary>
     <>
@@ -40,4 +33,4 @@ const TechnDokuMenuItem = ({
   </ErrorBoundary>
 )
 
-export default enhance(TechnDokuMenuItem)
+export default enhance(BenutzerDokuMenuItem)
