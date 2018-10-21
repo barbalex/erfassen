@@ -273,7 +273,7 @@ const IndexPage = () => (
                   </ul>
                 </Card>
                 <Card>
-                  <CardTitle>Los geht's</CardTitle>
+                  <CardTitle>{`Los geht's`}</CardTitle>
                   <ul>
                     <li>Probieren Sie im Test-Projekt alles aus</li>
                     <li>TODO: Link zum Test-Projekt</li>
