@@ -11,7 +11,7 @@ import PouchDB from 'pouchdb-browser'
 import pouchdbAuthentication from 'pouchdb-authentication'
 import get from 'lodash/get'
 
-import createRxDb from '../utils/createRxDb'
+import createMessageDb from '../utils/createMessageDb'
 import couchUrl from '../utils/couchUrl'
 import createAndSyncUserCollection from '../utils/createAndSyncUserCollection'
 
@@ -24,7 +24,7 @@ export default class AuthContainer extends Container {
     const dbs = typeof window === 'undefined' ? null : window.dbs || null
     this.state = {
       authDb,
-      name: null,
+      email: null,
       signupOpen: false,
       loginOpen: false,
       dbs,
@@ -34,16 +34,16 @@ export default class AuthContainer extends Container {
     authDb
       .getSession()
       .then(resp => {
-        const name = get(resp, 'userCtx.name', null)
-        if (name) {
-          this.setState({ name })
-          createAndSyncUserCollection({ email: name, authState: this })
+        const email = get(resp, 'userCtx.name', null)
+        if (email) {
+          this.setState({ email })
+          createAndSyncUserCollection({ email, authState: this })
           // create initial dbs state
           if (
             (typeof window !== 'undefined' && !window.dbs) ||
             typeof window === 'undefined'
           ) {
-            createRxDb(this).catch(error => {
+            createMessageDb(this).catch(error => {
               throw error
             })
           }
@@ -58,8 +58,8 @@ export default class AuthContainer extends Container {
     this.setState({ authDb })
   }
 
-  setName = name => {
-    this.setState({ name })
+  setEmail = email => {
+    this.setState({ email })
   }
 
   setSignupOpen = signupOpen => {
@@ -114,12 +114,12 @@ export default class AuthContainer extends Container {
     }
     //console.log('Auth, logIn: logInResponce logging in:', logInResponce)
     this.setState({
-      name: logInResponce.name,
+      email: logInResponce.name,
       loginOpen: false,
       authDb: new PouchDB(couchUrl()),
     })
     createAndSyncUserCollection({ email, authState: this })
-    createRxDb(this).catch(error => {
+    createMessageDb(this).catch(error => {
       throw error
     })
   }
@@ -136,7 +136,7 @@ export default class AuthContainer extends Container {
     // stop all syncing
     Object.values(syncs).forEach(sync => sync.cancel())
     this.setState({
-      name: null,
+      email: null,
       loginOpen: false,
       dbs: null,
       syncs: {},
@@ -148,13 +148,13 @@ export default class AuthContainer extends Container {
     this.setState({ dbs })
   }
 
-  addDb = ({ name, db }) => {
-    //console.log('Auth, addDb', { name, db, dbs: this.state.dbs })
+  addDb = ({ email, db }) => {
+    //console.log('Auth, addDb', { email, db, dbs: this.state.dbs })
     this.setState(state => {
       console.log('Auth, addDb', { dbs: state.dbs })
       const newDbs = {
         ...state.dbs,
-        [name]: db,
+        [email]: db,
       }
       console.log('Auth, addDb', { newDbs })
       window.dbs = newDbs
@@ -168,11 +168,11 @@ export default class AuthContainer extends Container {
     this.setState({ syncs })
   }
 
-  addSync = ({ name, sync }) => {
+  addSync = ({ email, sync }) => {
     this.setState(state => {
       const newSyncs = {
         ...state.syncs,
-        [name]: sync,
+        [email]: sync,
       }
       return {
         dbs: state.dbs,

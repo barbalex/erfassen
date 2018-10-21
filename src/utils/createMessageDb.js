@@ -45,7 +45,7 @@ export default async authState => {
    * reason: be able to check if replication exists already
    * before starting new one
    */
-  console.log('createRxDb', { messageDb })
+  console.log('createMessageDb', { messageDb })
   const projectdefSync = await messageDb.projectdef.sync({
     remote: 'http://localhost:5984/messages/',
     options: {

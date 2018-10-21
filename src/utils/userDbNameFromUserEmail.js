@@ -1,6 +1,6 @@
-module.exports = name =>
+module.exports = email =>
   'user_' +
-  name
+  email
     .toLowerCase()
     .replace('@', '_at_')
     .replace('.', '_p_')

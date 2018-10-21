@@ -76,7 +76,7 @@ const enhance = compose(
           </>,
         )
       }
-      const { dbs, name: creatorName } = authState.state
+      const { dbs, email: creatorName } = authState.state
       const projectDbName = getProjectDbName({
         creatorName,
         projectName,

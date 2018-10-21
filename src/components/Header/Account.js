@@ -61,7 +61,7 @@ const Account = ({
   onClickLogin,
   authState,
 }) => {
-  const { name, signupOpen, loginOpen } = authState.state
+  const { email, signupOpen, loginOpen } = authState.state
 
   return (
     <ErrorBoundary>
@@ -76,7 +76,7 @@ const Account = ({
           >
             <UserIcon />
           </IconButton>
-          <UserNameDiv>{name || ''}</UserNameDiv>
+          <UserNameDiv>{email || ''}</UserNameDiv>
         </IconContainer>
         <Menu
           id="menu-appbar"
@@ -92,8 +92,8 @@ const Account = ({
           open={!!anchorEl}
           onClose={onCloseMenu}
         >
-          {!name && <MenuItem onClick={onClickLogin}>Anmelden</MenuItem>}
-          {name && <MenuItem onClick={onClickLogout}>Abmelden</MenuItem>}
+          {!email && <MenuItem onClick={onClickLogin}>Anmelden</MenuItem>}
+          {email && <MenuItem onClick={onClickLogout}>Abmelden</MenuItem>}
           <MenuItem onClick={onClickSignup}>Konto erstellen</MenuItem>
         </Menu>
         {signupOpen && <Signup />}

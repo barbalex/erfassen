@@ -28,7 +28,7 @@ Symbols:
    * name it `project_userName_projectName` (replace `@` with `_at_` and `.` with `_p_`) :white_check_mark:
    * add user to members in [security doc](http://docs.couchdb.org/en/latest/api/database/security.html) (ensure only members can access it) (do not do this momentarily due to PouchDB issue) :white_medium_square:
    * create projectDef doc in project db :white_check_mark:
-   * delete projectDef doc in messageDb :white_medium_square:
+   * delete projectDef doc in messageDb :white_check_mark:
 3. app-side, on delete projectDef doc in messageDb:
    * sync project's collections :white_medium_square:
    * show user tools to edit project :white_medium_square:

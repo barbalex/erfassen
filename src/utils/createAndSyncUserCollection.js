@@ -1,7 +1,7 @@
 import rxdb from 'rxdb'
 import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 
-import userDbNameFromUserName from './userDbNameFromUserName'
+import userDbNameFromUserEmail from './userDbNameFromUserEmail'
 import userDocSchema from '../schemas/userDoc.json'
 
 rxdb.plugin(pouchdbAdapterIdb)
@@ -11,7 +11,7 @@ export default async ({ authState, email }) => {
   const { dbs, syncs } = authState.state
   // create userDoc Collection
   // then sync it
-  const userDbName = userDbNameFromUserName(email)
+  const userDbName = userDbNameFromUserEmail(email)
   //console.log('createAndSyncUserCollections', { dbs, syncs })
   let userDb
   try {

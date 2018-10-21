@@ -28,8 +28,8 @@ const enhance = compose(
   withState('newProjectOpen', 'setNewProjectOpen', false),
   withLifecycle({
     onDidMount({ authState }) {
-      const { name } = authState.state
-      if (!name) authState.setLoginOpen(true)
+      const { email } = authState.state
+      if (!email) authState.setLoginOpen(true)
     },
   }),
 )
