@@ -90,7 +90,7 @@ export const pageQuery = graphql`
   query {
     allMarkdownRemark(
       sort: { order: ASC, fields: [frontmatter___sort] }
-      filter: { fileAbsolutePath: { regex: "/(/technischeDoku)/.*/" } }
+      filter: { fileAbsolutePath: { regex: "/(/technischeDoku)/.*.md$/" } }
     ) {
       edges {
         node {

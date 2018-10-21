@@ -56,7 +56,7 @@ const MenuTitleLink = styled(Link)`
   }
 `
 
-const Template = ({ data }: { data: any }) => {
+const Template = ({ data }) => {
   const { allMarkdownRemark } = data
   const { edges } = allMarkdownRemark
 
@@ -72,11 +72,9 @@ const Template = ({ data }: { data: any }) => {
             </MenuTitle>
             <List component="nav">
               <Divider />
-              {edges
-                .filter((n: any) => !!n && !!n.node)
-                .map(({ node }: { node: any }) => (
-                  <MenuItem post={node} key={node.id} />
-                ))}
+              {edges.filter(n => !!n && !!n.node).map(({ node }) => (
+                <MenuItem post={node} key={node.id} />
+              ))}
             </List>
           </Menu>
           <Doku>
@@ -91,8 +89,8 @@ const Template = ({ data }: { data: any }) => {
 export const pageQuery = graphql`
   query {
     allMarkdownRemark(
-      sort: { order: ASC, fields: [frontmatter___sort] },
-      filter: {fileAbsolutePath: {regex: "/(\/benutzerDoku)/.*\\.md$/"}}
+      sort: { order: ASC, fields: [frontmatter___sort] }
+      filter: { fileAbsolutePath: { regex: "/(/benutzerDoku)/.*.md$/" } }
     ) {
       edges {
         node {
