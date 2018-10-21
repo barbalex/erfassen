@@ -4,6 +4,11 @@
     "strict": 0,
     "react/prop-types": 0
   },
+  "env": {
+    "browser": true,
+    "amd": true,
+    "node": true
+  },
   "plugins": ["react"],
   "extends": ["eslint:recommended", "plugin:react/recommended"]
 }
