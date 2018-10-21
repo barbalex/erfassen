@@ -19,7 +19,7 @@ const query = graphql`
   }
 `
 
-const Layout: React.SFC<{}> = ({ children }) => (
+const Layout = ({ children }) => (
   <StaticQuery
     query={query}
     render={data => (
