@@ -11,29 +11,20 @@ import get from 'lodash/get'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 
-interface ListItemProps {
-  active: string
-}
-const ListItem = styled<ListItemProps, any>(MListItem)`
+const ListItem = styled(MListItem)`
   background-color: ${props =>
     props.active === 'true' ? '#eaeaea' : 'unset'} !important;
 `
 
 const enhance = compose(
   withHandlers({
-    onClickMenuItem: ({ post }: { post: any }) => () => {
+    onClickMenuItem: ({ post }) => () => {
       navigate(`${post.frontmatter.path}/`)
     },
   }),
 )
 
-const TechnDokuMenuItem = ({
-  post,
-  onClickMenuItem,
-}: {
-  post: any
-  onClickMenuItem: () => void
-}) => (
+const TechnDokuMenuItem = ({ post, onClickMenuItem }) => (
   <Location>
     {({ location }) => {
       const active = (
