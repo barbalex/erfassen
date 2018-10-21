@@ -12,5 +12,10 @@
     "node": true
   },
   "plugins": ["react"],
+  "settings": {
+    "react": {
+      "version": "999.999.999"
+    }
+  },
   "extends": ["eslint:recommended", "plugin:react/recommended"]
 }
