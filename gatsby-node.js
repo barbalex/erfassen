@@ -13,7 +13,7 @@ exports.createPages = ({ actions, graphql }) => {
 
   const technDokuTemplate = path.resolve(`src/templates/technDokuTemplate.tsx`)
   const benutzerDokuTemplate = path.resolve(
-    `src/templates/benutzerDokuTemplate.tsx`,
+    `src/templates/benutzerDokuTemplate.js`,
   )
 
   return graphql(`
