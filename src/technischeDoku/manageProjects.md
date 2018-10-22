@@ -23,10 +23,10 @@ Symbols:
    * user names new project :white_check_mark:
    * user confirms the new name :white_check_mark:
    * app creates projectDef doc in message db :white_check_mark:
-   * app creates project db :white_medium_square:
-   * app creates project collection :white_medium_square:
-   * app creates projectDef doc in project collection :white_medium_square:
-   * app syncs project collection :white_medium_square:
+   * create project db :white_medium_square:
+   * create project collection :white_medium_square:
+   * create projectDef doc in project collection :white_medium_square:
+   * sync project collection :white_medium_square:
    * show user tools to edit project :white_medium_square:
 2. server-side, on new projectDef doc in messageDb:
    * create new project db :white_check_mark:
