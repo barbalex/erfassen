@@ -12,10 +12,17 @@ import styled from 'styled-components'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
+import rxdb from 'rxdb'
+import pouchdbAdapterHttp from 'pouchdb-adapter-http'
+import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 
 import ErrorBoundary from '../../components/ErrorBoundary'
 import withAuthState from '../../state/withAuth'
 import getProjectDbName from '../../utils/getProjectDbName'
+import projectDefSchema from '../../schemas/projectDef.json'
+
+rxdb.plugin(pouchdbAdapterHttp)
+rxdb.plugin(pouchdbAdapterIdb)
 
 const StyledDialog = styled(Dialog)``
 const StyledDiv = styled.div`
@@ -70,7 +77,7 @@ const enhance = compose(
               <ul>
                 <li>Buchstaben</li>
                 <li>Zahlen</li>
-                <li>_, $, (, ), +, / und -</li>
+                <li>{`_, $, (, ), +, / und -`}</li>
               </ul>
             </ul>
           </>,
@@ -98,6 +105,43 @@ const enhance = compose(
         setNameHelperText(error.message)
         return setName2HelperText(error.message)
       }
+      let projectDb
+      try {
+        projectDb = await rxdb.create({
+          name: projectDbName,
+          adapter: 'idb',
+        })
+      } catch (error) {
+        throw error
+      }
+      await projectDb.collection({
+        name: 'projectdef',
+        schema: projectDefSchema,
+        // force pouch to always include credentials
+        // see: https://github.com/pouchdb-community/pouchdb-authentication/issues/239#issuecomment-410489376
+        pouchSettings: {
+          fetch(url, opts) {
+            opts.credentials = 'include'
+            return fetch(url, opts)
+          },
+        },
+      })
+      authState.addDb({ name: projectDbName, db: projectDb })
+      try {
+        await dbs[projectDbName].projectdef.insert({
+          projectName,
+          creatorName,
+          type: 'projectDef',
+        })
+      } catch (error) {
+        console.log(
+          'Error inserting projectDef in new project collection:',
+          error,
+        )
+        setNameHelperText(error.message)
+        return setName2HelperText(error.message)
+      }
+
       console.log('finished creating new project')
       setNameHelperText('')
       setNewProjectOpen(false)

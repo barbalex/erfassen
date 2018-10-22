@@ -1,0 +1,18 @@
+{
+  "title": "project definition schema",
+  "version": 0,
+  "description": "describes a project",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "projectName": {
+      "type": "string"
+    },
+    "creatorName": {
+      "type": "string"
+    }
+  },
+  "required": ["projectName", "creatorName"]
+}
