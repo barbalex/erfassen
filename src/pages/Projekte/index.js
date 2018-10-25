@@ -39,9 +39,12 @@ const ProjektePage = ({ authState, newProjectOpen, setNewProjectOpen }) => {
   const { dbs, syncs } = authState.state
 
   console.log('Projekte', { dbs, syncs })
-  const projectDbs = Object.entries(dbs)
-    .filter(([name, db]) => name.startsWith('project_'))
-    .map(([name, db]) => db)
+  let projectDbs = []
+  if (dbs) {
+    projectDbs = Object.entries(dbs)
+      .filter(([name, db]) => name.startsWith('project_'))
+      .map(([name, db]) => db)
+  }
   console.log('Projekte', { projectDbs })
 
   return (
