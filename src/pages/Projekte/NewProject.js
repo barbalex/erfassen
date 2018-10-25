@@ -94,8 +94,9 @@ const enhance = compose(
         return setNameHelperText('Dieser Name wird schon benutzt')
       }
 
+      let insertResponce
       try {
-        await dbs.messages.projectdef.insert({
+        insertResponce = await dbs.messages.projectdef.insert({
           projectName,
           creatorName,
           type: 'projectDef',
@@ -105,6 +106,8 @@ const enhance = compose(
         setNameHelperText(error.message)
         return setName2HelperText(error.message)
       }
+      console.log('NewProject, insertResponce', insertResponce)
+
       let projectDb
       try {
         projectDb = await rxdb.create({
@@ -138,22 +141,6 @@ const enhance = compose(
       } catch (error) {
         console.log(
           'Error inserting projectDef in new project collection:',
-          error,
-        )
-        setNameHelperText(error.message)
-        return setName2HelperText(error.message)
-      }
-      // insert project def into message db
-      const messageDb = dbs.messages
-      try {
-        await messageDb.projectdef.insert({
-          projectName,
-          creatorName,
-          type: 'projectDef',
-        })
-      } catch (error) {
-        console.log(
-          'Error inserting projectDef in message db collection:',
           error,
         )
         setNameHelperText(error.message)
