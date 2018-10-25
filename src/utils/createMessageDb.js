@@ -52,6 +52,10 @@ export default async authState => {
       .where('type')
       .eq('projectDef'),
   })
+  projectdefSync.error$.subscribe(error => console.dir(error))
+  projectdefSync.change$.subscribe(change => console.dir(change))
+  projectdefSync.docs$.subscribe(docData => console.dir(docData))
+  projectdefSync.denied$.subscribe(docData => console.dir(docData))
 
   authState.addSync({ name: 'messageDbProjectDef', sync: projectdefSync })
 }

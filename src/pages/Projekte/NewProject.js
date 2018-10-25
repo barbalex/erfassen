@@ -130,6 +130,27 @@ const enhance = compose(
         },
       })
       authState.addDb({ name: projectDbName, db: projectDb })
+      const projectdefSync = await projectDefCollection.sync({
+        remote: `http://localhost:5984/${projectDbName}/`,
+        options: {
+          live: true,
+          retry: true,
+        },
+        query: projectDb.projectdef
+          .find()
+          .where('type')
+          .eq('projectDef'),
+      })
+      projectdefSync.error$.subscribe(error => console.dir(error))
+      projectdefSync.change$.subscribe(change => console.dir(change))
+      projectdefSync.docs$.subscribe(docData => console.dir(docData))
+      projectdefSync.denied$.subscribe(docData => console.dir(docData))
+
+      authState.addSync({
+        name: `${projectDbName}ProjectDef`,
+        sync: projectdefSync,
+      })
+
       console.log('NewProject', { projectDefCollection })
       // insert project def into project db
       try {
