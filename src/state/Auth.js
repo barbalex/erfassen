@@ -148,13 +148,13 @@ export default class AuthContainer extends Container {
     this.setState({ dbs })
   }
 
-  addDb = ({ email, db }) => {
-    //console.log('Auth, addDb', { email, db, dbs: this.state.dbs })
+  addDb = ({ name, db }) => {
+    //console.log('Auth, addDb', { name, db, dbs: this.state.dbs })
     this.setState(state => {
       console.log('Auth, addDb', { dbs: state.dbs })
       const newDbs = {
         ...state.dbs,
-        [email]: db,
+        [name]: db,
       }
       console.log('Auth, addDb', { newDbs })
       window.dbs = newDbs
@@ -168,11 +168,11 @@ export default class AuthContainer extends Container {
     this.setState({ syncs })
   }
 
-  addSync = ({ email, sync }) => {
+  addSync = ({ name, sync }) => {
     this.setState(state => {
       const newSyncs = {
         ...state.syncs,
-        [email]: sync,
+        [name]: sync,
       }
       return {
         dbs: state.dbs,
