@@ -26,7 +26,7 @@ export default async authState => {
   // maybe use
   // https://github.com/rafamel/rxdb-utils#models
   // to make this easier
-  await messageDb.collection({
+  let projectDefCollection = await messageDb.collection({
     name: 'projectdef',
     schema: projectDefMessageSchema,
     // force pouch to always include credentials
@@ -39,14 +39,9 @@ export default async authState => {
     },
   })
   authState.addDb({ name: 'messages', db: messageDb })
-  /**
-   * create global sync object
-   * and pass it sync responces
-   * reason: be able to check if replication exists already
-   * before starting new one
-   */
-  console.log('createMessageDb', { messageDb })
-  const projectdefSync = await messageDb.projectdef.sync({
+
+  console.log('createMessageDb', { messageDb, projectDefCollection })
+  const projectdefSync = await projectDefCollection.sync({
     remote: 'http://localhost:5984/messages/',
     options: {
       live: true,
@@ -58,5 +53,5 @@ export default async authState => {
       .eq('projectDef'),
   })
 
-  authState.addSync({ name: 'projectDef', sync: projectdefSync })
+  authState.addSync({ name: 'messageDbProjectDef', sync: projectdefSync })
 }

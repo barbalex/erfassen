@@ -58,5 +58,5 @@ export default async authState => {
       .eq('projectDef'),
   })
 
-  authState.addSync({ name: 'projectDef', sync: projectdefSync })
+  authState.addSync({ name: 'messageDbProjectDef', sync: projectdefSync })
 }

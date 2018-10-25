@@ -114,7 +114,7 @@ const enhance = compose(
       } catch (error) {
         throw error
       }
-      await projectDb.collection({
+      const projectDefCollection = await projectDb.collection({
         name: 'projectdef',
         schema: projectDefSchema,
         // force pouch to always include credentials
@@ -127,8 +127,10 @@ const enhance = compose(
         },
       })
       authState.addDb({ name: projectDbName, db: projectDb })
+      console.log('NewProject', { projectDefCollection })
+      // insert project def into project db
       try {
-        await dbs[projectDbName].projectdef.insert({
+        await projectDefCollection.insert({
           projectName,
           creatorName,
           type: 'projectDef',
@@ -141,7 +143,22 @@ const enhance = compose(
         setNameHelperText(error.message)
         return setName2HelperText(error.message)
       }
-
+      // insert project def into message db
+      const messageDb = dbs.messages
+      try {
+        await messageDb.projectdef.insert({
+          projectName,
+          creatorName,
+          type: 'projectDef',
+        })
+      } catch (error) {
+        console.log(
+          'Error inserting projectDef in message db collection:',
+          error,
+        )
+        setNameHelperText(error.message)
+        return setName2HelperText(error.message)
+      }
       console.log('finished creating new project')
       setNameHelperText('')
       setNewProjectOpen(false)
