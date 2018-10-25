@@ -77,6 +77,7 @@ export default async ({ projectName, authState }) => {
   // insert project def into project db
   try {
     await projectDefCollection.insert({
+      _id: 'projectDef',
       projectName,
       creatorName,
       type: 'projectDef',

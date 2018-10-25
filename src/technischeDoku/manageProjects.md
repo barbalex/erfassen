@@ -27,6 +27,7 @@ Symbols:
    * create project collection :white_check_mark:
    * create projectDef doc in project collection :white_check_mark:
    * sync project collection :white_check_mark:
+   * show project in tree :white_medium_square:
    * show user tools to edit project :white_medium_square:
 2. server-side, on new projectDef doc in messageDb:
    * create new project db :white_check_mark:

@@ -1,4 +1,4 @@
-module.exports = ({ creatorName, projectName }) => {
+export default ({ creatorName, projectName }) => {
   const projectDbName =
     'project_' +
     creatorName

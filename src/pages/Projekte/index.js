@@ -14,6 +14,7 @@ import Layout from '../../components/Layout'
 import withAuthState from '../../state/withAuth'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import NewProject from './NewProject'
+import getProjectNameFromDb from '../../utils/getProjectNameFromDb'
 
 const Container = styled.div`
   margin-top: 64px;
@@ -36,16 +37,12 @@ const enhance = compose(
 
 const ProjektePage = ({ authState, newProjectOpen, setNewProjectOpen }) => {
   const { dbs, syncs } = authState.state
-  /*
-  if (!dbs) {
-    return (
-      <Layout>
-        <LoadingContainer>Lade daten...</LoadingContainer>
-      </Layout>
-    )
-  }*/
 
   console.log('Projekte', { dbs, syncs })
+  const projectDbs = Object.entries(dbs)
+    .filter(([name, db]) => name.startsWith('project_'))
+    .map(([name, db]) => db)
+  console.log('Projekte', { projectDbs })
 
   return (
     <ErrorBoundary>
