@@ -36,14 +36,17 @@ const enhance = compose(
 )
 
 const ProjektePage = ({ authState, newProjectOpen, setNewProjectOpen }) => {
-  const { dbs, syncs } = authState.state
+  const { dbs, syncs, email } = authState.state
 
   console.log('Projekte', { dbs, syncs })
   let projectDbs = []
   if (dbs) {
     projectDbs = Object.entries(dbs)
       .filter(([name, db]) => name.startsWith('project_'))
-      .map(([name, db]) => db)
+      .map(([name, db]) => ({
+        name: getProjectNameFromDb({ creatorName: email, dbName: name }),
+        db,
+      }))
   }
   console.log('Projekte', { projectDbs })
 
@@ -62,6 +65,9 @@ const ProjektePage = ({ authState, newProjectOpen, setNewProjectOpen }) => {
               <button onClick={() => setNewProjectOpen(true)}>
                 create project
               </button>
+              {projectDbs.map(db => (
+                <div key={db.name}>{db.name}</div>
+              ))}
             </ReflexElement>
             <ReflexSplitter />
             <ReflexElement
