@@ -1,7 +1,6 @@
 import difference from 'lodash/difference'
 
 import createProjectDb from './createProjectDb'
-import getProjectNameFromDb from './getProjectNameFromDb'
 
 // TODO
 // check existing dbs
@@ -9,7 +8,7 @@ import getProjectNameFromDb from './getProjectNameFromDb'
 // remove existing ones not in projects list
 
 export default ({ projects: usersProjects, authState }) => {
-  const { dbs, email } = authState.state
+  const { dbs } = authState.state
   if (!dbs) return console.log('provideProjectDbs: no dbs found')
   const existingProjects = Object.keys(dbs).filter(name =>
     name.startsWith('project_'),
@@ -24,10 +23,7 @@ export default ({ projects: usersProjects, authState }) => {
   })
   for (let projectName of projectsToAdd) {
     createProjectDb({
-      projectName: getProjectNameFromDb({
-        creatorName: email,
-        dbName: projectName,
-      }),
+      projectName,
       authState,
     })
   }
