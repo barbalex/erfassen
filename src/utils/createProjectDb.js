@@ -7,6 +7,7 @@ rxdb.plugin(pouchdbAdapterIdb)
 
 import getProjectDbName from './getProjectDbName'
 import projectDefSchema from '../schemas/projectDef.json'
+import couchBaseUrl from './couchBaseUrl'
 
 export default async ({ projectName, authState }) => {
   const { dbs, email: creatorName } = authState.state
@@ -53,7 +54,7 @@ export default async ({ projectName, authState }) => {
   })
   authState.addDb({ name: projectDbName, db: projectDb })
   const projectdefSync = await projectDefCollection.sync({
-    remote: `http://localhost:5984/${projectDbName}/`,
+    remote: `${couchBaseUrl}/${projectDbName}/`,
     options: {
       live: true,
       retry: true,

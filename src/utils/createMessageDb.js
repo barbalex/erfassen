@@ -4,6 +4,7 @@ import pouchdbAdapterHttp from 'pouchdb-adapter-http'
 import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 
 import projectDefMessageSchema from '../schemas/projectDefMessage.json'
+import couchBaseUrl from './couchBaseUrl'
 
 rxdb.plugin(pouchdbAdapterHttp)
 rxdb.plugin(pouchdbAdapterIdb)
@@ -42,7 +43,7 @@ export default async authState => {
 
   console.log('createMessageDb', { messageDb, projectDefCollection })
   const projectdefSync = await projectDefCollection.sync({
-    remote: 'http://localhost:5984/messages/',
+    remote: `${couchBaseUrl}/messages/`,
     options: {
       live: true,
       retry: true,
@@ -52,10 +53,10 @@ export default async authState => {
       .where('type')
       .eq('projectDef'),
   })
-  projectdefSync.error$.subscribe(error => console.dir(error))
-  projectdefSync.change$.subscribe(change => console.dir(change))
-  projectdefSync.docs$.subscribe(docData => console.dir(docData))
-  projectdefSync.denied$.subscribe(docData => console.dir(docData))
+  //projectdefSync.error$.subscribe(error => console.dir(error))
+  //projectdefSync.change$.subscribe(change => console.dir(change))
+  //projectdefSync.docs$.subscribe(docData => console.dir(docData))
+  //projectdefSync.denied$.subscribe(docData => console.dir(docData))
 
   authState.addSync({ name: 'messageDbProjectDef', sync: projectdefSync })
 }

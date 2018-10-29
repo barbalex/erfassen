@@ -3,6 +3,7 @@ import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 
 import userDbNameFromUserEmail from './userDbNameFromUserEmail'
 import userDocSchema from '../schemas/userDoc.json'
+import couchBaseUrl from './couchBaseUrl'
 
 rxdb.plugin(pouchdbAdapterIdb)
 
@@ -53,7 +54,7 @@ export default async ({ authState, email }) => {
   let sync
   if (!isAlreadyBeingSynced) {
     sync = userDb.user.sync({
-      remote: `http://localhost:5984/${userDbName}/`,
+      remote: `${couchBaseUrl}/${userDbName}/`,
       options: {
         live: true,
         retry: true,
@@ -66,4 +67,5 @@ export default async ({ authState, email }) => {
   }
   authState.addSync({ name: 'user', sync })
   console.log('createAndSyncUserCollection', { dbs, userDb, userDbName, sync })
+  return
 }

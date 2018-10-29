@@ -72,7 +72,7 @@ const enhance = compose(
             <div>Regeln für Namen:</div>
             <ul>
               <li>Beginnt mit einem Buchstaben</li>
-              <li>Zulässige Zeichen sind:</li>
+              <li>Zulässig sind folgende Zeichen:</li>
               <ul>
                 <li>Buchstaben</li>
                 <li>Zahlen</li>

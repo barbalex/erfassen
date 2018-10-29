@@ -4,6 +4,7 @@ import pouchdbAdapterHttp from 'pouchdb-adapter-http'
 import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 
 import projectDefMessageSchema from '../schemas/projectDefMessage.json'
+import couchBaseUrl from './couchBaseUrl'
 
 rxdb.plugin(pouchdbAdapterHttp)
 rxdb.plugin(pouchdbAdapterIdb)
@@ -47,7 +48,7 @@ export default async authState => {
    */
   console.log('createMessageDb', { messageDb })
   const projectdefSync = await messageDb.projectdef.sync({
-    remote: 'http://localhost:5984/messages/',
+    remote: `${couchBaseUrl}/messages/`,
     options: {
       live: true,
       retry: true,
