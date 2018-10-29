@@ -4,7 +4,7 @@ import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 import userDbNameFromUserEmail from './userDbNameFromUserEmail'
 import userDocSchema from '../schemas/userDoc.json'
 import couchBaseUrl from './couchBaseUrl'
-import createProjectDb from './createProjectDb'
+import provideProjectDbs from './provideProjectDbs'
 
 rxdb.plugin(pouchdbAdapterIdb)
 
@@ -67,12 +67,9 @@ export default async ({ authState, email }) => {
     })
   }
   authState.addSync({ name: 'user', sync })
-  sync.docs$.subscribe(docData => {
-    console.log('user doc syncing:', docData)
-    for (let projectName of docData.projects) {
-      createProjectDb({ projectName, authState })
-    }
-  })
+  sync.docs$.subscribe(docData =>
+    provideProjectDbs({ projects: docData.projects, authState }),
+  )
   console.log('createAndSyncUserCollection', { dbs, userDb, userDbName, sync })
   return
 }
