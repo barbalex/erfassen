@@ -1,4 +1,7 @@
 import { Container } from 'unstated'
+
+import userDbNameFromUserEmail from '../utils/userDbNameFromUserEmail'
+
 /**
  * somehow gatsby manages to sometimes (not always)
  * drag this file through node which makes
@@ -118,10 +121,22 @@ export default class AuthContainer extends Container {
       loginOpen: false,
       authDb: new PouchDB(couchUrl()),
     })
-    createAndSyncUserCollection({ email, authState: this })
+    await createAndSyncUserCollection({ email, authState: this })
     createMessageDb(this).catch(error => {
       throw error
     })
+    // TODO:
+    // grab list of projects from user collection
+    // create project db's
+    const userDbName = userDbNameFromUserEmail(email)
+    const userDb = this.state.dbs[userDbName]
+    const userCollection = userDb.user
+    const userDoc = await userCollection
+      .findOne()
+      .where('_id')
+      .eq(`org.couchdb.user:${email}`)
+      .exec()
+    console.log('logIn', { userDbName, userDb, userCollection, userDoc })
   }
 
   logOut = async () => {
