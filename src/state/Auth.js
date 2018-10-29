@@ -17,6 +17,7 @@ import get from 'lodash/get'
 import createMessageDb from '../utils/createMessageDb'
 import couchUrl from '../utils/couchUrl'
 import createAndSyncUserCollection from '../utils/createAndSyncUserCollection'
+import provideProjectDbs from '../utils/provideProjectDbs'
 
 PouchDB.plugin(pouchdbAuthentication)
 
@@ -97,11 +98,8 @@ export default class AuthContainer extends Container {
 
   logIn = async ({ email, password }) => {
     // first logout
-    try {
-      await this.logOut()
-    } catch (error) {
-      console.log('Auth, logIn: Error logging out:', error)
-    }
+    // ignore error that occurs if user was not logged in
+    await this.logOut()
 
     let logInResponce
     try {
@@ -122,7 +120,7 @@ export default class AuthContainer extends Container {
       authDb: new PouchDB(couchUrl()),
     })
     await createAndSyncUserCollection({ email, authState: this })
-    createMessageDb(this).catch(error => {
+    await createMessageDb(this).catch(error => {
       throw error
     })
     // TODO:
@@ -131,12 +129,16 @@ export default class AuthContainer extends Container {
     const userDbName = userDbNameFromUserEmail(email)
     const userDb = this.state.dbs[userDbName]
     const userCollection = userDb.user
-    const userDoc = await userCollection
-      .findOne()
-      .where('_id')
-      .eq(`org.couchdb.user:${email}`)
-      .exec()
-    console.log('logIn', { userDbName, userDb, userCollection, userDoc })
+    const userDocs = await userCollection.find().exec()
+    if (userDocs && userDocs[0]) {
+      console.log('logIn', {
+        userDbName,
+        userDb,
+        userCollection,
+        userDoc: userDocs[0],
+      })
+      provideProjectDbs({ projects: userDocs[0].projects, authState: this })
+    }
   }
 
   logOut = async () => {
