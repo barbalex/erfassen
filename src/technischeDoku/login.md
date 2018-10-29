@@ -20,10 +20,10 @@ app-side actions:
 2. [pouchdb.logIn](https://github.com/pouchdb-community/pouchdb-authentication/blob/master/docs/api.md#dbloginusername-password--options--callback) :white_check_mark:
 3. create userDoc collection :white_check_mark:
 4. sync userDoc collection :white_check_mark:
-5. extract project list from userDoc :white_medium_square:
+5. extract project list from userDoc :white_check_mark:
 6. loop projects
-7. create projectDef collections :white_medium_square:
-8. sync projectDef collections :white_medium_square:
+7. create projectDef collections :white_check_mark:
+8. sync projectDef collections :ballot_box_with_check:
 9. if one existing projectDef collection is no more in the project list:<br/>
    remove it and it's table collections :white_medium_square:
 10. extract table lists from projectDefs :white_medium_square:
