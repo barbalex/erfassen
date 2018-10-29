@@ -11,10 +11,9 @@ import getProjectNameFromDb from './getProjectNameFromDb'
 export default ({ projects: usersProjects, authState }) => {
   const { dbs, email } = authState.state
   if (!dbs) return console.log('provideProjectDbs: no dbs found')
-  const existingProjects = Object.keys(dbs)
-    // eslint-disable-next-line no-unused-vars
-    .filter(name => name.startsWith('project_'))
-    .map(name => getProjectNameFromDb({ creatorName: email, dbName: name }))
+  const existingProjects = Object.keys(dbs).filter(name =>
+    name.startsWith('project_'),
+  )
   const projectsToAdd = difference(usersProjects, existingProjects)
   const projectsToRemove = difference(existingProjects, usersProjects)
   console.log('provideProjectDbs', {
@@ -24,6 +23,12 @@ export default ({ projects: usersProjects, authState }) => {
     projectsToRemove,
   })
   for (let projectName of projectsToAdd) {
-    createProjectDb({ projectName, authState })
+    createProjectDb({
+      projectName: getProjectNameFromDb({
+        creatorName: email,
+        dbName: projectName,
+      }),
+      authState,
+    })
   }
 }

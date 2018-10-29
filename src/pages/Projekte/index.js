@@ -36,9 +36,9 @@ const enhance = compose(
 )
 
 const ProjektePage = ({ authState, newProjectOpen, setNewProjectOpen }) => {
-  const { dbs, syncs, email } = authState.state
+  const { dbs, email } = authState.state
 
-  console.log('Projekte', { dbs, syncs })
+  //console.log('Projekte', { dbs, syncs })
   let projectDbs = []
   if (dbs) {
     projectDbs = Object.entries(dbs)
@@ -49,7 +49,7 @@ const ProjektePage = ({ authState, newProjectOpen, setNewProjectOpen }) => {
         db,
       }))
   }
-  console.log('Projekte', { projectDbs })
+  //console.log('Projekte', { projectDbs })
 
   return (
     <ErrorBoundary>
