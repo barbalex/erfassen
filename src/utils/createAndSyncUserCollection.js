@@ -54,7 +54,7 @@ export default async ({ authState, email }) => {
   let sync
   if (!isAlreadyBeingSynced) {
     sync = userDb.user.sync({
-      remote: `${couchBaseUrl}/${userDbName}/`,
+      remote: `${couchBaseUrl()}/${userDbName}/`,
       options: {
         live: true,
         retry: true,

@@ -48,7 +48,7 @@ export default async authState => {
    */
   console.log('createMessageDb', { messageDb })
   const projectdefSync = await messageDb.projectdef.sync({
-    remote: `${couchBaseUrl}/messages/`,
+    remote: `${couchBaseUrl()}/messages/`,
     options: {
       live: true,
       retry: true,

@@ -54,7 +54,7 @@ export default async ({ projectName, authState }) => {
   })
   authState.addDb({ name: projectDbName, db: projectDb })
   const projectdefSync = await projectDefCollection.sync({
-    remote: `${couchBaseUrl}/${projectDbName}/`,
+    remote: `${couchBaseUrl()}/${projectDbName}/`,
     options: {
       live: true,
       retry: true,
