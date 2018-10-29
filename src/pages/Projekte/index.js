@@ -42,6 +42,7 @@ const ProjektePage = ({ authState, newProjectOpen, setNewProjectOpen }) => {
   let projectDbs = []
   if (dbs) {
     projectDbs = Object.entries(dbs)
+      // eslint-disable-next-line no-unused-vars
       .filter(([name, db]) => name.startsWith('project_'))
       .map(([name, db]) => ({
         name: getProjectNameFromDb({ creatorName: email, dbName: name }),
