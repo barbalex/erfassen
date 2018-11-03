@@ -3,9 +3,6 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import { FaUserCircle as UserIcon } from 'react-icons/fa'
-import compose from 'recompose/compose'
-import withHandlers from 'recompose/withHandlers'
-import withState from 'recompose/withState'
 import styled from 'styled-components'
 
 import { setConfig } from 'react-hot-loader'
@@ -34,36 +31,23 @@ const UserNameDiv = styled.div`
   z-index: -1;
 `
 
-const enhance = compose(
-  withAuthState,
-  withState('anchorEl', 'setAnchorEl', null),
-  withHandlers({
-    onCloseMenu: ({ setAnchorEl }) => () => setAnchorEl(null),
-    onClickSignup: ({ setAnchorEl, authState }) => () => {
-      setAnchorEl(null)
-      authState.setSignupOpen(!authState.state.signupOpen)
-    },
-    onClickLogin: ({ setAnchorEl, authState }) => () => {
-      setAnchorEl(null)
-      authState.setLoginOpen(!authState.state.loginOpen)
-    },
-    onClickLogout: ({ setAnchorEl, authState }) => () => {
-      setAnchorEl(null)
-      authState.logOut()
-    },
-  }),
-)
-
-const Account = ({
-  onCloseMenu,
-  onClickSignup,
-  onClickLogout,
-  onClickLogin,
-  authState,
-}) => {
+const Account = ({ authState }) => {
   const { email, signupOpen, loginOpen } = authState.state
   const [anchorEl, setAnchorEl] = useState(null)
-  const onClickMenu = useCallback(event => setAnchorEl(event.currentTarget))
+  const onClickMenu = useCallback(event => setAnchorEl(event.currentTarget), [])
+  const onCloseMenu = useCallback(() => setAnchorEl(null), [])
+  const onClickSignup = useCallback(() => {
+    setAnchorEl(null)
+    authState.setSignupOpen(!signupOpen)
+  }, [])
+  const onClickLogin = useCallback(() => {
+    setAnchorEl(null)
+    authState.setLoginOpen(!loginOpen)
+  }, [])
+  const onClickLogout = useCallback(() => {
+    setAnchorEl(null)
+    authState.logOut()
+  }, [])
 
   return (
     <ErrorBoundary>
@@ -105,4 +89,4 @@ const Account = ({
   )
 }
 
-export default enhance(Account)
+export default withAuthState(Account)
