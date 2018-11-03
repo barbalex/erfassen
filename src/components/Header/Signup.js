@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -13,9 +13,9 @@ import IconButton from '@material-ui/core/IconButton'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import Button from '@material-ui/core/Button'
 import styled from 'styled-components'
-import compose from 'recompose/compose'
-import withHandlers from 'recompose/withHandlers'
-import withState from 'recompose/withState'
+
+import { setConfig } from 'react-hot-loader'
+setConfig({ pureSFC: true })
 
 import ErrorBoundary from '../ErrorBoundary'
 import withAuthState from '../../state/withAuth'
@@ -37,105 +37,96 @@ const StyledInput = styled(Input)`
   }
 `
 
-const enhance = compose(
-  withAuthState,
-  withState('email', 'setEmail', ''),
-  withState('password', 'setPassword', ''),
-  withState('showPass', 'setShowPass', false),
-  withState('emailErrorText', 'setEmailErrorText', ''),
-  withState('passwordErrorText', 'setPasswordErrorText', ''),
-  withHandlers({
-    close: ({ authState }) => () => authState.setSignupOpen(false),
-    onClickSignup: ({ email, password, authState }) => async () => {
+const Signup = ({ authState }) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPass, setShowPass] = useState(false)
+  const [emailErrorText, setEmailErrorText] = useState('')
+  const [passwordErrorText, setPasswordErrorText] = useState('')
+  const close = useCallback(() => authState.setSignupOpen(false), [])
+  const onClickSignup = useCallback(
+    async () => {
       try {
         await authState.signUp({ email, password })
       } catch (error) {
         console.log('Signup: error logging in:', error)
       }
     },
-    onToggleShowPass: ({ showPass, setShowPass }) => () => {
+    [email, password],
+  )
+  const onToggleShowPass = useCallback(
+    () => {
       setShowPass(!showPass)
     },
-  }),
-  withHandlers({
-    onBlurEmail: ({ setEmail }) => event => setEmail(event.target.value),
-    onBlurPassword: ({ setPassword }) => event =>
-      setPassword(event.target.value),
-  }),
-)
+    [showPass],
+  )
+  const onBlurEmail = useCallback(event => setEmail(event.target.value), [])
+  const onBlurPassword = useCallback(
+    event => setPassword(event.target.value),
+    [],
+  )
 
-const Signup = ({
-  email,
-  password,
-  showPass,
-  emailErrorText,
-  passwordErrorText,
-  onBlurEmail,
-  onBlurPassword,
-  onClickSignup,
-  close,
-  onToggleShowPass,
-  authState,
-}) => (
-  <ErrorBoundary>
-    <StyledDialog
-      aria-labelledby="dialog-title"
-      open={authState.state.signupOpen}
-    >
-      <DialogTitle id="dialog-title">Neues Konto</DialogTitle>
-      <StyledDiv>
-        <StyledTextField
-          label="Email"
-          defaultValue={email}
-          onBlur={onBlurEmail}
-          autoFocus
-          fullWidth
-          helperText={emailErrorText}
-        />
-        <FormControl
-          error={!!passwordErrorText}
-          fullWidth
-          aria-describedby="signupPasswortHelper"
-        >
-          <InputLabel htmlFor="signupPasswort">Passwort</InputLabel>
-          <StyledInput
-            id="signupPasswort"
-            type={showPass ? 'text' : 'password'}
-            defaultValue={password}
-            onBlur={onBlurPassword}
-            onKeyPress={e => {
-              if (e.key === 'Enter') {
-                onBlurPassword()
-              }
-            }}
-            autoComplete="current-password"
-            autoCorrect="off"
-            spellCheck="false"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={onToggleShowPass}
-                  onMouseDown={e => e.preventDefault()}
-                  title={showPass ? 'verstecken' : 'anzeigen'}
-                >
-                  {showPass ? <MdVisibilityOff /> : <MdVisibility />}
-                </IconButton>
-              </InputAdornment>
-            }
+  return (
+    <ErrorBoundary>
+      <StyledDialog
+        aria-labelledby="dialog-title"
+        open={authState.state.signupOpen}
+      >
+        <DialogTitle id="dialog-title">Neues Konto</DialogTitle>
+        <StyledDiv>
+          <StyledTextField
+            label="Email"
+            defaultValue={email}
+            onBlur={onBlurEmail}
+            autoFocus
+            fullWidth
+            helperText={emailErrorText}
           />
-          <FormHelperText id="signupPasswortHelper">
-            {passwordErrorText}
-          </FormHelperText>
-        </FormControl>
-      </StyledDiv>
-      <DialogActions>
-        <Button onClick={close}>abbrechen</Button>
-        <Button color="primary" onClick={onClickSignup}>
-          Konto erstellen
-        </Button>
-      </DialogActions>
-    </StyledDialog>
-  </ErrorBoundary>
-)
+          <FormControl
+            error={!!passwordErrorText}
+            fullWidth
+            aria-describedby="signupPasswortHelper"
+          >
+            <InputLabel htmlFor="signupPasswort">Passwort</InputLabel>
+            <StyledInput
+              id="signupPasswort"
+              type={showPass ? 'text' : 'password'}
+              defaultValue={password}
+              onBlur={onBlurPassword}
+              onKeyPress={e => {
+                if (e.key === 'Enter') {
+                  onBlurPassword()
+                }
+              }}
+              autoComplete="current-password"
+              autoCorrect="off"
+              spellCheck="false"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={onToggleShowPass}
+                    onMouseDown={e => e.preventDefault()}
+                    title={showPass ? 'verstecken' : 'anzeigen'}
+                  >
+                    {showPass ? <MdVisibilityOff /> : <MdVisibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            <FormHelperText id="signupPasswortHelper">
+              {passwordErrorText}
+            </FormHelperText>
+          </FormControl>
+        </StyledDiv>
+        <DialogActions>
+          <Button onClick={close}>abbrechen</Button>
+          <Button color="primary" onClick={onClickSignup}>
+            Konto erstellen
+          </Button>
+        </DialogActions>
+      </StyledDialog>
+    </ErrorBoundary>
+  )
+}
 
-export default enhance(Signup)
+export default withAuthState(Signup)
