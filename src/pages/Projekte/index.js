@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import {
   ReflexContainer as OrigReflexContainer,
@@ -7,8 +7,6 @@ import {
 } from 'react-reflex'
 import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
-import withState from 'recompose/withState'
-import withLifecycle from '@hocs/with-lifecycle'
 
 import { setConfig } from 'react-hot-loader'
 setConfig({ pureSFC: true })
@@ -27,20 +25,14 @@ const ReflexContainer = styled(OrigReflexContainer)`
   height: calc(100vh - 64px) !important;
 `
 
-const enhance = compose(
-  withAuthState,
-  withLifecycle({
-    onDidMount({ authState }) {
-      const { email } = authState.state
-      if (!email) authState.setLoginOpen(true)
-    },
-  }),
-)
+const enhance = compose(withAuthState)
 
 const ProjektePage = ({ authState }) => {
-  const { dbs, email } = authState.state
+  const { dbs, email, loginOpen } = authState.state
   const [newProjectOpen, setNewProjectOpen] = useState(false)
-
+  useEffect(() => {
+    if (!email && !loginOpen) authState.setLoginOpen(true)
+  })
   //console.log('Projekte', { dbs, syncs })
   let projectDbs = []
   if (dbs) {
