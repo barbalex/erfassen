@@ -148,6 +148,8 @@ export default class AuthContainer extends Container {
       throw error
     }
     const { dbs, syncs } = this.state
+    // dbs can be null if user was not logged in
+    if (!dbs) return
     // remove all dbs
     Object.values(dbs).forEach(db => db.remove())
     // stop all syncing
