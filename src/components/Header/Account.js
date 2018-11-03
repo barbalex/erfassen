@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
@@ -7,6 +7,9 @@ import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import withState from 'recompose/withState'
 import styled from 'styled-components'
+
+import { setConfig } from 'react-hot-loader'
+setConfig({ pureSFC: true })
 
 import Signup from './Signup'
 import Login from './Login'
@@ -35,7 +38,6 @@ const enhance = compose(
   withAuthState,
   withState('anchorEl', 'setAnchorEl', null),
   withHandlers({
-    onClickMenu: ({ setAnchorEl }) => event => setAnchorEl(event.currentTarget),
     onCloseMenu: ({ setAnchorEl }) => () => setAnchorEl(null),
     onClickSignup: ({ setAnchorEl, authState }) => () => {
       setAnchorEl(null)
@@ -53,15 +55,15 @@ const enhance = compose(
 )
 
 const Account = ({
-  anchorEl,
   onCloseMenu,
-  onClickMenu,
   onClickSignup,
   onClickLogout,
   onClickLogin,
   authState,
 }) => {
   const { email, signupOpen, loginOpen } = authState.state
+  const [anchorEl, setAnchorEl] = useState(null)
+  const onClickMenu = useCallback(event => setAnchorEl(event.currentTarget))
 
   return (
     <ErrorBoundary>
