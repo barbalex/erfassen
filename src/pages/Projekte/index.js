@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import {
   ReflexContainer as OrigReflexContainer,
@@ -9,6 +9,9 @@ import 'react-reflex/styles.css'
 import compose from 'recompose/compose'
 import withState from 'recompose/withState'
 import withLifecycle from '@hocs/with-lifecycle'
+
+import { setConfig } from 'react-hot-loader'
+setConfig({ pureSFC: true })
 
 import Layout from '../../components/Layout'
 import withAuthState from '../../state/withAuth'
@@ -26,7 +29,6 @@ const ReflexContainer = styled(OrigReflexContainer)`
 
 const enhance = compose(
   withAuthState,
-  withState('newProjectOpen', 'setNewProjectOpen', false),
   withLifecycle({
     onDidMount({ authState }) {
       const { email } = authState.state
@@ -35,8 +37,9 @@ const enhance = compose(
   }),
 )
 
-const ProjektePage = ({ authState, newProjectOpen, setNewProjectOpen }) => {
+const ProjektePage = ({ authState }) => {
   const { dbs, email } = authState.state
+  const [newProjectOpen, setNewProjectOpen] = useState(false)
 
   //console.log('Projekte', { dbs, syncs })
   let projectDbs = []
