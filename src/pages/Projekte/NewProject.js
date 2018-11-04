@@ -51,39 +51,42 @@ const NewProject = ({ newProjectOpen, setNewProjectOpen, authState }) => {
   const [name2HelperText, setName2HelperText] = useState('')
 
   const close = useCallback(() => setNewProjectOpen(false))
-  const onClickCreate = useCallback(async () => {
-    // ensure names are equal
-    if (projectName !== projectName2) {
-      return setNameHelperText('Die Namen müssen übereinstimmen')
-    }
-    // ensure projectName is valid for couch db
-    if (!/^[a-z][a-z0-9_$()+/-]*$/.test(projectName)) {
-      return setNameHelperText(
-        <>
-          <div>Dieser Name ist leider nicht zulässig.</div>
-          <div>Regeln für Namen:</div>
-          <ul>
-            <li>Beginnt mit einem Buchstaben</li>
-            <li>Zulässig sind folgende Zeichen:</li>
+  const onClickCreate = useCallback(
+    async () => {
+      // ensure names are equal
+      if (projectName !== projectName2) {
+        return setNameHelperText('Die Namen müssen übereinstimmen')
+      }
+      // ensure projectName is valid for couch db
+      if (!/^[a-z][a-z0-9_$()+/-]*$/.test(projectName)) {
+        return setNameHelperText(
+          <>
+            <div>Dieser Name ist leider nicht zulässig.</div>
+            <div>Regeln für Namen:</div>
             <ul>
-              <li>Buchstaben</li>
-              <li>Zahlen</li>
-              <li>{`_, $, (, ), +, / und -`}</li>
+              <li>Beginnt mit einem Buchstaben</li>
+              <li>Zulässig sind folgende Zeichen:</li>
+              <ul>
+                <li>Buchstaben</li>
+                <li>Zahlen</li>
+                <li>{`_, $, (, ), +, / und -`}</li>
+              </ul>
             </ul>
-          </ul>
-        </>,
-      )
-    }
-    // create new project
-    try {
-      await createProjectDb({ projectName, authState })
-    } catch (error) {
-      setNameHelperText(error.message)
-      return setName2HelperText(error.message)
-    }
-    setNameHelperText('')
-    setNewProjectOpen(false)
-  })
+          </>,
+        )
+      }
+      // create new project
+      try {
+        await createProjectDb({ projectName, authState })
+      } catch (error) {
+        setNameHelperText(error.message)
+        return setName2HelperText(error.message)
+      }
+      setNameHelperText('')
+      setNewProjectOpen(false)
+    },
+    [projectName, projectName2],
+  )
   const onBlurName = useCallback(event => setProjectName(event.target.value))
   const onBlurName2 = useCallback(event => setProjectName2(event.target.value))
 
