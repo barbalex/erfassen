@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -6,8 +6,9 @@ import Button from '@material-ui/core/Button'
 import styled from 'styled-components'
 import { Link, navigate } from 'gatsby'
 import { Location } from '@reach/router'
-import compose from 'recompose/compose'
-import withHandlers from 'recompose/withHandlers'
+
+import { setConfig } from 'react-hot-loader'
+setConfig({ pureSFC: true })
 
 import Account from './Account'
 import ErrorBoundary from '../ErrorBoundary'
@@ -30,52 +31,52 @@ const NavButton = styled(Button)`
   font-weight: ${props => (props.active ? '700' : '600')};
 `
 
-const enhance = compose(
-  withHandlers({ onClickSiteTitle: () => () => navigate('/') }),
-)
+const Header = () => {
+  const onClickSiteTitle = useCallback(() => navigate('/'))
 
-const Header = ({ onClickSiteTitle }) => (
-  <Location>
-    {({ location }) => {
-      const { pathname } = location
+  return (
+    <Location>
+      {({ location }) => {
+        const { pathname } = location
 
-      return (
-        <ErrorBoundary>
-          <AppBar position="fixed">
-            <Toolbar>
-              <SiteTitle
-                variant="h6"
-                color="inherit"
-                noWrap
-                title="Home"
-                onClick={onClickSiteTitle}
-              >
-                erfassen.ch
-              </SiteTitle>
-              <Spacer />
-              <NavButton
-                variant={pathname === '/' ? 'outlined' : 'text'}
-                component={Link}
-                to="/"
-                active={(pathname === '/').toString()}
-              >
-                Home
-              </NavButton>
-              <NavButton
-                variant={pathname === '/Projekte/' ? 'outlined' : 'text'}
-                component={Link}
-                to="/Projekte/"
-                active={(pathname === '/Projekte/').toString()}
-              >
-                Projekte
-              </NavButton>
-              <Account />
-            </Toolbar>
-          </AppBar>
-        </ErrorBoundary>
-      )
-    }}
-  </Location>
-)
+        return (
+          <ErrorBoundary>
+            <AppBar position="fixed">
+              <Toolbar>
+                <SiteTitle
+                  variant="h6"
+                  color="inherit"
+                  noWrap
+                  title="Home"
+                  onClick={onClickSiteTitle}
+                >
+                  erfassen.ch
+                </SiteTitle>
+                <Spacer />
+                <NavButton
+                  variant={pathname === '/' ? 'outlined' : 'text'}
+                  component={Link}
+                  to="/"
+                  active={(pathname === '/').toString()}
+                >
+                  Home
+                </NavButton>
+                <NavButton
+                  variant={pathname === '/Projekte/' ? 'outlined' : 'text'}
+                  component={Link}
+                  to="/Projekte/"
+                  active={(pathname === '/Projekte/').toString()}
+                >
+                  Projekte
+                </NavButton>
+                <Account />
+              </Toolbar>
+            </AppBar>
+          </ErrorBoundary>
+        )
+      }}
+    </Location>
+  )
+}
 
-export default enhance(Header)
+export default Header
