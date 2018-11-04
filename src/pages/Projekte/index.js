@@ -6,7 +6,6 @@ import {
   ReflexElement,
 } from 'react-reflex'
 import 'react-reflex/styles.css'
-import compose from 'recompose/compose'
 
 import { setConfig } from 'react-hot-loader'
 setConfig({ pureSFC: true })
@@ -24,8 +23,6 @@ const Container = styled.div`
 const ReflexContainer = styled(OrigReflexContainer)`
   height: calc(100vh - 64px) !important;
 `
-
-const enhance = compose(withAuthState)
 
 const ProjektePage = ({ authState }) => {
   const { dbs, email, loginOpen } = authState.state
@@ -86,4 +83,4 @@ const ProjektePage = ({ authState }) => {
   )
 }
 
-export default enhance(ProjektePage)
+export default withAuthState(ProjektePage)
