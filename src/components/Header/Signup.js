@@ -41,7 +41,9 @@ const Signup = ({ authState }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPass, setShowPass] = useState(false)
+  // eslint-disable-next-line no-unused-vars
   const [emailErrorText, setEmailErrorText] = useState('')
+  // eslint-disable-next-line no-unused-vars
   const [passwordErrorText, setPasswordErrorText] = useState('')
   const close = useCallback(() => authState.setSignupOpen(false), [])
   const onClickSignup = useCallback(
