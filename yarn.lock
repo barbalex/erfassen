@@ -12195,12 +12195,12 @@ react-measure@^2.0.2:
     prop-types "^15.6.2"
     resize-observer-polyfill "^1.5.0"
 
-react-reflex@2.2.9:
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/react-reflex/-/react-reflex-2.2.9.tgz#e8cebe6c0f183da319c8c155d8d82096b1026770"
-  integrity sha512-NDn2fu7TuQlc0vKfIJW1gHa7n5SDj2fonfmpm9NzO1ql4je6mcqjTibeN0eyIAomcNwKAd5IPe8JOHKbK7pYYA==
+react-reflex@3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/react-reflex/-/react-reflex-3.0.7.tgz#cbdceff7607cc8772aa5d771b6839e80db5ffbc7"
+  integrity sha512-Sy+DSJTGudN4UfLC06EES70pvwxfmEtbMGVm+s8W17wPQx57GaKc3jbaIhtiflo56m53CXt+WJrCpfk1Qjt/jA==
   dependencies:
-    babel-runtime "^6.23.0"
+    "@babel/runtime" "^7.0.0"
     lodash.throttle "^4.1.1"
     prop-types "^15.5.8"
     react-measure "^2.0.2"
