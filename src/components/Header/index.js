@@ -7,9 +7,6 @@ import styled from 'styled-components'
 import { Link, navigate } from 'gatsby'
 import { Location } from '@reach/router'
 
-import { setConfig } from 'react-hot-loader'
-setConfig({ pureSFC: true })
-
 import Account from './Account'
 import ErrorBoundary from '../ErrorBoundary'
 

@@ -5,9 +5,6 @@ import Menu from '@material-ui/core/Menu'
 import { FaUserCircle as UserIcon } from 'react-icons/fa'
 import styled from 'styled-components'
 
-import { setConfig } from 'react-hot-loader'
-setConfig({ pureSFC: true })
-
 import Signup from './Signup'
 import Login from './Login'
 import ErrorBoundary from '../ErrorBoundary'

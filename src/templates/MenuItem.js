@@ -7,9 +7,6 @@ import { Location } from '@reach/router'
 import styled from 'styled-components'
 import get from 'lodash/get'
 
-import { setConfig } from 'react-hot-loader'
-setConfig({ pureSFC: true })
-
 import ErrorBoundary from '../components/ErrorBoundary'
 
 const ListItem = styled(MListItem)`

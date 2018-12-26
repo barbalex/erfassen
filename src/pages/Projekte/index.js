@@ -7,9 +7,6 @@ import {
 } from 'react-reflex'
 import 'react-reflex/styles.css'
 
-import { setConfig } from 'react-hot-loader'
-setConfig({ pureSFC: true })
-
 import Layout from '../../components/Layout'
 import withAuthState from '../../state/withAuth'
 import ErrorBoundary from '../../components/ErrorBoundary'

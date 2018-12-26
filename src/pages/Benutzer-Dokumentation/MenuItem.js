@@ -5,9 +5,6 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import get from 'lodash/get'
 
-import { setConfig } from 'react-hot-loader'
-setConfig({ pureSFC: true })
-
 import ErrorBoundary from '../../components/ErrorBoundary'
 
 const BenutzerDokuMenuItem = ({ post }) => {

@@ -13,9 +13,6 @@ import rxdb from 'rxdb'
 import pouchdbAdapterHttp from 'pouchdb-adapter-http'
 import pouchdbAdapterIdb from 'pouchdb-adapter-idb'
 
-import { setConfig } from 'react-hot-loader'
-setConfig({ pureSFC: true })
-
 import ErrorBoundary from '../../components/ErrorBoundary'
 import withAuthState from '../../state/withAuth'
 import createProjectDb from '../../utils/createProjectDb'

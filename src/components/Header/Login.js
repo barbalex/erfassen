@@ -14,9 +14,6 @@ import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import Button from '@material-ui/core/Button'
 import styled from 'styled-components'
 
-import { setConfig } from 'react-hot-loader'
-setConfig({ pureSFC: true })
-
 import ErrorBoundary from '../ErrorBoundary'
 import withAuthState from '../../state/withAuth'
 
